@@ -1,4 +1,4 @@
-import { Song } from "@/lib/types/Song";
+import { Song } from "@/lib/types/domain/song";
 import React from "react";
 
 export const SongItem = React.memo(({ song }: { song: Song }) => {

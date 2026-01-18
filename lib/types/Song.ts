@@ -6,4 +6,5 @@ export type Song = {
   year: number;
   genre: string;
   lyrics: string;
+  coverUrl: string;
 };

@@ -1,4 +1,5 @@
 import { Song } from "@/lib/types/domain/song";
+import axios from "axios";
 import { GeniusSearchResponse } from "../../types/external/geniusSearchResponse";
 import { mapGeniusSongsToSongs } from "../../mappers/songMapper";
 
@@ -14,23 +15,18 @@ export const searchGeniusSongs = async (query: string): Promise<Song[]> => {
   }
 
   try {
-    const response = await fetch(
-      `${GENIUS_API_URL}/search?q=${encodeURIComponent(query)}`,
+    const response = await axios.get<GeniusSearchResponse>(
+      `${GENIUS_API_URL}/search`,
       {
+        params: { q: query },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       },
     );
 
-    if (!response.ok) {
-      throw new Error(`Genius API error: ${response.statusText}`);
-    }
-
-    const data: GeniusSearchResponse = await response.json();
-
     return mapGeniusSongsToSongs(
-      data.response.hits
+      response.data.response.hits
         .filter((hit) => hit.type === "song")
         .map((hit) => hit.result),
     );

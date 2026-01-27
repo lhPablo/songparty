@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
-import path from 'path';
+import path from "path";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.genius.com",
+      },
+    ],
+  },
   turbopack: {
     root: path.resolve(__dirname),
   },

@@ -22,11 +22,8 @@ export const TopBar = () => {
       <div className="flex flex-1 justify-end gap-4 md:gap-8 items-center">
         <nav className="hidden md:flex items-center gap-9">
           <NavLink href="#">Inicio</NavLink>
-          <NavLink href="#">Mi Lista</NavLink>
+          <NavLink href="#">Mi Lista (3)</NavLink>
         </nav>
-        <Button>
-          <span className="truncate">Ver Cola (3)</span>
-        </Button>
       </div>
     </header>
   );

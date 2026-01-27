@@ -20,7 +20,7 @@ export const SearchInput = ({
           <span className="material-symbols-outlined text-3xl">search</span>
         </div>
         <input
-          className={`form-input flex w-full min-w-0 flex-1 bg-transparent border-none focus:ring-0 text-lg px-4 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-[#cc8eb8] ${className || ""}`}
+          className={`form-input flex w-full min-w-0 flex-1 bg-transparent border-none focus:ring-0 outline-none focus:outline-none text-lg px-4 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-[#cc8eb8] ${className || ""}`}
           type="text"
           {...props}
         />

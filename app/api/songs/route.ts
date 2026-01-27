@@ -24,5 +24,6 @@ export async function GET(request: Request) {
     data,
     nextPage: end < allSongs.length ? page + 1 : null,
     hasMore: end < allSongs.length,
+    total: allSongs.length,
   });
 }

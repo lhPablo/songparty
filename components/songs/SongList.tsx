@@ -1,7 +1,6 @@
 "use client";
 
 import { ListPlaceholder } from "@/components/songs/ListPlaceholder";
-import { Loading } from "@/components/ui/Loading";
 import { useInfiniteSongs } from "@/lib/hooks/useInfiniteSongs";
 import { SongSearchForm } from "@/components/songs/SongSearchForm";
 import { SongListData } from "@/components/songs/SongListData";
@@ -10,7 +9,7 @@ import { useSongFilters } from "@/lib/providers/SongFilterProvider";
 import { useEffect, useRef } from "react";
 
 export const SongList = () => {
-  const { debouncedSongQuery, debouncedAuthorQuery } = useSongFilters();
+  const { appliedSongQuery, appliedAuthorQuery } = useSongFilters();
   const observerRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -22,8 +21,8 @@ export const SongList = () => {
     isFetching,
     isFetchingNextPage,
   } = useInfiniteSongs({
-    song: debouncedSongQuery,
-    author: debouncedAuthorQuery,
+    song: appliedSongQuery,
+    author: appliedAuthorQuery,
   });
 
   useEffect(() => {
@@ -61,24 +60,22 @@ export const SongList = () => {
           />
         )}
 
-        {isInitialLoading && (
-          <div className="h-20 flex items-center justify-center">
-            <Loading />
-          </div>
-        )}
-
         {status === "success" && (
           <>
-            <SongListData songs={songs} />
+            <SongListData
+              songs={songs}
+              isLoading={isFetching}
+              isFetchingNextPage={isFetchingNextPage}
+            />
 
             <div
               ref={observerRef}
               className="h-20 flex items-center justify-center"
-            >
-              {isFetchingNextPage && <Loading />}
-            </div>
+            />
           </>
         )}
+
+        {isInitialLoading && <SongListData songs={[]} isLoading={true} />}
       </div>
     </div>
   );

@@ -4,9 +4,7 @@ import { ToggleGroup } from "../ui/ToggleGroup";
 import { useSongFilters } from "@/lib/providers/SongFilterProvider";
 
 export const SongSearchForm = React.memo(() => {
-  console.log("Renderizando Formulario de busqueda");
-
-  const { songQuery, authorQuery, setSongQuery, setAuthorQuery } =
+  const { songQuery, authorQuery, setSongQuery, setAuthorQuery, applyFilters } =
     useSongFilters();
   const [searchType, setSearchType] = useState<"song" | "author">("song");
 
@@ -16,6 +14,11 @@ export const SongSearchForm = React.memo(() => {
     } else {
       setAuthorQuery(e.target.value);
     }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    applyFilters();
   };
 
   const searchOptions = [
@@ -33,10 +36,7 @@ export const SongSearchForm = React.memo(() => {
   }, [searchType]);
 
   return (
-    <form
-      className="flex flex-col gap-4 w-full"
-      onSubmit={(e) => e.preventDefault()}
-    >
+    <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
       <div className="flex flex-col items-center gap-4 mb-8">
         <ToggleGroup
           name="searchType"
@@ -50,6 +50,7 @@ export const SongSearchForm = React.memo(() => {
           placeholder={searchPlaceholder}
           value={searchType === "song" ? songQuery : authorQuery}
           onChange={handleQueryChange}
+          onSearch={applyFilters}
         />
       </div>
     </form>

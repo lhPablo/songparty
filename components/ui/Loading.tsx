@@ -4,7 +4,7 @@ export const Loading = () => {
       <span className="material-symbols-outlined animate-spin">
         progress_activity
       </span>
-      <span>Cargando más canciones...</span>
+      <span>Cargando canciones...</span>
     </div>
   );
 };

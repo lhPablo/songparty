@@ -5,7 +5,10 @@ import { mapGeniusSongsToSongs } from "../../mappers/songMapper";
 
 const GENIUS_API_URL = "https://api.genius.com";
 
-export const searchGeniusSongs = async (query: string): Promise<Song[]> => {
+export const searchGeniusSongs = async (
+  query: string,
+  page: number = 1,
+): Promise<Song[]> => {
   if (!query) return [];
 
   const token = process.env.GENIUS_ACCESS_TOKEN;
@@ -18,7 +21,11 @@ export const searchGeniusSongs = async (query: string): Promise<Song[]> => {
     const response = await axios.get<GeniusSearchResponse>(
       `${GENIUS_API_URL}/search`,
       {
-        params: { q: query },
+        params: {
+          q: query,
+          page: page,
+          per_page: 20,
+        },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -27,7 +34,10 @@ export const searchGeniusSongs = async (query: string): Promise<Song[]> => {
 
     return mapGeniusSongsToSongs(
       response.data.response.hits
-        .filter((hit) => hit.type === "song")
+        .filter(
+          (hit) =>
+            hit.type === "song" && hit.result.lyrics_state === "complete",
+        )
         .map((hit) => hit.result),
     );
   } catch (error) {

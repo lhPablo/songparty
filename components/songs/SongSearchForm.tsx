@@ -8,9 +8,7 @@ export const SongSearchForm = React.memo(() => {
 
   const { songQuery, authorQuery, setSongQuery, setAuthorQuery } =
     useSongFilters();
-  const [searchType, setSearchType] = useState<"song" | "author" | "album">(
-    "song",
-  );
+  const [searchType, setSearchType] = useState<"song" | "author">("song");
 
   const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (searchType === "song") {
@@ -23,7 +21,6 @@ export const SongSearchForm = React.memo(() => {
   const searchOptions = [
     { value: "song", label: "Título", icon: "title" },
     { value: "author", label: "Artista", icon: "person" },
-    { value: "album", label: "Álbum", icon: "album" },
   ];
 
   const searchPlaceholder = useMemo(() => {
@@ -32,8 +29,6 @@ export const SongSearchForm = React.memo(() => {
         return "Escribe el título de la canción...";
       case "author":
         return "Escribe el nombre del artista...";
-      case "album":
-        return "Escribe el nombre del álbum...";
     }
   }, [searchType]);
 
@@ -46,7 +41,7 @@ export const SongSearchForm = React.memo(() => {
         <ToggleGroup
           name="searchType"
           value={searchType}
-          onChange={(val) => setSearchType(val as "song" | "author" | "album")}
+          onChange={(val) => setSearchType(val as "song" | "author")}
           options={searchOptions}
         />
       </div>

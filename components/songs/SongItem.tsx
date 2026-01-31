@@ -12,6 +12,7 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
             src={song.coverUrl}
             alt={`Portada del álbum ${song.title}`}
             fill
+            sizes="56px"
             className="object-cover"
           />
         </div>

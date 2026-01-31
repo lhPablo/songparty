@@ -11,7 +11,6 @@ export const TopBar = () => {
             alt="Song Party Party"
             width={32}
             height={32}
-            priority
           />
         </div>
         <h2 className="text-gray-900 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">

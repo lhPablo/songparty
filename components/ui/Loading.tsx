@@ -1,8 +1,10 @@
 export const Loading = () => {
-    return (
-      <div className="flex justify-center items-center h-full">
-        <p>Cargando canciones...</p>
-      </div>
-    );
-  }
-  
+  return (
+    <div className="flex items-center gap-2 text-primary animate-pulse">
+      <span className="material-symbols-outlined animate-spin">
+        progress_activity
+      </span>
+      <span>Cargando más canciones...</span>
+    </div>
+  );
+};

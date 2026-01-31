@@ -5,20 +5,49 @@ import { Loading } from "@/components/ui/Loading";
 import { useInfiniteSongs } from "@/lib/hooks/useInfiniteSongs";
 import { SongSearchForm } from "@/components/songs/SongSearchForm";
 import { SongListData } from "@/components/songs/SongListData";
-import { SongSearchCount } from "@/components/songs/SongSearchCount";
 import { useSongFilters } from "@/lib/providers/SongFilterProvider";
+
+import { useEffect, useRef } from "react";
 
 export const SongList = () => {
   const { debouncedSongQuery, debouncedAuthorQuery } = useSongFilters();
-  console.log("Renderizando SongList");
-  const { data, fetchNextPage, status, error, hasNextPage, isFetching } =
-    useInfiniteSongs({
-      song: debouncedSongQuery,
-      author: debouncedAuthorQuery,
-    });
+  const observerRef = useRef<HTMLDivElement>(null);
+
+  const {
+    data,
+    fetchNextPage,
+    status,
+    error,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+  } = useInfiniteSongs({
+    song: debouncedSongQuery,
+    author: debouncedAuthorQuery,
+  });
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      {
+        threshold: [0, 0.5, 1.0],
+        rootMargin: "100px",
+      },
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const songs = data?.pages.flatMap((page) => page.data) ?? [];
-  const totalCount = data?.pages[0]?.total ?? 0;
+  const isInitialLoading = status === "pending" && isFetching;
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -32,21 +61,22 @@ export const SongList = () => {
           />
         )}
 
-        {isFetching && <Loading />}
+        {isInitialLoading && (
+          <div className="h-20 flex items-center justify-center">
+            <Loading />
+          </div>
+        )}
 
-        {!isFetching && status === "success" && (
+        {status === "success" && (
           <>
-            <SongSearchCount count={totalCount} />
             <SongListData songs={songs} />
 
-            {hasNextPage && (
-              <button
-                onClick={() => fetchNextPage()}
-                className="mt-4 p-2 bg-blue-500 text-white rounded"
-              >
-                ...More
-              </button>
-            )}
+            <div
+              ref={observerRef}
+              className="h-20 flex items-center justify-center"
+            >
+              {isFetchingNextPage && <Loading />}
+            </div>
           </>
         )}
       </div>

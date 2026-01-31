@@ -15,9 +15,7 @@ export const SongListData = React.memo(({ songs }: SongListDataProps) => {
           key={song.id}
           className="flex items-center justify-between p-4 rounded-xl hover:bg-white dark:hover:bg-primary/10 transition-all group border border-transparent hover:border-primary/30"
         >
-          <div className="flex items-center gap-4">
-            <SongItem song={song} />
-          </div>
+          <SongItem song={song} />
         </li>
       ))}
     </ul>

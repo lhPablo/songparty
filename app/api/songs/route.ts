@@ -15,10 +15,14 @@ export async function GET(request: Request) {
 
   const rawSongs = await searchSongs(query, page);
 
-  // Genius not filter only by title, so we need to filter by title
-  const filteredSongs = rawSongs.filter((song) =>
-    song.title.toLowerCase().includes(query.toLowerCase()),
-  );
+  // Local filter to refine Genius's broad search results
+  const filteredSongs = title
+    ? rawSongs.filter((song) =>
+        song.title.toLowerCase().includes(title.toLowerCase()),
+      )
+    : rawSongs.filter((song) =>
+        song.artist.toLowerCase().includes(author.toLowerCase()),
+      );
 
   const hasMore = rawSongs.length >= 20;
 
@@ -26,6 +30,5 @@ export async function GET(request: Request) {
     data: filteredSongs,
     nextPage: hasMore ? page + 1 : null,
     hasMore: hasMore,
-    total: filteredSongs.length,
   });
 }

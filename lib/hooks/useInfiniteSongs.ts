@@ -9,6 +9,7 @@ interface UseSongsProps {
 
 export const useInfiniteSongs = (query: UseSongsProps) => {
   return useInfiniteQuery({
+    refetchOnWindowFocus: false,
     queryKey: ["songs", query.song, query.author],
     queryFn: ({ pageParam }: { pageParam: number }) =>
       fetchSongs({

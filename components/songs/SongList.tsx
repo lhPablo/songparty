@@ -4,12 +4,17 @@ import { ListPlaceholder } from "@/components/songs/ListPlaceholder";
 import { useInfiniteSongs } from "@/lib/hooks/useInfiniteSongs";
 import { SongSearchForm } from "@/components/songs/SongSearchForm";
 import { SongListData } from "@/components/songs/SongListData";
-import { useSongFilters } from "@/lib/providers/SongFilterProvider";
+import { useSongStore } from "@/lib/store/useSongStore";
 
 import { useEffect, useRef } from "react";
 
 export const SongList = () => {
-  const { appliedSongQuery, appliedAuthorQuery } = useSongFilters();
+  const {
+    appliedSongQuery,
+    appliedAuthorQuery,
+    hasSearched,
+    syncLoadingState,
+  } = useSongStore();
   const observerRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -24,6 +29,13 @@ export const SongList = () => {
     song: appliedSongQuery,
     author: appliedAuthorQuery,
   });
+
+  const songs = data?.pages.flatMap((page) => page.data) ?? [];
+
+  // Syncronize the state of loading with the Zustand store to handle the flash
+  useEffect(() => {
+    syncLoadingState(isFetching, songs.length);
+  }, [isFetching, songs.length, syncLoadingState]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,9 +57,6 @@ export const SongList = () => {
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const songs = data?.pages.flatMap((page) => page.data) ?? [];
-  const isInitialLoading = status === "pending" && isFetching;
-
   return (
     <div className="flex flex-col gap-4 w-full">
       <SongSearchForm />
@@ -60,22 +69,12 @@ export const SongList = () => {
           />
         )}
 
-        {status === "success" && (
-          <>
-            <SongListData
-              songs={songs}
-              isLoading={isFetching}
-              isFetchingNextPage={isFetchingNextPage}
-            />
+        <SongListData songs={songs} hasSearched={hasSearched} />
 
-            <div
-              ref={observerRef}
-              className="h-20 flex items-center justify-center"
-            />
-          </>
-        )}
-
-        {isInitialLoading && <SongListData songs={[]} isLoading={true} />}
+        <div
+          ref={observerRef}
+          className="h-10 flex items-center justify-center pointer-events-none"
+        />
       </div>
     </div>
   );

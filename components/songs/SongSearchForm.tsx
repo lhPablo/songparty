@@ -1,11 +1,11 @@
 import React, { useState, ChangeEvent, useMemo } from "react";
 import { SearchInput } from "../ui/SearchInput";
 import { ToggleGroup } from "../ui/ToggleGroup";
-import { useSongFilters } from "@/lib/providers/SongFilterProvider";
+import { useSongStore } from "@/lib/store/useSongStore";
 
 export const SongSearchForm = React.memo(() => {
   const { songQuery, authorQuery, setSongQuery, setAuthorQuery, applyFilters } =
-    useSongFilters();
+    useSongStore();
   const [searchType, setSearchType] = useState<"song" | "author">("song");
 
   const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,13 +35,20 @@ export const SongSearchForm = React.memo(() => {
     }
   }, [searchType]);
 
+  const handleTypeChange = (val: string) => {
+    const newType = val as "song" | "author";
+    setSearchType(newType);
+    setSongQuery("");
+    setAuthorQuery("");
+  };
+
   return (
     <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
       <div className="flex flex-col items-center gap-4 mb-8">
         <ToggleGroup
           name="searchType"
           value={searchType}
-          onChange={(val) => setSearchType(val as "song" | "author")}
+          onChange={handleTypeChange}
           options={searchOptions}
         />
       </div>

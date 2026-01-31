@@ -1,15 +1,16 @@
-import { useSongFilters } from "@/lib/providers/SongFilterProvider";
-import React, { useState } from "react";
-import { ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useMemo } from "react";
 import { SearchInput } from "../ui/SearchInput";
 import { ToggleGroup } from "../ui/ToggleGroup";
+import { useSongFilters } from "@/lib/providers/SongFilterProvider";
 
 export const SongSearchForm = React.memo(() => {
+  console.log("Renderizando Formulario de busqueda");
+
   const { songQuery, authorQuery, setSongQuery, setAuthorQuery } =
     useSongFilters();
-  const [searchType, setSearchType] = useState<"song" | "author">("song");
-
-  console.log("Renderizando Formulario de busqueda");
+  const [searchType, setSearchType] = useState<"song" | "author" | "album">(
+    "song",
+  );
 
   const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (searchType === "song") {
@@ -18,6 +19,23 @@ export const SongSearchForm = React.memo(() => {
       setAuthorQuery(e.target.value);
     }
   };
+
+  const searchOptions = [
+    { value: "song", label: "Título", icon: "title" },
+    { value: "author", label: "Artista", icon: "person" },
+    { value: "album", label: "Álbum", icon: "album" },
+  ];
+
+  const searchPlaceholder = useMemo(() => {
+    switch (searchType) {
+      case "song":
+        return "Escribe el título de la canción...";
+      case "author":
+        return "Escribe el nombre del artista...";
+      case "album":
+        return "Escribe el nombre del álbum...";
+    }
+  }, [searchType]);
 
   return (
     <form
@@ -28,20 +46,13 @@ export const SongSearchForm = React.memo(() => {
         <ToggleGroup
           name="searchType"
           value={searchType}
-          onChange={(val) => setSearchType(val as "song" | "author")}
-          options={[
-            { value: "author", label: "Artista", icon: "person" },
-            { value: "song", label: "Título", icon: "title" },
-          ]}
+          onChange={(val) => setSearchType(val as "song" | "author" | "album")}
+          options={searchOptions}
         />
       </div>
       <div className="w-full max-w-4xl mx-auto mb-4">
         <SearchInput
-          placeholder={
-            searchType === "song"
-              ? "Escribe el título de la canción..."
-              : "Escribe el nombre del artista..."
-          }
+          placeholder={searchPlaceholder}
           value={searchType === "song" ? songQuery : authorQuery}
           onChange={handleQueryChange}
         />

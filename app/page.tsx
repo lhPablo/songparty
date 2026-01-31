@@ -9,9 +9,6 @@ export default function Home() {
             <h1 className="text-gray-900 dark:text-white tracking-tight text-[40px] font-bold leading-tight text-center pt-6">
               Búsqueda de <span className="text-primary">Canciones</span>
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 text-center mt-2">
-              Aplique un filtro para empezar a buscar
-            </p>
           </div>
           <div className="flex flex-col items-center gap-4 mb-8 w-full">
             <SongList />

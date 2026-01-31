@@ -1,7 +1,7 @@
 "use client";
 
+import { ListPlaceholder } from "@/components/songs/ListPlaceholder";
 import { Loading } from "@/components/ui/Loading";
-import { ErrorMessage } from "@/components/ui/ErrorMessage";
 import { useInfiniteSongs } from "@/lib/hooks/useInfiniteSongs";
 import { SongSearchForm } from "@/components/songs/SongSearchForm";
 import { SongListData } from "@/components/songs/SongListData";
@@ -11,18 +11,11 @@ import { useSongFilters } from "@/lib/providers/SongFilterProvider";
 export const SongList = () => {
   const { debouncedSongQuery, debouncedAuthorQuery } = useSongFilters();
   console.log("Renderizando SongList");
-  const {
-    data,
-    refetch,
-    fetchNextPage,
-    status,
-    error,
-    hasNextPage,
-    isFetching,
-  } = useInfiniteSongs({
-    song: debouncedSongQuery,
-    author: debouncedAuthorQuery,
-  });
+  const { data, fetchNextPage, status, error, hasNextPage, isFetching } =
+    useInfiniteSongs({
+      song: debouncedSongQuery,
+      author: debouncedAuthorQuery,
+    });
 
   const songs = data?.pages.flatMap((page) => page.data) ?? [];
   const totalCount = data?.pages[0]?.total ?? 0;
@@ -33,7 +26,10 @@ export const SongList = () => {
 
       <div className="flex flex-col gap-4 px-4">
         {status === "error" && error && (
-          <ErrorMessage error={error} reset={refetch} />
+          <ListPlaceholder
+            message={error instanceof Error ? error.message : String(error)}
+            icon="error"
+          />
         )}
 
         {isFetching && <Loading />}

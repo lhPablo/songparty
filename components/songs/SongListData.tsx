@@ -1,6 +1,7 @@
+import React from "react";
 import { Song } from "@/lib/types/domain/song";
 import { SongItem } from "./SongItem";
-import React from "react";
+import { ListPlaceholder } from "./ListPlaceholder";
 
 interface SongListDataProps {
   songs: Song[];
@@ -18,6 +19,12 @@ export const SongListData = React.memo(({ songs }: SongListDataProps) => {
           <SongItem song={song} />
         </li>
       ))}
+      {songs.length === 0 && (
+        <ListPlaceholder
+          message="No se han encontrado canciones, aplique un filtro para empezar la búsqueda"
+          icon="search_off"
+        />
+      )}
     </ul>
   );
 });

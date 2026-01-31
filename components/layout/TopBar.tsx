@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { NavLink } from "../ui/NavLink";
-import { Button } from "../ui/Button";
+import { NavLink } from "@/components/ui/NavLink";
 
 export const TopBar = () => {
   return (
@@ -16,7 +15,7 @@ export const TopBar = () => {
           />
         </div>
         <h2 className="text-gray-900 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">
-          Song Party Party
+          Song Party
         </h2>
       </div>
       <div className="flex flex-1 justify-end gap-4 md:gap-8 items-center">

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface SongState {
+interface SearchState {
   // Input values (temporary)
   songQuery: string;
   authorQuery: string;
@@ -28,7 +28,7 @@ interface SongState {
   syncLoadingState: (isLoading: boolean, songCount: number) => void;
 }
 
-export const useSongStore = create<SongState>((set, get) => ({
+export const useSearchStore = create<SearchState>((set, get) => ({
   songQuery: "",
   authorQuery: "",
   appliedSongQuery: "",

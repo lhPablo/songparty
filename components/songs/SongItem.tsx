@@ -2,10 +2,24 @@ import { Song } from "@/lib/types/domain/song";
 import Image from "next/image";
 import React, { useState } from "react";
 import { ALLOWED_IMAGE_DOMAINS } from "@/lib/constants/images";
+import { usePlaylistStore } from "@/lib/store/usePlaylistStore";
 
 export const SongItem = React.memo(({ song }: { song: Song }) => {
   console.log("Renderizando SongItem");
   const [imgError, setImgError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const addSong = usePlaylistStore((state) => state.addSong);
+  const removeSong = usePlaylistStore((state) => state.removeSong);
+  const isSelected = usePlaylistStore((state) => state.isSongSelected(song.id));
+
+  const handleToggle = () => {
+    if (isSelected) {
+      removeSong(song.id);
+    } else {
+      addSong(song);
+    }
+  };
 
   // Check if domain is allowed for next/image
   const isAllowedDomain = (url: string) => {
@@ -56,8 +70,21 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <button className="flex items-center justify-center size-12 rounded-full bg-primary text-white neon-glow hover:scale-110 transition-transform">
-          <span className="material-symbols-outlined">add</span>
+        <button
+          onClick={handleToggle}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className={`flex items-center justify-center size-12 rounded-full text-white transition-all 
+            ${
+              isSelected
+                ? "bg-green-500 hover:bg-red-500 hover:scale-110 active:scale-95 shadow-lg shadow-green-500/20 hover:shadow-red-500/20"
+                : "bg-primary neon-glow hover:scale-110 active:scale-95"
+            }`}
+          title={isSelected ? "Quitar de la lista" : "Añadir a la lista"}
+        >
+          <span className="material-symbols-outlined">
+            {isSelected ? (isHovered ? "close" : "check") : "add"}
+          </span>
         </button>
       </div>
     </>

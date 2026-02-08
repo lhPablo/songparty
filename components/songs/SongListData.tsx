@@ -3,7 +3,7 @@ import { Song } from "@/lib/types/domain/song";
 import { SongItem } from "./SongItem";
 import { ListPlaceholder } from "./ListPlaceholder";
 import { Loading } from "../ui/Loading";
-import { useSongStore } from "@/lib/store/useSongStore";
+import { useSearchStore } from "@/lib/store/useSearchStore";
 
 interface SongListDataProps {
   songs: Song[];
@@ -12,8 +12,8 @@ interface SongListDataProps {
 
 export const SongListData = React.memo(
   ({ songs, hasSearched = false }: SongListDataProps) => {
-    const showLoading = useSongStore((state) => state.showLoading);
-    const showEmptyMessage = useSongStore((state) => state.showEmptyMessage);
+    const showLoading = useSearchStore((state) => state.showLoading);
+    const showEmptyMessage = useSearchStore((state) => state.showEmptyMessage);
 
     return (
       <div className="flex flex-col gap-2">

@@ -4,7 +4,7 @@ import { ListPlaceholder } from "@/components/songs/ListPlaceholder";
 import { useInfiniteSongs } from "@/lib/hooks/useInfiniteSongs";
 import { SongSearchForm } from "@/components/songs/SongSearchForm";
 import { SongListData } from "@/components/songs/SongListData";
-import { useSongStore } from "@/lib/store/useSongStore";
+import { useSearchStore } from "@/lib/store/useSearchStore";
 
 import { useEffect, useRef } from "react";
 
@@ -14,7 +14,7 @@ export const SongList = () => {
     appliedAuthorQuery,
     hasSearched,
     syncLoadingState,
-  } = useSongStore();
+  } = useSearchStore();
   const observerRef = useRef<HTMLDivElement>(null);
 
   const {

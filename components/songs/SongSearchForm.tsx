@@ -1,11 +1,11 @@
 import React, { useState, ChangeEvent, useMemo } from "react";
 import { SearchInput } from "../ui/SearchInput";
 import { ToggleGroup } from "../ui/ToggleGroup";
-import { useSongStore } from "@/lib/store/useSongStore";
+import { useSearchStore } from "@/lib/store/useSearchStore";
 
 export const SongSearchForm = React.memo(() => {
   const { songQuery, authorQuery, setSongQuery, setAuthorQuery, applyFilters } =
-    useSongStore();
+    useSearchStore();
   const [searchType, setSearchType] = useState<"song" | "author">("song");
 
   const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -2,7 +2,7 @@ import { SongList } from "@/components/songs/SongList";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
+    <main className="flex min-h-screen justify-center">
       <div className="flex-1 flex flex-col items-center">
         <section className="layout-content-container flex flex-col w-full max-w-7xl flex-1 py-8 px-4">
           <div className="mb-8">

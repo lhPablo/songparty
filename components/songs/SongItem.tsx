@@ -82,8 +82,12 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
             }`}
           title={isSelected ? "Quitar de la lista" : "Añadir a la lista"}
         >
-          <span className="material-symbols-outlined">
-            {isSelected ? (isHovered ? "close" : "check") : "add"}
+          <span
+            className={`material-symbols-outlined inline-block ${
+              isSelected && isHovered ? "animate-shake" : ""
+            }`}
+          >
+            {isSelected ? (isHovered ? "delete" : "check") : "add"}
           </span>
         </button>
       </div>

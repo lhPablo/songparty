@@ -1,17 +1,17 @@
 import React from "react";
 import { Song } from "@/lib/types/domain/song";
-import { SongItem } from "./SongItem";
-import { ListPlaceholder } from "./ListPlaceholder";
-import { Loading } from "../ui/Loading";
+import { SongItem } from "../shared/SongItem";
+import { ListPlaceholder } from "../shared/ListPlaceholder";
+import { Loading } from "@/components/ui/Loading";
 import { useSearchStore } from "@/lib/store/useSearchStore";
 
-interface SongListDataProps {
+interface SongSearchResultsProps {
   songs: Song[];
   hasSearched?: boolean;
 }
 
-export const SongListData = React.memo(
-  ({ songs, hasSearched = false }: SongListDataProps) => {
+export const SongSearchResults = React.memo(
+  ({ songs, hasSearched = false }: SongSearchResultsProps) => {
     const showLoading = useSearchStore((state) => state.showLoading);
     const showEmptyMessage = useSearchStore((state) => state.showEmptyMessage);
 
@@ -51,4 +51,4 @@ export const SongListData = React.memo(
   },
 );
 
-SongListData.displayName = "SongListData";
+SongSearchResults.displayName = "SongSearchResults";

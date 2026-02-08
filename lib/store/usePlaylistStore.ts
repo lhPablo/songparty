@@ -4,8 +4,10 @@ import { Song } from "@/lib/types/domain/song";
 
 interface PlaylistState {
   selectedSongs: Song[];
+  playlistName: string;
   addSong: (song: Song) => void;
   removeSong: (songId: number) => void;
+  setPlaylistName: (name: string) => void;
   clearPlaylist: () => void;
   isSongSelected: (songId: number) => boolean;
 }
@@ -14,6 +16,7 @@ export const usePlaylistStore = create<PlaylistState>()(
   persist(
     (set, get) => ({
       selectedSongs: [],
+      playlistName: "Mi lista",
 
       addSong: (song) => {
         const { selectedSongs } = get();
@@ -28,7 +31,9 @@ export const usePlaylistStore = create<PlaylistState>()(
         }));
       },
 
-      clearPlaylist: () => set({ selectedSongs: [] }),
+      setPlaylistName: (name) => set({ playlistName: name }),
+
+      clearPlaylist: () => set({ selectedSongs: [], playlistName: "Mi lista" }),
 
       isSongSelected: (songId) => {
         return get().selectedSongs.some((s) => s.id === songId);

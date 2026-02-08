@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import { ALLOWED_IMAGE_DOMAINS } from "@/lib/constants/images";
 import { usePlaylistStore } from "@/lib/store/usePlaylistStore";
 
+import { CircleButton } from "@/components/ui/CircleButton";
+
 export const SongItem = React.memo(({ song }: { song: Song }) => {
-  console.log("Renderizando SongItem");
   const [imgError, setImgError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -70,26 +71,17 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <button
+        <CircleButton
           onClick={handleToggle}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className={`flex items-center justify-center size-12 rounded-full text-white transition-all 
-            ${
-              isSelected
-                ? "bg-green-500 hover:bg-red-500 hover:scale-110 active:scale-95 shadow-lg shadow-green-500/20 hover:shadow-red-500/20"
-                : "bg-primary neon-glow hover:scale-110 active:scale-95"
-            }`}
+          variant={isSelected ? (isHovered ? "danger" : "success") : "primary"}
+          icon={isSelected ? (isHovered ? "delete" : "check") : "add"}
+          glow={!isSelected}
+          size="lg"
+          iconClassName={isSelected && isHovered ? "animate-shake" : ""}
           title={isSelected ? "Quitar de la lista" : "Añadir a la lista"}
-        >
-          <span
-            className={`material-symbols-outlined inline-block ${
-              isSelected && isHovered ? "animate-shake" : ""
-            }`}
-          >
-            {isSelected ? (isHovered ? "delete" : "check") : "add"}
-          </span>
-        </button>
+        />
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import { ComponentProps } from "react";
+import { Button } from "./Button";
 
 interface SearchInputProps extends ComponentProps<"input"> {
   onSearch?: () => void;
@@ -25,13 +26,13 @@ export const SearchInput = ({
           {...props}
         />
         <div className="flex items-center pr-2">
-          <button
-            className="bg-primary text-white px-8 py-3 rounded-full font-bold hover:brightness-110 transition-all neon-glow"
+          <Button
             onClick={onSearch}
             type="button"
+            className="h-12 px-8 rounded-full"
           >
             {buttonText}
-          </button>
+          </Button>
         </div>
       </div>
     </label>

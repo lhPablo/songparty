@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, useMemo } from "react";
-import { SearchInput } from "../ui/SearchInput";
-import { ToggleGroup } from "../ui/ToggleGroup";
+import { SearchInput } from "@/components/ui/SearchInput";
+import { ToggleGroup } from "@/components/ui/ToggleGroup";
 import { useSearchStore } from "@/lib/store/useSearchStore";
 
 export const SongSearchForm = React.memo(() => {

@@ -1,16 +1,45 @@
-import { ComponentProps } from "react";
+import { ComponentPropsWithoutRef } from "react";
+
+interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
+  variant?: "primary" | "secondary" | "danger" | "ghost";
+  icon?: string;
+  loading?: boolean;
+}
 
 export const Button = ({
-  className,
+  className = "",
   children,
+  variant = "primary",
+  icon,
+  loading,
   ...props
-}: ComponentProps<"button">) => {
+}: ButtonProps) => {
+  const baseClasses =
+    "group flex items-center justify-center gap-2 px-5 h-10 rounded-xl font-medium transition-all transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
+
+  const variants = {
+    primary: "bg-primary text-white neon-glow hover:brightness-110",
+    secondary:
+      "bg-primary/10 text-primary hover:bg-primary hover:text-white border border-primary/20",
+    danger:
+      "bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white border border-red-500/20",
+    ghost: "text-gray-400 hover:text-primary",
+  };
+
   return (
     <button
-      className={`flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-5 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] neon-glow hover:brightness-110 transition-all ${className || ""}`}
+      className={`${baseClasses} ${variants[variant]} ${className}`}
+      disabled={loading || props.disabled}
       {...props}
     >
-      {children}
+      {icon && (
+        <span
+          className={`material-symbols-outlined text-xl ${loading ? "animate-spin" : "group-hover:animate-shake"}`}
+        >
+          {loading ? "sync" : icon}
+        </span>
+      )}
+      <span className="leading-none">{children}</span>
     </button>
   );
 };

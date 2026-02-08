@@ -2,12 +2,16 @@
 
 import { useState } from "react";
 import { usePlaylistStore } from "@/lib/store/usePlaylistStore";
-import { SongItem } from "@/components/songs/SongItem";
-import { ListPlaceholder } from "@/components/songs/ListPlaceholder";
+import { SongItem } from "@/components/songs/shared/SongItem";
+import { ListPlaceholder } from "@/components/songs/shared/ListPlaceholder";
 import { savePlaylist } from "@/lib/actions/playlist";
+import { PlaylistTitle } from "@/components/songs/playlist/PlaylistTitle";
+
+import { Button } from "@/components/ui/Button";
 
 export default function PlaylistPage() {
   const selectedSongs = usePlaylistStore((state) => state.selectedSongs);
+  const playlistName = usePlaylistStore((state) => state.playlistName);
   const clearPlaylist = usePlaylistStore((state) => state.clearPlaylist);
 
   const [isSaving, setIsSaving] = useState(false);
@@ -30,32 +34,26 @@ export default function PlaylistPage() {
     <main className="flex min-h-screen justify-center">
       <div className="flex-1 flex flex-col items-center">
         <section className="layout-content-container flex flex-col w-full max-w-7xl flex-1 py-8 px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+          <div className="flex flex-col gap-6 mb-8">
             {selectedSongs.length > 0 && (
               <div className="flex flex-col md:flex-row items-center gap-4 w-full justify-between">
                 <div className="flex gap-2">
-                  <button
+                  <Button
+                    variant="danger"
+                    icon="delete"
                     onClick={clearPlaylist}
-                    className="group flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all font-medium border border-red-500/20"
                   >
-                    <span className="material-symbols-outlined text-xl group-hover:animate-shake">
-                      delete
-                    </span>
                     Vaciar lista
-                  </button>
+                  </Button>
 
-                  <button
+                  <Button
+                    variant="secondary"
+                    icon="qr_code"
+                    loading={isSaving}
                     onClick={handleGenerateQR}
-                    disabled={isSaving}
-                    className="group flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all font-medium border border-primary/20 disabled:opacity-50"
                   >
-                    <span
-                      className={`material-symbols-outlined text-xl ${isSaving ? "animate-spin" : "group-hover:animate-shake"}`}
-                    >
-                      {isSaving ? "sync" : "qr_code"}
-                    </span>
-                    {isSaving ? "Guardando..." : "Generar QR"}
-                  </button>
+                    Generar QR
+                  </Button>
                 </div>
 
                 {playlistId && (
@@ -64,7 +62,7 @@ export default function PlaylistPage() {
                       check_circle
                     </span>
                     <span className="text-sm font-medium">
-                      Lista guardada ID:{" "}
+                      {playlistName} guardada ID:{" "}
                       <span className="font-bold underline">{playlistId}</span>
                     </span>
                   </div>
@@ -74,6 +72,7 @@ export default function PlaylistPage() {
           </div>
 
           <div className="flex flex-col gap-4">
+            <PlaylistTitle />
             {selectedSongs.length > 0 ? (
               <ul className="flex flex-col gap-2">
                 {selectedSongs.map((song) => (

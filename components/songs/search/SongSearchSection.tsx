@@ -1,14 +1,14 @@
 "use client";
 
-import { ListPlaceholder } from "@/components/songs/ListPlaceholder";
+import { ListPlaceholder } from "../shared/ListPlaceholder";
 import { useInfiniteSongs } from "@/lib/hooks/useInfiniteSongs";
-import { SongSearchForm } from "@/components/songs/SongSearchForm";
-import { SongListData } from "@/components/songs/SongListData";
+import { SongSearchForm } from "./SongSearchForm";
+import { SongSearchResults } from "./SongSearchResults";
 import { useSearchStore } from "@/lib/store/useSearchStore";
 
 import { useEffect, useRef } from "react";
 
-export const SongList = () => {
+export const SongSearchSection = () => {
   const {
     appliedSongQuery,
     appliedAuthorQuery,
@@ -69,7 +69,7 @@ export const SongList = () => {
           />
         )}
 
-        <SongListData songs={songs} hasSearched={hasSearched} />
+        <SongSearchResults songs={songs} hasSearched={hasSearched} />
 
         <div
           ref={observerRef}

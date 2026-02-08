@@ -1,4 +1,4 @@
-import { SongList } from "@/components/songs/SongList";
+import { SongSearchSection } from "@/components/songs/search/SongSearchSection";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
             </h1>
           </div>
           <div className="flex flex-col items-center gap-4 mb-8 w-full">
-            <SongList />
+            <SongSearchSection />
           </div>
         </section>
       </div>

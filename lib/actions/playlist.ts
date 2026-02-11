@@ -11,9 +11,9 @@ export async function savePlaylist(songs: Song[]) {
 
   const playlistId = uuidv4();
 
-  // Save to Redis with an expiration of one week
+  // Save to Redis with an expiration of 3 days
   await redis.set(`playlist:${playlistId}`, JSON.stringify(songs), {
-    ex: 60 * 60 * 24 * 7,
+    ex: 60 * 60 * 24 * 3,
   });
 
   return playlistId;

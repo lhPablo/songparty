@@ -1,53 +1,31 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { usePlaylistStore } from "@/lib/store/usePlaylistStore";
-
+import { usePlaylistName } from "@/lib/hooks/usePlaylistName";
 import { IconButton } from "@/components/ui/IconButton";
+import { TitleInput } from "@/components/ui/TitleInput";
 
 export const PlaylistTitle = () => {
-  const { playlistName, setPlaylistName } = usePlaylistStore();
-  const [isEditing, setIsEditing] = useState(false);
-  const [tempName, setTempName] = useState(playlistName);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (isEditing && inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
-    }
-  }, [isEditing]);
-
-  const handleSave = () => {
-    const trimmed = tempName.trim();
-    if (trimmed) {
-      setPlaylistName(trimmed);
-    } else {
-      setTempName(playlistName);
-    }
-    setIsEditing(false);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") handleSave();
-    if (e.key === "Escape") {
-      setTempName(playlistName);
-      setIsEditing(false);
-    }
-  };
+  const {
+    playlistName,
+    isEditing,
+    tempName,
+    inputRef,
+    setTempName,
+    handleSave,
+    handleKeyDown,
+    startEditing,
+  } = usePlaylistName();
 
   return (
     <div className="flex items-center gap-2 group max-w-full">
       {isEditing ? (
         <div className="relative flex items-center flex-1 max-w-md">
-          <input
+          <TitleInput
             ref={inputRef}
-            type="text"
             value={tempName}
             onChange={(e) => setTempName(e.target.value)}
             onBlur={handleSave}
             onKeyDown={handleKeyDown}
-            className="bg-transparent border-b-2 border-primary text-gray-900 dark:text-white tracking-tight text-[32px] md:text-[40px] font-bold leading-tight outline-none w-full pb-1 animate-in fade-in duration-300"
             placeholder="Nombre de la lista..."
           />
           <IconButton
@@ -67,7 +45,7 @@ export const PlaylistTitle = () => {
           </h1>
           <IconButton
             icon="edit"
-            onClick={() => setIsEditing(true)}
+            onClick={startEditing}
             title="Editar nombre"
           />
         </>
@@ -75,3 +53,5 @@ export const PlaylistTitle = () => {
     </div>
   );
 };
+
+PlaylistTitle.displayName = "PlaylistTitle";

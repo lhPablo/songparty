@@ -1,4 +1,4 @@
-import { Song } from "./song"; // tu modelo de canción
+import { Song } from "./song";
 
 export interface PaginatedSongsResponse {
   data: Song[];

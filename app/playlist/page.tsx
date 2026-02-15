@@ -8,16 +8,7 @@ import { PlaylistActionsBar } from "@/components/songs/playlist/PlaylistActionsB
 import { QrReader } from "@/components/qr/QrReader";
 
 export default function PlaylistPage() {
-  const {
-    selectedSongs,
-    playlistName,
-    isSaving,
-    playlistId,
-    clearPlaylist,
-    handleGenerateQR,
-    isLocked,
-    setIsLocked,
-  } = usePlaylistActions();
+  const { selectedSongs } = usePlaylistActions();
 
   const hasSongs = selectedSongs.length > 0;
 
@@ -25,23 +16,13 @@ export default function PlaylistPage() {
     <main className="flex min-h-screen justify-center">
       <div className="flex-1 flex flex-col items-center">
         <section className="layout-content-container flex flex-col w-full max-w-7xl flex-1 py-8 px-4">
-          {hasSongs && (
-            <PlaylistActionsBar
-              onClear={clearPlaylist}
-              onGenerateQR={handleGenerateQR}
-              isSaving={isSaving}
-              playlistId={playlistId}
-              playlistName={playlistName}
-              isLocked={isLocked}
-              onToggleLock={() => setIsLocked(!isLocked)}
-            />
-          )}
+          {hasSongs && <PlaylistActionsBar />}
 
           <div className="flex flex-col gap-4">
             <PlaylistTitle />
 
             {hasSongs ? (
-              <SongList songs={selectedSongs} />
+              <SongList songs={selectedSongs} isSortable />
             ) : (
               <div className="flex flex-col items-center gap-6 py-20">
                 <ListPlaceholder

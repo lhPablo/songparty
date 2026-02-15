@@ -1,38 +1,21 @@
+"use client";
+
 import { Song } from "@/lib/types/domain/song";
 import Image from "next/image";
-import React, { useState } from "react";
-import { ALLOWED_IMAGE_DOMAINS } from "@/lib/constants/images";
-import { usePlaylistStore } from "@/lib/store/usePlaylistStore";
-
+import React from "react";
 import { CircleButton } from "@/components/ui/CircleButton";
+import { useSongItemActions } from "@/lib/hooks/useSongItemActions";
 
 export const SongItem = React.memo(({ song }: { song: Song }) => {
-  const [imgError, setImgError] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const addSong = usePlaylistStore((state) => state.addSong);
-  const removeSong = usePlaylistStore((state) => state.removeSong);
-  const isSelected = usePlaylistStore((state) => state.isSongSelected(song.id));
-
-  const handleToggle = () => {
-    if (isSelected) {
-      removeSong(song.id);
-    } else {
-      addSong(song);
-    }
-  };
-
-  // Check if domain is allowed for next/image
-  const isAllowedDomain = (url: string) => {
-    try {
-      const hostname = new URL(url).hostname;
-      return ALLOWED_IMAGE_DOMAINS.some((domain) => hostname.endsWith(domain));
-    } catch {
-      return false;
-    }
-  };
-
-  const useNextImage = isAllowedDomain(song.coverUrl);
+  const {
+    imgError,
+    setImgError,
+    isHovered,
+    setIsHovered,
+    isSelected,
+    useNextImage,
+    handleToggle,
+  } = useSongItemActions(song);
 
   return (
     <>

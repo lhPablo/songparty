@@ -41,7 +41,7 @@ export const useSongSearch = () => {
       },
       {
         threshold: [0, 0.5, 1.0],
-        rootMargin: "100px",
+        rootMargin: "200px",
       },
     );
 

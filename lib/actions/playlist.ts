@@ -29,3 +29,13 @@ export async function savePlaylist(
 
   return playlistId;
 }
+
+export async function getPlaylist(id: string) {
+  const data = await redis.get(`playlist:${id}`);
+
+  if (!data) {
+    return null;
+  }
+
+  return typeof data === "string" ? JSON.parse(data) : data;
+}

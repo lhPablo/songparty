@@ -1,18 +1,24 @@
-import { useState } from "react";
 import { usePlaylistStore } from "@/lib/store/usePlaylistStore";
 import { savePlaylist } from "@/lib/actions/playlist";
 
 export const usePlaylistActions = () => {
-  const { selectedSongs, playlistName, clearPlaylist, isLocked, setIsLocked } =
-    usePlaylistStore();
-  const [isSaving, setIsSaving] = useState(false);
-  const [playlistId, setPlaylistId] = useState<string | null>(null);
+  const {
+    selectedSongs,
+    playlistName,
+    clearPlaylist,
+    isLocked,
+    setIsLocked,
+    isSaving,
+    setIsSaving,
+    savedPlaylistId,
+    setSavedPlaylistId,
+  } = usePlaylistStore();
 
   const handleGenerateQR = async () => {
     try {
       setIsSaving(true);
       const id = await savePlaylist(selectedSongs, playlistName, isLocked);
-      setPlaylistId(id);
+      setSavedPlaylistId(id);
     } catch (error) {
       console.error("Error al guardar la playlist:", error);
       alert("No se pudo guardar la playlist. Inténtalo de nuevo.");
@@ -27,7 +33,7 @@ export const usePlaylistActions = () => {
     isLocked,
     setIsLocked,
     isSaving,
-    playlistId,
+    savedPlaylistId,
     clearPlaylist,
     handleGenerateQR,
   };

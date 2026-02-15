@@ -3,15 +3,8 @@ import { StatusToggle } from "@/components/ui/StatusToggle";
 import { usePlaylistActions } from "@/lib/hooks/usePlaylistActions";
 
 export const PlaylistActionsBar = () => {
-  const {
-    clearPlaylist,
-    handleGenerateQR,
-    isSaving,
-    savedPlaylistId,
-    playlistName,
-    isLocked,
-    setIsLocked,
-  } = usePlaylistActions();
+  const { clearPlaylist, handleGenerateQR, isSaving, isLocked, setIsLocked } =
+    usePlaylistActions();
 
   return (
     <div className="flex flex-col gap-6 mb-8">
@@ -51,18 +44,6 @@ export const PlaylistActionsBar = () => {
             Generar QR
           </Button>
         </div>
-
-        {savedPlaylistId && (
-          <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-green-500/10 text-green-600 border border-green-500/20 animate-in fade-in slide-in-from-right-4 duration-500">
-            <span className="material-symbols-outlined text-xl">
-              check_circle
-            </span>
-            <span className="text-sm font-medium">
-              {playlistName} guardada ID:{" "}
-              <span className="font-bold underline">{savedPlaylistId}</span>
-            </span>
-          </div>
-        )}
       </div>
     </div>
   );

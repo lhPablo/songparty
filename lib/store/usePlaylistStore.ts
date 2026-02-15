@@ -8,12 +8,14 @@ interface PlaylistState {
   isLocked: boolean;
   isSaving: boolean;
   savedPlaylistId: string | null;
+  isShowQr: boolean;
   addSong: (song: Song) => void;
   removeSong: (songId: number) => void;
   setPlaylistName: (name: string) => void;
   setIsLocked: (isLocked: boolean) => void;
   setIsSaving: (isSaving: boolean) => void;
   setSavedPlaylistId: (id: string | null) => void;
+  setIsShowQr: (show: boolean) => void;
   reorderSongs: (startIndex: number, endIndex: number) => void;
   clearPlaylist: () => void;
   isSongSelected: (songId: number) => boolean;
@@ -27,6 +29,7 @@ export const usePlaylistStore = create<PlaylistState>()(
       isLocked: false,
       isSaving: false,
       savedPlaylistId: null,
+      isShowQr: false,
 
       addSong: (song) => {
         const { selectedSongs } = get();
@@ -49,6 +52,8 @@ export const usePlaylistStore = create<PlaylistState>()(
 
       setSavedPlaylistId: (id) => set({ savedPlaylistId: id }),
 
+      setIsShowQr: (show) => set({ isShowQr: show }),
+
       reorderSongs: (startIndex, endIndex) => {
         set((state) => {
           const songs = [...state.selectedSongs];
@@ -65,6 +70,7 @@ export const usePlaylistStore = create<PlaylistState>()(
           isLocked: false,
           isSaving: false,
           savedPlaylistId: null,
+          isShowQr: false,
         }),
 
       isSongSelected: (songId) => {

@@ -12,13 +12,21 @@ export const usePlaylistActions = () => {
     setIsSaving,
     savedPlaylistId,
     setSavedPlaylistId,
+    isShowQr,
+    setIsShowQr,
   } = usePlaylistStore();
 
   const handleGenerateQR = async () => {
     try {
       setIsSaving(true);
-      const id = await savePlaylist(selectedSongs, playlistName, isLocked);
+      const id = await savePlaylist(
+        selectedSongs,
+        playlistName,
+        isLocked,
+        savedPlaylistId,
+      );
       setSavedPlaylistId(id);
+      setIsShowQr(true);
     } catch (error) {
       console.error("Error al guardar la playlist:", error);
       alert("No se pudo guardar la playlist. Inténtalo de nuevo.");
@@ -34,6 +42,8 @@ export const usePlaylistActions = () => {
     setIsLocked,
     isSaving,
     savedPlaylistId,
+    isShowQr,
+    setIsShowQr,
     clearPlaylist,
     handleGenerateQR,
   };

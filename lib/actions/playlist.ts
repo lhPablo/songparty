@@ -8,12 +8,13 @@ export async function savePlaylist(
   songs: Song[],
   title: string,
   isLocked: boolean = false,
+  id?: string | null,
 ) {
   if (!songs || songs.length === 0) {
     throw new Error("No hay canciones en la lista");
   }
 
-  const playlistId = uuidv4();
+  const playlistId = id || uuidv4();
 
   const playlistData = {
     title,

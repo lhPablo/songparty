@@ -57,6 +57,38 @@
       transform: rotate(10deg);
     }
   }
+
+  @keyframes zoom-in-center {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes zoom-out-center {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+  }
+}
+
+.animate-zoom-in {
+  opacity: 0;
+  animation: zoom-in-center 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 200ms;
+}
+
+.animate-zoom-out {
+  animation: zoom-out-center 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 :root {
@@ -114,17 +146,15 @@
   border: 1px solid var(--color-neon-glow);
 }
 
-@layer base {
-  body {
-    @apply cursor-default select-none;
-  }
-  input,
-  textarea,
-  [contenteditable] {
-    @apply cursor-text select-text;
-  }
-  a,
-  button {
-    @apply cursor-pointer;
-  }
+body {
+  @apply cursor-default select-none;
+}
+input,
+textarea,
+[contenteditable] {
+  @apply cursor-text select-text;
+}
+a,
+button {
+  @apply cursor-pointer;
 }

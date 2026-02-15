@@ -2,21 +2,21 @@
 
 import { useCallback } from "react";
 
-export const useQrActions = () => {
+export const usePlaylistShareActions = () => {
   const handlePrint = useCallback(() => {
     window.print();
   }, []);
 
   const handleCopyLink = useCallback((url?: string) => {
     const targetUrl = url || window.location.href;
-    navigator.clipboard
+    return navigator.clipboard
       .writeText(targetUrl)
       .then(() => {
         console.log("URL copiada:", targetUrl);
-        alert("¡Enlace copiado al portapapeles!");
       })
       .catch((err) => {
         console.error("Error al copiar el enlace:", err);
+        throw err;
       });
   }, []);
 

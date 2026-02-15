@@ -15,10 +15,24 @@ export const IconButton = ({
 }: IconButtonProps) => {
   return (
     <button
-      className={`flex items-center justify-center p-1 rounded-full text-gray-400 hover:text-primary transition-all shrink-0 ${className}`}
+      className={`
+        flex items-center justify-center 
+        p-2 
+        rounded-full 
+        text-text-secondary 
+        hover:text-primary 
+        hover:bg-primary/5
+        active:scale-90
+        transition-all 
+        duration-200
+        shrink-0 
+        ${className}
+      `}
       {...props}
     >
-      <span className={`material-symbols-outlined text-2xl ${iconClassName}`}>
+      <span
+        className={`material-symbols-outlined text-[24px] transition-transform duration-200 ${iconClassName}`}
+      >
         {icon}
       </span>
     </button>

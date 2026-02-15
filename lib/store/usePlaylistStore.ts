@@ -5,9 +5,11 @@ import { Song } from "@/lib/types/domain/song";
 interface PlaylistState {
   selectedSongs: Song[];
   playlistName: string;
+  isLocked: boolean;
   addSong: (song: Song) => void;
   removeSong: (songId: number) => void;
   setPlaylistName: (name: string) => void;
+  setIsLocked: (isLocked: boolean) => void;
   clearPlaylist: () => void;
   isSongSelected: (songId: number) => boolean;
 }
@@ -17,6 +19,7 @@ export const usePlaylistStore = create<PlaylistState>()(
     (set, get) => ({
       selectedSongs: [],
       playlistName: "Mi lista",
+      isLocked: false,
 
       addSong: (song) => {
         const { selectedSongs } = get();
@@ -33,7 +36,10 @@ export const usePlaylistStore = create<PlaylistState>()(
 
       setPlaylistName: (name) => set({ playlistName: name }),
 
-      clearPlaylist: () => set({ selectedSongs: [], playlistName: "Mi lista" }),
+      setIsLocked: (isLocked) => set({ isLocked }),
+
+      clearPlaylist: () =>
+        set({ selectedSongs: [], playlistName: "Mi lista", isLocked: false }),
 
       isSongSelected: (songId) => {
         return get().selectedSongs.some((s) => s.id === songId);

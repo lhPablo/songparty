@@ -5,6 +5,7 @@ import { SongList } from "@/components/songs/shared/SongList";
 import { ListPlaceholder } from "@/components/songs/shared/ListPlaceholder";
 import { PlaylistTitle } from "@/components/songs/playlist/PlaylistTitle";
 import { PlaylistActionsBar } from "@/components/songs/playlist/PlaylistActionsBar";
+import { QrReader } from "@/components/qr/QrReader";
 
 export default function PlaylistPage() {
   const {
@@ -14,6 +15,8 @@ export default function PlaylistPage() {
     playlistId,
     clearPlaylist,
     handleGenerateQR,
+    isLocked,
+    setIsLocked,
   } = usePlaylistActions();
 
   const hasSongs = selectedSongs.length > 0;
@@ -29,6 +32,8 @@ export default function PlaylistPage() {
               isSaving={isSaving}
               playlistId={playlistId}
               playlistName={playlistName}
+              isLocked={isLocked}
+              onToggleLock={() => setIsLocked(!isLocked)}
             />
           )}
 

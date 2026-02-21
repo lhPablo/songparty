@@ -1,12 +1,12 @@
 "use client";
 
-import { PlaylistHeader } from "./PlaylistHeader";
-import { PlaylistShareCard } from "./PlaylistShareCard";
+import { PlaylistHeader } from "./title/PlaylistHeader";
 import { SongList } from "../shared/SongList";
 import { ListPlaceholder } from "../shared/ListPlaceholder";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useIsMounted } from "@/hooks/shared/useIsMounted";
 import { Playlist } from "@/lib/types/domain/playlist";
+import { QRViewer } from "@/components/qr/QRViewer";
 
 interface MainPlaylistViewProps {
   playlist: Playlist;
@@ -43,7 +43,7 @@ export const MainPlaylistView = ({
 
       {isShowQr ? (
         <div className="animate-zoom-in w-full flex justify-center py-4">
-          <PlaylistShareCard />
+          <QRViewer />
         </div>
       ) : (
         <div className="animate-zoom-in w-full">

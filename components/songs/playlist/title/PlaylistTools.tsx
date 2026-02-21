@@ -5,21 +5,17 @@ import { Button } from "@/components/ui/Button";
 import { StatusToggle } from "@/components/ui/StatusToggle";
 import { usePlaylistActions } from "@/hooks/playlist/usePlaylistActions";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
+import { useIsMounted } from "@/hooks/shared/useIsMounted";
 
 interface PlaylistToolsProps {
   playlistId: string;
 }
 
 export const PlaylistTools = ({ playlistId }: PlaylistToolsProps) => {
-  const {
-    isLocked,
-    setIsLocked,
-    isShowQr,
-    setIsShowQr,
-    isMounted,
-    isOwner,
-    ownerToken,
-  } = usePlaylistActions();
+  const { isLocked, setIsLocked, isShowQr, setIsShowQr, isOwner, ownerToken } =
+    usePlaylistActions();
+
+  const isMounted = useIsMounted();
 
   if (!isMounted) return null;
 

@@ -3,10 +3,10 @@
 import { QRCodeSVG } from "qrcode.react";
 import { Button } from "@/components/ui/Button";
 import { usePlaylistShareCard } from "@/hooks/playlist/usePlaylistShareCard";
+import { useIsMounted } from "@/hooks/shared/useIsMounted";
 
-export const PlaylistShareCard = () => {
+export const QRViewer = () => {
   const {
-    isMounted,
     savedPlaylistId,
     shareUrl,
     copied,
@@ -15,6 +15,8 @@ export const PlaylistShareCard = () => {
     handleShare,
     handleClose,
   } = usePlaylistShareCard();
+
+  const isMounted = useIsMounted();
 
   if (!isMounted || !savedPlaylistId) return null;
 

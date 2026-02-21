@@ -1,6 +1,7 @@
 export interface GeniusSong {
   id: number;
   title: string;
+  url: string;
   primary_artist: {
     name: string;
   };

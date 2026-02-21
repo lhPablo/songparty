@@ -3,8 +3,8 @@
 import { Song } from "@/lib/types/domain/song";
 import Image from "next/image";
 import React from "react";
-import { CircleButton } from "@/components/ui/CircleButton";
 import { useSongItemActions } from "@/hooks/songs/useSongItemActions";
+import { SongItemActions } from "./SongItemActions";
 
 export const SongItem = React.memo(({ song }: { song: Song }) => {
   const {
@@ -55,27 +55,15 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
           <p className="text-gray-500 dark:text-gray-400">{song.artist}</p>
         </div>
       </div>
-      {(!isLocked || isOwner) && (
-        <div className="flex items-center gap-4">
-          <CircleButton
-            onClick={handleToggle}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            variant={
-              isSelected
-                ? isHovered
-                  ? "destructive"
-                  : "successful"
-                : "primary"
-            }
-            icon={isSelected ? (isHovered ? "delete" : "check") : "add"}
-            glow={!isSelected}
-            size="lg"
-            iconClassName={isSelected && isHovered ? "animate-shake" : ""}
-            title={isSelected ? "Quitar de la lista" : "Añadir a la lista"}
-          />
-        </div>
-      )}
+      <SongItemActions
+        lyricsUrl={song.lyricsUrl}
+        isSelected={isSelected}
+        isHovered={isHovered}
+        canEdit={!isLocked || isOwner}
+        onToggle={handleToggle}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      />
     </>
   );
 });

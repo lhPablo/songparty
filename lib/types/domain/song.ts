@@ -4,4 +4,5 @@ export type Song = {
   artist: string;
   date: string;
   coverUrl: string;
+  lyricsUrl: string;
 };

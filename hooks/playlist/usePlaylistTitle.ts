@@ -7,7 +7,7 @@ import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 import { useIsMounted } from "../shared/useIsMounted";
 
 export const usePlaylistTitle = () => {
-  const { playlistName, setPlaylistName } = usePlaylistStore();
+  const { playlistName, setPlaylistName, savedPlaylistId, selectedSongs, isLocked } = usePlaylistStore();
   const searchParams = useSearchParams();
   const urlToken = searchParams.get(URL_TOKEN_PARAM);
 
@@ -29,15 +29,26 @@ export const usePlaylistTitle = () => {
     setTempName(playlistName);
   }, [playlistName]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const trimmed = tempName.trim();
 
-    if (trimmed) {
-      setPlaylistName(trimmed);
-    } else {
+    if (!trimmed) {
       setTempName(playlistName);
+      setIsEditing(false);
+      return;
     }
+
+    setPlaylistName(trimmed);
     setIsEditing(false);
+
+    if (savedPlaylistId && urlToken) {
+      try {
+        const { updatePlaylist } = await import("@/actions/playlist");
+        await updatePlaylist(savedPlaylistId, selectedSongs, trimmed, isLocked, urlToken);
+      } catch (error) {
+        console.error("Error al guardar el título:", error);
+      }
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

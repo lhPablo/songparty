@@ -1,9 +1,11 @@
+"use client";
+
 import React from "react";
 import { Song } from "@/lib/types/domain/song";
 import { SongList } from "../shared/SongList";
 import { ListPlaceholder } from "../shared/ListPlaceholder";
 import { Loading } from "@/components/ui/Loading";
-import { useSongSearchResults } from "@/lib/hooks/useSongSearchResults";
+import { useSongSearchResults } from "@/hooks/songs/useSongSearchResults";
 
 interface SongSearchResultsProps {
   songs: Song[];

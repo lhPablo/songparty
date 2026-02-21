@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef } from "react";
 
 interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
-  variant?: "primary" | "secondary" | "danger" | "ghost";
+  variant?: "primary" | "secondary" | "destructive" | "transparent";
   icon?: string;
   loading?: boolean;
 }
@@ -15,15 +15,16 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const baseClasses =
-    "group flex items-center justify-center gap-2 px-5 h-10 rounded-xl font-medium transition-all transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
+    "group flex items-center justify-center gap-2 px-6 h-12 rounded-xl font-medium transition-all transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variants = {
-    primary: "bg-primary text-white neon-glow hover:brightness-110",
+    primary:
+      "bg-primary text-white neon-glow hover:brightness-110 border border-transparent",
     secondary:
       "bg-primary/10 text-primary hover:bg-primary hover:text-white border border-primary/20",
-    danger:
+    destructive:
       "bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white border border-red-500/20",
-    ghost: "text-gray-400 hover:text-primary",
+    transparent: "text-gray-400 hover:text-primary border border-transparent",
   };
 
   return (

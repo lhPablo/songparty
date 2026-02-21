@@ -1,3 +1,5 @@
+"use client";
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchSongs } from "@/lib/api/songs";
 import { PaginatedSongsResponse } from "@/lib/types/domain/paginatedSongResponse";

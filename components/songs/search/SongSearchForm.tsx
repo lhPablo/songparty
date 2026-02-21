@@ -1,7 +1,9 @@
+"use client";
+
 import React from "react";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { ToggleGroup } from "@/components/ui/ToggleGroup";
-import { useSongSearchForm } from "@/lib/hooks/useSongSearchForm";
+import { useSongSearchForm } from "@/hooks/songs/useSongSearchForm";
 
 export const SongSearchForm = React.memo(() => {
   const {

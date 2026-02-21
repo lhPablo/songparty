@@ -3,7 +3,7 @@
 import { ListPlaceholder } from "../shared/ListPlaceholder";
 import { SongSearchForm } from "./SongSearchForm";
 import { SongSearchResults } from "./SongSearchResults";
-import { useSongSearch } from "@/lib/hooks/useSongSearch";
+import { useSongSearch } from "@/hooks/songs/useSongSearch";
 
 export const SongSearchSection = () => {
   const { songs, hasSearched, status, error, observerRef } = useSongSearch();

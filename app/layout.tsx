@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro, Noto_Sans } from "next/font/google";
-import { Providers } from "@/lib/providers/Providers";
-
-import { TopBar } from "@/components/layout/TopBar";
-import { Footer } from "@/components/layout/Footer";
+import { Providers } from "@/providers/Providers";
 
 import "@/styles/globals.css";
 
@@ -24,7 +21,7 @@ export const metadata: Metadata = {
   description: "Song Party app",
 };
 
-export default function RootLayout({
+export default function LandingLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -36,11 +33,7 @@ export default function RootLayout({
     >
       <head />
       <body className="font-body bg-bg-light text-text-primary dark:bg-bg-dark dark:text-text-primary">
-        <Providers>
-          <TopBar />
-          {children}
-          <Footer />
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

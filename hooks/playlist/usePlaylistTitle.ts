@@ -1,9 +1,20 @@
-import { useState, useRef, useEffect } from "react";
-import { usePlaylistStore } from "@/lib/store/usePlaylistStore";
+"use client";
 
-export const usePlaylistName = () => {
+import { useState, useRef, useEffect } from "react";
+import { usePlaylistStore } from "@/store/usePlaylistStore";
+import { useSearchParams } from "next/navigation";
+import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
+import { useIsMounted } from "../shared/useIsMounted";
+
+export const usePlaylistTitle = () => {
   const { playlistName, setPlaylistName } = usePlaylistStore();
+  const searchParams = useSearchParams();
+  const urlToken = searchParams.get(URL_TOKEN_PARAM);
+
+  const isMounted = useIsMounted();
   const [isEditing, setIsEditing] = useState(false);
+
+  const isOwner = isMounted ? !!urlToken : false;
   const [tempName, setTempName] = useState(playlistName);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -14,13 +25,13 @@ export const usePlaylistName = () => {
     }
   }, [isEditing]);
 
-  // Sync tempName with store when playlistName changes externally
   useEffect(() => {
     setTempName(playlistName);
   }, [playlistName]);
 
   const handleSave = () => {
     const trimmed = tempName.trim();
+
     if (trimmed) {
       setPlaylistName(trimmed);
     } else {
@@ -48,5 +59,6 @@ export const usePlaylistName = () => {
     handleSave,
     handleKeyDown,
     startEditing,
+    isOwner,
   };
 };

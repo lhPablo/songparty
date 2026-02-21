@@ -1,5 +1,7 @@
+"use client";
+
 import { useState, useMemo, ChangeEvent } from "react";
-import { useSearchStore } from "@/lib/store/useSearchStore";
+import { useSearchStore } from "@/store/useSearchStore";
 import { SearchType } from "@/lib/types/domain/search";
 
 export const useSongSearchForm = () => {

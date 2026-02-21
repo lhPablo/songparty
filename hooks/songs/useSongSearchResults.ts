@@ -1,4 +1,6 @@
-import { useSearchStore } from "@/lib/store/useSearchStore";
+"use client";
+
+import { useSearchStore } from "@/store/useSearchStore";
 import { Song } from "@/lib/types/domain/song";
 
 interface UseSongSearchResultsProps {

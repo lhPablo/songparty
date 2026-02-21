@@ -4,7 +4,7 @@ import { ComponentPropsWithoutRef } from "react";
 
 interface CircleButtonProps extends ComponentPropsWithoutRef<"button"> {
   icon: string;
-  variant?: "primary" | "success" | "danger" | "neutral";
+  variant?: "primary" | "successful" | "destructive" | "transparent";
   size?: "sm" | "md" | "lg";
   iconClassName?: string;
   glow?: boolean;
@@ -27,9 +27,9 @@ export const CircleButton = ({
 
   const variantClasses = {
     primary: "bg-primary text-white",
-    success: "bg-green-500 text-white shadow-green-500/20",
-    danger: "bg-red-500 text-white shadow-red-500/20",
-    neutral: "bg-gray-100 dark:bg-white/5 text-gray-400 hover:text-primary",
+    successful: "bg-green-500 text-white shadow-green-500/20",
+    destructive: "bg-red-500 text-white shadow-red-500/20",
+    transparent: "bg-gray-100 dark:bg-white/5 text-gray-400 hover:text-primary",
   };
 
   const glowClass = glow ? "neon-glow" : "";

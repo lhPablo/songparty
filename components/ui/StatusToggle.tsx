@@ -27,7 +27,7 @@ export const StatusToggle = ({
     <div
       onClick={onChange}
       className={`
-        relative flex items-center gap-2 p-1 rounded-full cursor-pointer transition-all duration-500 border
+        relative flex items-center gap-2 p-1 h-12 rounded-full cursor-pointer transition-all duration-500 border
         ${
           checked
             ? "bg-amber-100 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800/50"
@@ -39,7 +39,7 @@ export const StatusToggle = ({
       {/* False Option (Left) */}
       <div
         className={`
-        flex items-center gap-2 px-3 py-1.5 rounded-full transition-all duration-300
+        flex items-center gap-2 px-3 h-full rounded-full transition-all duration-300
         ${!checked ? `${falseOption.activeBg} text-white shadow-lg ${falseOption.activeShadow}` : falseOption.inactiveText}
       `}
       >
@@ -54,7 +54,7 @@ export const StatusToggle = ({
       {/* True Option (Right) */}
       <div
         className={`
-        flex items-center gap-2 px-3 py-1.5 rounded-full transition-all duration-300
+        flex items-center gap-2 px-3 h-full rounded-full transition-all duration-300
         ${checked ? `${trueOption.activeBg} text-white shadow-lg ${trueOption.activeShadow}` : trueOption.inactiveText}
       `}
       >

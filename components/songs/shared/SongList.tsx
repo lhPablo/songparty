@@ -13,7 +13,7 @@ import {
   restrictToParentElement,
 } from "@dnd-kit/modifiers";
 import { SortableSongItem } from "./SortableSongItem";
-import { useSongListDnd } from "@/lib/hooks/useSongListDnd";
+import { useSongListDnd } from "@/hooks/songs/useSongListDnd";
 
 interface SongListProps {
   songs: Song[];

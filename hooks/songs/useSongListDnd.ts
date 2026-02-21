@@ -9,7 +9,7 @@ import {
 } from "@dnd-kit/core";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { Song } from "@/lib/types/domain/song";
-import { usePlaylistStore } from "@/lib/store/usePlaylistStore";
+import { usePlaylistStore } from "@/store/usePlaylistStore";
 
 export const useSongListDnd = (songs: Song[]) => {
   const reorderSongs = usePlaylistStore((state) => state.reorderSongs);

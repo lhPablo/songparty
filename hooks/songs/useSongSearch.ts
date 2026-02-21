@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useRef } from "react";
-import { useSearchStore } from "@/lib/store/useSearchStore";
+import { useSearchStore } from "@/store/useSearchStore";
 import { useInfiniteSongs } from "./useInfiniteSongs";
 
 export const useSongSearch = () => {

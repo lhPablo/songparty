@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Song } from "@/lib/types/domain/song";
+import { INITIAL_PLAYLIST_STATE } from "@/lib/constants/playlist";
 
 interface PlaylistState {
   selectedSongs: Song[];
@@ -16,6 +17,7 @@ interface PlaylistState {
   setIsSaving: (isSaving: boolean) => void;
   setSavedPlaylistId: (id: string | null) => void;
   setIsShowQr: (show: boolean) => void;
+  setSongs: (songs: Song[]) => void;
   reorderSongs: (startIndex: number, endIndex: number) => void;
   clearPlaylist: () => void;
   isSongSelected: (songId: number) => boolean;
@@ -25,7 +27,7 @@ export const usePlaylistStore = create<PlaylistState>()(
   persist(
     (set, get) => ({
       selectedSongs: [],
-      playlistName: "Mi lista",
+      playlistName: INITIAL_PLAYLIST_STATE.title,
       isLocked: false,
       isSaving: false,
       savedPlaylistId: null,
@@ -50,9 +52,14 @@ export const usePlaylistStore = create<PlaylistState>()(
 
       setIsSaving: (isSaving) => set({ isSaving }),
 
-      setSavedPlaylistId: (id) => set({ savedPlaylistId: id }),
+      setSavedPlaylistId: (id) =>
+        set({
+          savedPlaylistId: id,
+        }),
 
       setIsShowQr: (show) => set({ isShowQr: show }),
+
+      setSongs: (songs) => set({ selectedSongs: songs }),
 
       reorderSongs: (startIndex, endIndex) => {
         set((state) => {
@@ -66,7 +73,7 @@ export const usePlaylistStore = create<PlaylistState>()(
       clearPlaylist: () =>
         set({
           selectedSongs: [],
-          playlistName: "Mi lista",
+          playlistName: INITIAL_PLAYLIST_STATE.title,
           isLocked: false,
           isSaving: false,
           savedPlaylistId: null,
@@ -78,7 +85,13 @@ export const usePlaylistStore = create<PlaylistState>()(
       },
     }),
     {
-      name: "playlist-storage",
+      name: "songparty-storage-v2",
+      partialize: (state) =>
+        Object.fromEntries(
+          Object.entries(state).filter(
+            ([key]) => !["isShowQr", "isSaving", "isLocked"].includes(key),
+          ),
+        ),
     },
   ),
 );

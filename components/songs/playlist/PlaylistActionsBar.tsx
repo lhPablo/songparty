@@ -1,6 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/Button";
 import { StatusToggle } from "@/components/ui/StatusToggle";
-import { usePlaylistActions } from "@/lib/hooks/usePlaylistActions";
+import { usePlaylistActions } from "@/hooks/playlist/usePlaylistActions";
 
 export const PlaylistActionsBar = () => {
   const { clearPlaylist, handleGenerateQR, isSaving, isLocked, setIsLocked } =
@@ -31,16 +33,11 @@ export const PlaylistActionsBar = () => {
 
           <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-1 hidden md:block" />
 
-          <Button variant="danger" icon="delete" onClick={clearPlaylist}>
+          <Button variant="destructive" icon="delete" onClick={clearPlaylist}>
             Vaciar
           </Button>
 
-          <Button
-            variant="secondary"
-            icon="qr_code"
-            loading={isSaving}
-            onClick={handleGenerateQR}
-          >
+          <Button icon="qr_code" loading={isSaving} onClick={handleGenerateQR}>
             Generar QR
           </Button>
         </div>

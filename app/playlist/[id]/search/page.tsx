@@ -32,7 +32,7 @@ export default async function PlaylistSearchPage({
   }
 
   return (
-    <main className="flex min-h-screen justify-center">
+    <main className="flex flex-1 justify-center">
       <SyncSharedPlaylist
         id={id}
         songs={playlist.songs}

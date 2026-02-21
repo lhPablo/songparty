@@ -7,10 +7,10 @@ export default function PlaylistLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <TopBar />
       {children}
       <Footer />
-    </>
+    </div>
   );
 }

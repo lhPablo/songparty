@@ -1,44 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Song Party
 
-## Getting Started
+Crea listas de reproducción colaborativas para tus karaokes. Comparte un código QR, tus invitados añaden canciones en tiempo real y tú controlas la sesión.
 
-First, run the development server:
+## Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Búsqueda de canciones** via Genius API con scroll infinito
+- **Edición colaborativa** — los invitados se unen escaneando el QR
+- **Bloqueo de playlist** — el dueño puede impedir que los invitados modifiquen la lista
+- **Reordenación** por arrastrar y soltar
+- **Compartir por QR** — genera y escanea códigos QR directamente desde la app
+
+## Stack
+
+- Next.js 16 (App Router, Server Actions)
+- Zustand 5 + TanStack React Query 5
+- Upstash Redis (persistencia, TTL de 3 días)
+- Genius API (búsqueda de canciones)
+- dnd-kit, qrcode.react, Tailwind CSS 4
+
+## Desarrollo local
+
+### 1. Variables de entorno
+
+Crea un archivo `.env.local` en la raíz con:
+
+```env
+GENIUS_ACCESS_TOKEN=        # Token de cliente de la Genius API
+UPSTASH_REDIS_REST_URL=     # URL REST de tu base de datos Upstash Redis
+UPSTASH_REDIS_REST_TOKEN=   # Token REST de tu base de datos Upstash Redis
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Genius API**: crea una app en [genius.com/api-clients](https://genius.com/api-clients) y copia el *Client Access Token*.
+- **Upstash Redis**: crea una base de datos gratuita en [console.upstash.com](https://console.upstash.com) y copia las credenciales REST.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2. Instalar y arrancar
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Abre [http://localhost:3000](http://localhost:3000).
 
-To learn more about Next.js, take a look at the following resources:
+## Comandos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run dev      # Servidor de desarrollo (Turbopack)
+npm run build    # Build de producción
+npm run start    # Servidor de producción
+npm run lint     # ESLint
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Licencia
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-### Third-Party Licenses
-
-This project incorporates components from several third-party libraries. Please refer to the [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) file for more information regarding the licenses and copyright notices of these dependencies.
+MIT — consulta [LICENSE](LICENSE).
+Licencias de dependencias de terceros en [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

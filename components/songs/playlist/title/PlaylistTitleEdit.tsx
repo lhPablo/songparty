@@ -2,6 +2,7 @@
 
 import { IconButton } from "@/components/ui/IconButton";
 import { TitleInput } from "@/components/ui/TitleInput";
+import { Check } from "lucide-react";
 
 interface PlaylistTitleEditProps {
   tempName: string;
@@ -30,7 +31,7 @@ export const PlaylistTitleEdit = ({
       />
       <div className="flex items-center gap-1 ml-4 animate-in slide-in-from-left-4 duration-500">
         <IconButton
-          icon="check"
+          icon={Check}
           onMouseDown={(e) => {
             e.preventDefault();
             handleSave();

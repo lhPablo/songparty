@@ -11,7 +11,9 @@ import {
 
 export const useCreatePlaylist = () => {
   const [isCreating, setIsCreating] = useState(false);
-  const { setSavedPlaylistId } = usePlaylistStore();
+  const setSavedPlaylistId = usePlaylistStore(
+    (state) => state.setSavedPlaylistId,
+  );
   const router = useRouter();
 
   const createPlaylist = async () => {

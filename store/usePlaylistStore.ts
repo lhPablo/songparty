@@ -46,9 +46,15 @@ export const usePlaylistStore = create<PlaylistState>()(
         }));
       },
 
-      setPlaylistName: (name) => set({ playlistName: name }),
+      setPlaylistName: (name) => {
+        if (get().playlistName === name) return;
+        set({ playlistName: name });
+      },
 
-      setIsLocked: (isLocked) => set({ isLocked }),
+      setIsLocked: (isLocked) => {
+        if (get().isLocked === isLocked) return;
+        set({ isLocked });
+      },
 
       setIsSaving: (isSaving) => set({ isSaving }),
 
@@ -59,7 +65,16 @@ export const usePlaylistStore = create<PlaylistState>()(
 
       setIsShowQr: (show) => set({ isShowQr: show }),
 
-      setSongs: (songs) => set({ selectedSongs: songs }),
+      setSongs: (songs) => {
+        const currentSongs = get().selectedSongs;
+        if (
+          currentSongs.length === songs.length &&
+          JSON.stringify(currentSongs) === JSON.stringify(songs)
+        ) {
+          return;
+        }
+        set({ selectedSongs: songs });
+      },
 
       reorderSongs: (startIndex, endIndex) => {
         set((state) => {

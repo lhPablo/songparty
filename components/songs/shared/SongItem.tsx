@@ -1,5 +1,7 @@
 "use client";
 
+import { Music } from "lucide-react";
+
 import { Song } from "@/lib/types/domain/song";
 import Image from "next/image";
 import React from "react";
@@ -10,8 +12,6 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
   const {
     imgError,
     setImgError,
-    isHovered,
-    setIsHovered,
     isSelected,
     useNextImage,
     handleToggle,
@@ -43,9 +43,7 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
               />
             )
           ) : (
-            <span className="material-symbols-outlined text-gray-400">
-              music_note
-            </span>
+            <Music size={24} className="text-gray-400" />
           )}
         </div>
         <div>
@@ -58,11 +56,8 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
       <SongItemActions
         lyricsUrl={song.lyricsUrl}
         isSelected={isSelected}
-        isHovered={isHovered}
         canEdit={!isLocked || isOwner}
         onToggle={handleToggle}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       />
     </>
   );

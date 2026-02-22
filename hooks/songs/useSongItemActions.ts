@@ -7,17 +7,16 @@ import { ALLOWED_IMAGE_DOMAINS } from "@/lib/constants/images";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 import { useIsMounted } from "../shared/useIsMounted";
 import { useSearchParams } from "next/navigation";
+import { usePlaylistPersistence } from "../playlist/usePlaylistPersistence";
 
 export const useSongItemActions = (song: Song) => {
   const [imgError, setImgError] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const isMounted = useIsMounted();
 
   const addSong = usePlaylistStore((state) => state.addSong);
   const removeSong = usePlaylistStore((state) => state.removeSong);
   const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
   const isLocked = usePlaylistStore((state) => state.isLocked);
-  const selectedSongs = usePlaylistStore((state) => state.selectedSongs);
   const playlistName = usePlaylistStore((state) => state.playlistName);
 
   const searchParams = useSearchParams();
@@ -29,9 +28,13 @@ export const useSongItemActions = (song: Song) => {
 
   const isSelected = isMounted ? isSelectedInStore : false;
 
-  const handleToggle = useCallback(async () => {
-    const canModify = !isLocked || !!ownerToken;
+  const [isActionProcessing, setIsActionProcessing] = useState(false);
+  const { syncPlaylist } = usePlaylistPersistence();
 
+  const handleToggle = useCallback(async () => {
+    if (isActionProcessing) return;
+
+    const canModify = !isLocked || !!ownerToken;
     if (!canModify) {
       console.warn(
         "No tienes permiso para modificar esta lista (está bloqueada)",
@@ -39,44 +42,34 @@ export const useSongItemActions = (song: Song) => {
       return;
     }
 
-    if (isSelectedInStore) {
-      removeSong(song.id);
-    } else {
-      addSong(song);
-    }
+    setIsActionProcessing(true);
 
-    if (savedPlaylistId && isMounted) {
-      try {
-        const { updatePlaylist } = await import("@/actions/playlist");
-        const newSongs = isSelectedInStore
-          ? selectedSongs.filter((s) => s.id !== song.id)
-          : [...selectedSongs, song];
+    try {
+      const currentState = usePlaylistStore.getState();
+      const isCurrentlySelected = currentState.selectedSongs.some(
+        (s) => s.id === song.id,
+      );
 
-        await updatePlaylist(
-          savedPlaylistId,
-          newSongs,
-          playlistName,
-          isLocked,
-          ownerToken || undefined,
-        );
-      } catch (error) {
-        console.error(
-          "Error al sincronizar con la playlist compartida:",
-          error,
-        );
+      if (isCurrentlySelected) {
+        removeSong(song.id);
+      } else {
+        addSong(song);
       }
+
+      await syncPlaylist();
+    } catch (error) {
+      console.error("Error al gestionar la canción:", error);
+    } finally {
+      setIsActionProcessing(false);
     }
   }, [
+    isActionProcessing,
     isLocked,
     ownerToken,
-    isSelectedInStore,
     removeSong,
     song,
     addSong,
-    savedPlaylistId,
-    isMounted,
-    selectedSongs,
-    playlistName,
+    syncPlaylist,
   ]);
 
   const isAllowedDomain = useCallback((url: string) => {
@@ -93,8 +86,6 @@ export const useSongItemActions = (song: Song) => {
   return {
     imgError,
     setImgError,
-    isHovered,
-    setIsHovered,
     isSelected,
     useNextImage,
     handleToggle,

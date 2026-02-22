@@ -4,6 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { Button } from "@/components/ui/Button";
 import { usePlaylistShareCard } from "@/hooks/playlist/usePlaylistShareCard";
 import { useIsMounted } from "@/hooks/shared/useIsMounted";
+import { Share2, Check, Copy, Printer, ArrowLeft } from "lucide-react";
 
 export const QRViewer = () => {
   const {
@@ -51,7 +52,7 @@ export const QRViewer = () => {
         <div className="w-full space-y-3 lg:space-y-4 pt-4 lg:pt-6 border-t border-white/5">
           <Button
             variant="primary"
-            icon="share"
+            icon={Share2}
             className="w-full h-12 lg:h-14 rounded-2xl text-md font-bold shadow-xl shadow-primary/20 animate-pulse-subtle"
             onClick={handleShare}
           >
@@ -61,7 +62,7 @@ export const QRViewer = () => {
           <div className="grid grid-cols-2 gap-3">
             <Button
               variant="secondary"
-              icon={copied ? "check" : "content_copy"}
+              icon={copied ? Check : Copy}
               className={`w-full h-11 lg:h-13 rounded-2xl text-[10px] uppercase font-bold transition-all duration-300 ${copied ? "!bg-green-500 !text-white !border-green-500" : ""}`}
               onClick={handleCopyLink}
             >
@@ -69,7 +70,7 @@ export const QRViewer = () => {
             </Button>
             <Button
               variant="secondary"
-              icon="print"
+              icon={Printer}
               className="w-full h-11 lg:h-13 rounded-2xl text-[10px] uppercase font-bold"
               onClick={handlePrint}
             >
@@ -80,7 +81,7 @@ export const QRViewer = () => {
           <Button
             variant="transparent"
             className="w-full h-10 lg:h-11 rounded-xl uppercase tracking-widest text-[10px] font-black text-white/40 hover:text-white"
-            icon="keyboard_backspace"
+            icon={ArrowLeft}
             onClick={handleClose}
           >
             Volver a la edición

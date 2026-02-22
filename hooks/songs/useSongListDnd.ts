@@ -10,9 +10,11 @@ import {
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { Song } from "@/lib/types/domain/song";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
+import { usePlaylistPersistence } from "../playlist/usePlaylistPersistence";
 
 export const useSongListDnd = (songs: Song[]) => {
   const reorderSongs = usePlaylistStore((state) => state.reorderSongs);
+  const { syncPlaylist } = usePlaylistPersistence();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -25,13 +27,20 @@ export const useSongListDnd = (songs: Song[]) => {
     }),
   );
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
       const oldIndex = songs.findIndex((s) => s.id.toString() === active.id);
       const newIndex = songs.findIndex((s) => s.id.toString() === over.id);
+
       reorderSongs(oldIndex, newIndex);
+
+      try {
+        await syncPlaylist();
+      } catch (error) {
+        console.error("Error al sincronizar orden con el backend:", error);
+      }
     }
   };
 

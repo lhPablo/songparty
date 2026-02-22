@@ -8,12 +8,14 @@ const beVietnamPro = Be_Vietnam_Pro({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
   variable: "--font-display",
+  display: "block",
 });
 
 const notoSans = Noto_Sans({
   weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-body",
+  display: "block",
 });
 
 export const metadata: Metadata = {

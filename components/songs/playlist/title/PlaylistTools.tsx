@@ -6,6 +6,7 @@ import { StatusToggle } from "@/components/ui/StatusToggle";
 import { usePlaylistActions } from "@/hooks/playlist/usePlaylistActions";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 import { useIsMounted } from "@/hooks/shared/useIsMounted";
+import { CirclePlus, QrCode, Users, Lock, LockOpen } from "lucide-react";
 
 interface PlaylistToolsProps {
   playlistId: string;
@@ -32,7 +33,7 @@ export const PlaylistTools = ({ playlistId }: PlaylistToolsProps) => {
           <Link
             href={`/playlist/${playlistId}/search${isOwner && ownerToken ? `?${URL_TOKEN_PARAM}=${ownerToken}` : ""}`}
           >
-            <Button icon="add_circle" className="rounded-xl">
+            <Button icon={CirclePlus} className="rounded-xl">
               Añadir Canciones
             </Button>
           </Link>
@@ -40,7 +41,7 @@ export const PlaylistTools = ({ playlistId }: PlaylistToolsProps) => {
 
         <Button
           variant="secondary"
-          icon="qr_code_2"
+          icon={QrCode}
           className="rounded-xl"
           onClick={() => setIsShowQr(true)}
         >
@@ -53,14 +54,14 @@ export const PlaylistTools = ({ playlistId }: PlaylistToolsProps) => {
             onChange={() => setIsLocked(!isLocked)}
             falseOption={{
               label: "Colaborativa",
-              icon: "groups",
+              icon: Users,
               activeBg: "bg-green-500",
               activeShadow: "shadow-green-500/20",
               inactiveText: "text-green-600",
             }}
             trueOption={{
               label: "Solo Lectura",
-              icon: "lock",
+              icon: Lock,
               activeBg: "bg-amber-500",
               activeShadow: "shadow-amber-500/20",
               inactiveText: "text-amber-600",

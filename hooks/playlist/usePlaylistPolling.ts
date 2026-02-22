@@ -5,7 +5,7 @@ import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { Song } from "@/lib/types/domain/song";
 import { getPlaylist } from "@/actions/playlist";
 
-const POLL_INTERVAL_MS = 5000;
+const POLL_INTERVAL_MS = 10000;
 const INACTIVITY_THRESHOLD_MS = 3 * 60 * 1000; // 3 minutes
 const ACTIVITY_EVENTS: (keyof WindowEventMap)[] = [
   "keydown",
@@ -14,23 +14,25 @@ const ACTIVITY_EVENTS: (keyof WindowEventMap)[] = [
   "scroll",
 ];
 
-interface UseSyncSharedPlaylistProps {
+interface UsePlaylistPollingProps {
   id: string;
   songs: Song[];
   isLocked: boolean;
   title: string;
-  ownerToken?: string;
 }
 
-export const useSyncSharedPlaylist = ({
+export const usePlaylistPolling = ({
   id,
   songs,
   isLocked,
   title,
-  ownerToken,
-}: UseSyncSharedPlaylistProps) => {
-  const { setSongs, setSavedPlaylistId, setIsLocked, setPlaylistName } =
-    usePlaylistStore();
+}: UsePlaylistPollingProps) => {
+  const setSongs = usePlaylistStore((state) => state.setSongs);
+  const setSavedPlaylistId = usePlaylistStore(
+    (state) => state.setSavedPlaylistId,
+  );
+  const setIsLocked = usePlaylistStore((state) => state.setIsLocked);
+  const setPlaylistName = usePlaylistStore((state) => state.setPlaylistName);
   const lastActivityRef = useRef(Date.now());
 
   useEffect(() => {
@@ -43,7 +45,6 @@ export const useSyncSharedPlaylist = ({
     songs,
     isLocked,
     title,
-    ownerToken,
     setSongs,
     setSavedPlaylistId,
     setIsLocked,
@@ -64,12 +65,16 @@ export const useSyncSharedPlaylist = ({
       if (Date.now() - lastActivityRef.current > INACTIVITY_THRESHOLD_MS)
         return;
 
-      const playlist = await getPlaylist(id);
-      if (!playlist) return;
+      try {
+        const playlist = await getPlaylist(id);
+        if (!playlist) return;
 
-      setSongs(playlist.songs);
-      setIsLocked(playlist.isLocked);
-      setPlaylistName(playlist.title);
+        setSongs(playlist.songs);
+        setIsLocked(playlist.isLocked);
+        setPlaylistName(playlist.title);
+      } catch (error) {
+        console.error("Error during playlist polling:", error);
+      }
     };
 
     const interval = setInterval(poll, POLL_INTERVAL_MS);

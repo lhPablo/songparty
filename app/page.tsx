@@ -4,6 +4,7 @@ import { QRScanner } from "@/components/qr/QRScanner";
 import { Button } from "@/components/ui/Button";
 import { Divider } from "@/components/ui/Divider";
 import { useCreatePlaylist } from "@/hooks/playlist/useCreatePlaylist";
+import { PlusCircle } from "lucide-react";
 
 export default function HomePage() {
   const { createPlaylist, isCreating } = useCreatePlaylist();
@@ -26,7 +27,7 @@ export default function HomePage() {
               onClick={createPlaylist}
               disabled={isCreating}
               className="w-full h-16 text-lg font-bold rounded-2xl shadow-2xl dark:shadow-white/5"
-              icon="add_circle"
+              icon={PlusCircle}
             >
               {isCreating ? "Creando..." : "Crear Nueva Lista"}
             </Button>

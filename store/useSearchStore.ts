@@ -21,7 +21,7 @@ interface SearchState {
   // Actions
   setSongQuery: (query: string) => void;
   setAuthorQuery: (query: string) => void;
-  applyFilters: () => void;
+  applyFilters: (songQuery?: string, authorQuery?: string) => void;
   resetFilters: () => void;
 
   // High-level UI sync
@@ -42,10 +42,11 @@ export const useSearchStore = create<SearchState>((set, get) => ({
   setSongQuery: (query) => set({ songQuery: query }),
   setAuthorQuery: (query) => set({ authorQuery: query }),
 
-  applyFilters: () =>
+  applyFilters: (songQuery?: string, authorQuery?: string) =>
     set((state) => ({
-      appliedSongQuery: state.songQuery,
-      appliedAuthorQuery: state.authorQuery,
+      appliedSongQuery: songQuery !== undefined ? songQuery : state.songQuery,
+      appliedAuthorQuery:
+        authorQuery !== undefined ? authorQuery : state.authorQuery,
       hasSearched: true,
       showEmptyMessage: false,
       showLoading: true,

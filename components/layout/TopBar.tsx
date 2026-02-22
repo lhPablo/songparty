@@ -8,10 +8,9 @@ import { useSearchParams } from "next/navigation";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 
 export const TopBar = () => {
-  const selectedSongs = usePlaylistStore((state) => state.selectedSongs);
+  const count = usePlaylistStore((state) => state.selectedSongs.length);
   const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
   const playlistName = usePlaylistStore((state) => state.playlistName);
-  const count = selectedSongs.length;
 
   const searchParams = useSearchParams();
   const token = searchParams.get(URL_TOKEN_PARAM);

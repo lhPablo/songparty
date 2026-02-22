@@ -5,35 +5,47 @@ import { savePlaylist } from "@/actions/playlist";
 import { useIsMounted } from "../shared/useIsMounted";
 import { useSearchParams } from "next/navigation";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
+import { usePlaylistPersistence } from "./usePlaylistPersistence";
 
 export const usePlaylistActions = () => {
   const isMounted = useIsMounted();
   const searchParams = useSearchParams();
   const urlToken = searchParams.get(URL_TOKEN_PARAM);
+  const { syncPlaylist } = usePlaylistPersistence();
 
-  const {
-    selectedSongs: selectedSongsStore,
-    playlistName: playlistNameStore,
-    clearPlaylist,
-    isLocked: isLockedStore,
-    setIsLocked,
-    isSaving,
-    setIsSaving,
-    savedPlaylistId,
-    setSavedPlaylistId,
-    isShowQr: isShowQrStore,
-    setIsShowQr,
-  } = usePlaylistStore();
+  const playlistNameStore = usePlaylistStore((state) => state.playlistName);
+  const clearPlaylist = usePlaylistStore((state) => state.clearPlaylist);
+  const isLockedStore = usePlaylistStore((state) => state.isLocked);
+  const setIsLockedStore = usePlaylistStore((state) => state.setIsLocked);
+  const isSaving = usePlaylistStore((state) => state.isSaving);
+  const setIsSaving = usePlaylistStore((state) => state.setIsSaving);
+  const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
+  const setSavedPlaylistId = usePlaylistStore(
+    (state) => state.setSavedPlaylistId,
+  );
+  const isShowQrStore = usePlaylistStore((state) => state.isShowQr);
+  const setIsShowQr = usePlaylistStore((state) => state.setIsShowQr);
 
   const isOwner = isMounted ? !!urlToken : false;
   const isShowQr = isMounted ? isShowQrStore : false;
   const isLocked = isMounted ? isLockedStore : false;
-  const selectedSongs = isMounted ? selectedSongsStore : [];
   const playlistName = isMounted ? playlistNameStore : "Mi lista";
+
+  const handleToggleLocked = async (newLocked: boolean) => {
+    setIsLockedStore(newLocked);
+    if (savedPlaylistId) {
+      try {
+        await syncPlaylist({ isLocked: newLocked });
+      } catch (error) {
+        console.error("Error al sincronizar bloqueo:", error);
+      }
+    }
+  };
 
   const handleGenerateQR = async () => {
     try {
       setIsSaving(true);
+      const selectedSongs = usePlaylistStore.getState().selectedSongs;
       const { playlistId, ownerToken: _ } = await savePlaylist(
         selectedSongs,
         playlistName,
@@ -51,10 +63,9 @@ export const usePlaylistActions = () => {
   };
 
   return {
-    selectedSongs,
     playlistName,
     isLocked,
-    setIsLocked,
+    setIsLocked: handleToggleLocked,
     isSaving,
     savedPlaylistId,
     isShowQr,

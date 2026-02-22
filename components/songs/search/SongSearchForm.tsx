@@ -4,22 +4,22 @@ import React from "react";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { ToggleGroup } from "@/components/ui/ToggleGroup";
 import { useSongSearchForm } from "@/hooks/songs/useSongSearchForm";
+import { Type, User } from "lucide-react";
+
+const searchOptions = [
+  { value: "song", label: "Título", icon: Type },
+  { value: "author", label: "Artista", icon: User },
+];
 
 export const SongSearchForm = React.memo(() => {
   const {
+    inputRef,
     searchType,
-    currentQuery,
     searchPlaceholder,
     handleTypeChange,
-    handleQueryChange,
     handleSubmit,
     applyFilters,
   } = useSongSearchForm();
-
-  const searchOptions = [
-    { value: "song", label: "Título", icon: "title" },
-    { value: "author", label: "Artista", icon: "person" },
-  ];
 
   return (
     <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
@@ -33,9 +33,8 @@ export const SongSearchForm = React.memo(() => {
       </div>
       <div className="w-full max-w-4xl mx-auto mb-4">
         <SearchInput
+          ref={inputRef}
           placeholder={searchPlaceholder}
-          value={currentQuery}
-          onChange={handleQueryChange}
           onSearch={applyFilters}
         />
       </div>

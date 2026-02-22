@@ -2,6 +2,7 @@
 
 import { useSearchStore } from "@/store/useSearchStore";
 import { Song } from "@/lib/types/domain/song";
+import { SearchX, Music } from "lucide-react";
 
 interface UseSongSearchResultsProps {
   songs: Song[];
@@ -23,7 +24,7 @@ export const useSongSearchResults = ({
     message: hasSearched
       ? "No se han encontrado canciones, prueba con otra búsqueda"
       : "Busca tus canciones favoritas para empezar la fiesta",
-    icon: hasSearched ? "search_off" : "library_music",
+    icon: hasSearched ? SearchX : Music,
   };
 
   return {

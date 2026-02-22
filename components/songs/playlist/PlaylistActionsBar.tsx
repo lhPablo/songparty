@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/Button";
 import { StatusToggle } from "@/components/ui/StatusToggle";
 import { usePlaylistActions } from "@/hooks/playlist/usePlaylistActions";
+import { Lock, Trash2, QrCode, UserPlus } from "lucide-react";
 
 export const PlaylistActionsBar = () => {
   const { clearPlaylist, handleGenerateQR, isSaving, isLocked, setIsLocked } =
@@ -17,14 +18,14 @@ export const PlaylistActionsBar = () => {
             onChange={() => setIsLocked(!isLocked)}
             falseOption={{
               label: "Colaborativa",
-              icon: "group_add",
+              icon: UserPlus,
               activeBg: "bg-green-500",
               activeShadow: "shadow-green-500/20",
               inactiveText: "text-green-700 dark:text-green-400",
             }}
             trueOption={{
               label: "Solo lectura",
-              icon: "lock",
+              icon: Lock,
               activeBg: "bg-amber-500",
               activeShadow: "shadow-amber-500/20",
               inactiveText: "text-amber-700 dark:text-amber-400",
@@ -33,11 +34,11 @@ export const PlaylistActionsBar = () => {
 
           <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-1 hidden md:block" />
 
-          <Button variant="destructive" icon="delete" onClick={clearPlaylist}>
+          <Button variant="destructive" icon={Trash2} onClick={clearPlaylist}>
             Vaciar
           </Button>
 
-          <Button icon="qr_code" loading={isSaving} onClick={handleGenerateQR}>
+          <Button icon={QrCode} loading={isSaving} onClick={handleGenerateQR}>
             Generar QR
           </Button>
         </div>

@@ -4,6 +4,7 @@ import { ListPlaceholder } from "../shared/ListPlaceholder";
 import { SongSearchForm } from "./SongSearchForm";
 import { SongSearchResults } from "./SongSearchResults";
 import { useSongSearch } from "@/hooks/songs/useSongSearch";
+import { CircleAlert } from "lucide-react";
 
 export const SongSearchSection = () => {
   const { songs, hasSearched, status, error, observerRef } = useSongSearch();
@@ -16,7 +17,7 @@ export const SongSearchSection = () => {
         {status === "error" && error && (
           <ListPlaceholder
             message={error instanceof Error ? error.message : String(error)}
-            icon="error"
+            icon={CircleAlert}
           />
         )}
 

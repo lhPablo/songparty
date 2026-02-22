@@ -1,5 +1,7 @@
 "use client";
 
+import { Pencil } from "lucide-react";
+
 interface PlaylistTitleViewProps {
   playlistName: string;
   isOwner: boolean;
@@ -30,7 +32,7 @@ export const PlaylistTitleView = ({
       {isOwner && (
         <div className="flex items-center opacity-100 md:opacity-0 md:-translate-x-2 md:group-hover/title:opacity-100 md:group-hover/title:translate-x-0 transition-all duration-300">
           <div className="p-2 rounded-full bg-gray-100 dark:bg-white/5 text-text-muted hover:text-primary transition-colors">
-            <span className="material-symbols-outlined text-[20px]">edit</span>
+            <Pencil size={20} />
           </div>
         </div>
       )}

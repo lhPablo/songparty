@@ -6,8 +6,13 @@ import { useSearchParams } from "next/navigation";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 import { useIsMounted } from "../shared/useIsMounted";
 
+import { usePlaylistPersistence } from "./usePlaylistPersistence";
+
 export const usePlaylistTitle = () => {
-  const { playlistName, setPlaylistName, savedPlaylistId, selectedSongs, isLocked } = usePlaylistStore();
+  const playlistName = usePlaylistStore((state) => state.playlistName);
+  const setPlaylistName = usePlaylistStore((state) => state.setPlaylistName);
+  const { syncPlaylist } = usePlaylistPersistence();
+
   const searchParams = useSearchParams();
   const urlToken = searchParams.get(URL_TOKEN_PARAM);
 
@@ -41,13 +46,10 @@ export const usePlaylistTitle = () => {
     setPlaylistName(trimmed);
     setIsEditing(false);
 
-    if (savedPlaylistId && urlToken) {
-      try {
-        const { updatePlaylist } = await import("@/actions/playlist");
-        await updatePlaylist(savedPlaylistId, selectedSongs, trimmed, isLocked, urlToken);
-      } catch (error) {
-        console.error("Error al guardar el título:", error);
-      }
+    try {
+      await syncPlaylist({ title: trimmed });
+    } catch (error) {
+      console.error("Error al guardar el título:", error);
     }
   };
 

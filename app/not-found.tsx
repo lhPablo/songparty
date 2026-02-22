@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HeadphoneOff, Home } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -9,9 +10,10 @@ export default function NotFound() {
             <p className="text-8xl md:text-9xl font-black font-display text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff6ec7] to-primary tracking-tight">
               404
             </p>
-            <span className="material-symbols-outlined !text-6xl text-primary neon-text block">
-              music_off
-            </span>
+            <HeadphoneOff
+              size={64}
+              className="mx-auto text-primary neon-text"
+            />
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
               Página no encontrada
             </h1>
@@ -24,9 +26,7 @@ export default function NotFound() {
             href="/"
             className="group flex items-center justify-center gap-2 px-6 h-12 rounded-xl font-medium transition-all duration-300 bg-primary/10 text-primary hover:bg-primary hover:text-white border border-primary/20"
           >
-            <span className="material-symbols-outlined text-xl group-hover:animate-shake">
-              home
-            </span>
+            <Home size={20} className="group-hover:animate-shake" />
             <span className="leading-none">Volver al inicio</span>
           </Link>
         </div>

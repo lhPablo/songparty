@@ -4,6 +4,7 @@ import { Song } from "@/lib/types/domain/song";
 import { SongItem } from "./SongItem";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { GripVertical } from "lucide-react";
 
 interface SortableSongItemProps {
   song: Song;
@@ -42,9 +43,7 @@ export const SortableSongItem = ({ song }: SortableSongItemProps) => {
         {...listeners}
         className="text-gray-400 hover:text-primary cursor-grab active:cursor-grabbing p-1 mr-2 shrink-0 touch-none"
       >
-        <span className="material-symbols-outlined text-[24px]">
-          drag_indicator
-        </span>
+        <GripVertical size={24} />
       </div>
       <div className="flex items-center justify-between flex-1 w-full">
         <SongItem song={song} />

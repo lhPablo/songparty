@@ -5,12 +5,12 @@ import { useSearchStore } from "@/store/useSearchStore";
 import { useInfiniteSongs } from "./useInfiniteSongs";
 
 export const useSongSearch = () => {
-  const {
-    appliedSongQuery,
-    appliedAuthorQuery,
-    hasSearched,
-    syncLoadingState,
-  } = useSearchStore();
+  const appliedSongQuery = useSearchStore((state) => state.appliedSongQuery);
+  const appliedAuthorQuery = useSearchStore(
+    (state) => state.appliedAuthorQuery,
+  );
+  const hasSearched = useSearchStore((state) => state.hasSearched);
+  const syncLoadingState = useSearchStore((state) => state.syncLoadingState);
   const observerRef = useRef<HTMLDivElement>(null);
 
   const {

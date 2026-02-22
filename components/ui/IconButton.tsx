@@ -1,21 +1,24 @@
 "use client";
 
-import { ComponentPropsWithoutRef } from "react";
+import React, { ComponentPropsWithoutRef } from "react";
+import { LucideIcon } from "lucide-react";
 
 interface IconButtonProps extends ComponentPropsWithoutRef<"button"> {
-  icon: string;
+  icon: LucideIcon;
   iconClassName?: string;
+  iconSize?: number;
 }
 
-export const IconButton = ({
-  icon,
-  iconClassName = "",
-  className = "",
-  ...props
-}: IconButtonProps) => {
-  return (
-    <button
-      className={`
+export const IconButton = React.memo(
+  ({
+    icon: Icon,
+    iconClassName = "",
+    className = "",
+    ...props
+  }: IconButtonProps) => {
+    return (
+      <button
+        className={`
         flex items-center justify-center 
         p-2 
         rounded-full 
@@ -28,13 +31,15 @@ export const IconButton = ({
         shrink-0 
         ${className}
       `}
-      {...props}
-    >
-      <span
-        className={`material-symbols-outlined text-[24px] transition-transform duration-200 ${iconClassName}`}
+        {...props}
       >
-        {icon}
-      </span>
-    </button>
-  );
-};
+        <Icon
+          size={20}
+          className={`transition-transform duration-200 ${iconClassName}`}
+        />
+      </button>
+    );
+  },
+);
+
+IconButton.displayName = "IconButton";

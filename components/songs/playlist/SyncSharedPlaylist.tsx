@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncSharedPlaylist } from "@/hooks/playlist/useSyncSharedPlaylist";
+import { usePlaylistPolling } from "@/hooks/playlist/usePlaylistPolling";
 import { Song } from "@/lib/types/domain/song";
 
 interface SyncSharedPlaylistProps {
@@ -8,10 +8,9 @@ interface SyncSharedPlaylistProps {
   songs: Song[];
   isLocked: boolean;
   title: string;
-  ownerToken?: string;
 }
 
 export const SyncSharedPlaylist = (props: SyncSharedPlaylistProps) => {
-  useSyncSharedPlaylist(props);
+  usePlaylistPolling(props);
   return null;
 };

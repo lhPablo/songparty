@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/Button";
 import { useQRScanner } from "@/hooks/qr/useQRScanner";
+import { ScanQrCode } from "lucide-react";
 
 export const QRScanner = () => {
   const {
@@ -28,7 +29,7 @@ export const QRScanner = () => {
 
       <Button
         className="w-full h-16 text-lg font-bold rounded-2xl shadow-2xl dark:shadow-white/5"
-        icon="qr_code_scanner"
+        icon={ScanQrCode}
         onClick={handleButtonClick}
         disabled={isScanning}
       >

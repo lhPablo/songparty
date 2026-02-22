@@ -1,9 +1,9 @@
+import { LoaderCircle } from "lucide-react";
+
 export const Loading = () => {
   return (
     <div className="flex items-center gap-2 text-primary animate-pulse">
-      <span className="material-symbols-outlined animate-spin">
-        progress_activity
-      </span>
+      <LoaderCircle size={24} className="animate-spin" />
       <span>Cargando canciones...</span>
     </div>
   );

@@ -1,11 +1,12 @@
 import { getPlaylist } from "@/actions/playlist";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { SongSearchForm } from "@/components/songs/search/SongSearchForm";
 import { SongListData } from "@/components/songs/search/SongListData";
 import { SyncSharedPlaylist } from "@/components/songs/playlist/SyncSharedPlaylist";
 import { SearchAccessDenied } from "@/components/songs/search/SearchAccessDenied";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
-import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -47,9 +48,7 @@ export default async function PlaylistSearchPage({
               href={`/playlist/${id}${token ? `?${URL_TOKEN_PARAM}=${token}` : ""}`}
               className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
             >
-              <span className="material-symbols-outlined text-xl">
-                arrow_back
-              </span>
+              <ArrowLeft className="size-5" />
               Volver a {playlist.title}
             </Link>
           </div>
@@ -57,7 +56,7 @@ export default async function PlaylistSearchPage({
           <div className="flex flex-col gap-6">
             <div className="space-y-2">
               <h1 className="text-gray-900 dark:text-white tracking-tight text-[32px] md:text-[48px] font-black leading-tight">
-                Buscar Canciones
+                Buscador de canciones
               </h1>
               <p className="text-gray-500 dark:text-gray-400">
                 Añade canciones a{" "}

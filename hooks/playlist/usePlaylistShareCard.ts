@@ -5,7 +5,9 @@ import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { usePlaylistShareActions } from "./usePlaylistShareActions";
 
 export const usePlaylistShareCard = () => {
-  const { savedPlaylistId, setIsShowQr, playlistName } = usePlaylistStore();
+  const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
+  const setIsShowQr = usePlaylistStore((state) => state.setIsShowQr);
+  const playlistName = usePlaylistStore((state) => state.playlistName);
 
   const {
     handlePrint,

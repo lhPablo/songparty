@@ -7,6 +7,7 @@ import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useIsMounted } from "@/hooks/shared/useIsMounted";
 import { Playlist } from "@/lib/types/domain/playlist";
 import { QRViewer } from "@/components/qr/QRViewer";
+import { HeadphoneOff } from "lucide-react";
 
 interface MainPlaylistViewProps {
   playlist: Playlist;
@@ -20,6 +21,7 @@ export const MainPlaylistView = ({
   const isMounted = useIsMounted();
   const isShowQr = usePlaylistStore((state) => state.isShowQr);
   const selectedSongs = usePlaylistStore((state) => state.selectedSongs);
+  const isLocked = usePlaylistStore((state) => state.isLocked);
   const hasSongs = selectedSongs.length > 0;
 
   if (!isMounted) return null;
@@ -36,7 +38,6 @@ export const MainPlaylistView = ({
         }`}
       >
         <PlaylistHeader
-          isLocked={playlist.isLocked}
           createdAt={playlist.createdAt}
           playlistId={playlistId}
         />
@@ -49,12 +50,12 @@ export const MainPlaylistView = ({
       ) : (
         <div className="animate-zoom-in w-full">
           {hasSongs ? (
-            <SongList songs={selectedSongs} isSortable={!playlist.isLocked} />
+            <SongList songs={selectedSongs} isSortable={!isLocked} />
           ) : (
             <div className="flex flex-col items-center gap-6 py-20">
               <ListPlaceholder
                 message="Esta lista no tiene canciones todavía."
-                icon="music_off"
+                icon={HeadphoneOff}
               />
             </div>
           )}

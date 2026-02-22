@@ -1,8 +1,10 @@
 "use client";
 
+import { LucideIcon } from "lucide-react";
+
 interface ToggleOption {
   label: string;
-  icon: string;
+  icon: LucideIcon;
   activeBg: string;
   activeShadow: string;
   inactiveText: string;
@@ -23,6 +25,9 @@ export const StatusToggle = ({
   falseOption,
   className = "",
 }: StatusToggleProps) => {
+  const FalseIcon = falseOption.icon;
+  const TrueIcon = checked ? trueOption.icon : falseOption.icon;
+
   return (
     <div
       onClick={onChange}
@@ -43,9 +48,7 @@ export const StatusToggle = ({
         ${!checked ? `${falseOption.activeBg} text-white shadow-lg ${falseOption.activeShadow}` : falseOption.inactiveText}
       `}
       >
-        <span className="material-symbols-outlined text-[18px]">
-          {falseOption.icon}
-        </span>
+        <FalseIcon size={18} />
         <span className="text-xs font-bold whitespace-nowrap">
           {falseOption.label}
         </span>
@@ -58,9 +61,7 @@ export const StatusToggle = ({
         ${checked ? `${trueOption.activeBg} text-white shadow-lg ${trueOption.activeShadow}` : trueOption.inactiveText}
       `}
       >
-        <span className="material-symbols-outlined text-[18px]">
-          {checked ? trueOption.icon : "lock_open"}
-        </span>
+        <TrueIcon size={18} />
         <span className="text-xs font-bold whitespace-nowrap">
           {trueOption.label}
         </span>

@@ -3,6 +3,7 @@
 import { ListPlaceholder } from "../shared/ListPlaceholder";
 import { SongSearchResults } from "./SongSearchResults";
 import { useSongSearch } from "@/hooks/songs/useSongSearch";
+import { CircleAlert } from "lucide-react";
 
 export const SongListData = () => {
   const { songs, hasSearched, status, error, observerRef } = useSongSearch();
@@ -12,7 +13,7 @@ export const SongListData = () => {
       {status === "error" && error && (
         <ListPlaceholder
           message={error instanceof Error ? error.message : String(error)}
-          icon="error"
+          icon={CircleAlert}
         />
       )}
 

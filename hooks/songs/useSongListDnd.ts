@@ -8,6 +8,7 @@ import {
   DragEndEvent,
 } from "@dnd-kit/core";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { sileo } from "sileo";
 import { Song } from "@/lib/types/domain/song";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { usePlaylistPersistence } from "../playlist/usePlaylistPersistence";
@@ -38,8 +39,8 @@ export const useSongListDnd = (songs: Song[]) => {
 
       try {
         await syncPlaylist();
-      } catch (error) {
-        console.error("Error al sincronizar orden con el backend:", error);
+      } catch {
+        sileo.error({ title: "Error al guardar el orden" });
       }
     }
   };

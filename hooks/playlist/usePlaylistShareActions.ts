@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import { sileo } from "sileo";
 
 export const usePlaylistShareActions = () => {
   const handlePrint = useCallback(() => {
@@ -10,10 +11,8 @@ export const usePlaylistShareActions = () => {
   const handleCopyLink = useCallback((url: string) => {
     try {
       navigator.clipboard.writeText(url);
-      console.log("URL copiada:", url);
-    } catch (err) {
-      console.error("Error al copiar el enlace:", err);
-      throw err;
+    } catch {
+      sileo.error({ title: "Error al copiar el enlace" });
     }
   }, []);
 

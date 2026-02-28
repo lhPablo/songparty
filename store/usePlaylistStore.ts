@@ -13,13 +13,13 @@ export type PlaylistState = SongsSlice &
 
 export const usePlaylistStore = create<PlaylistState>()(
   persist(
-    (...a) => ({
-      ...createSongsSlice(...a),
-      ...createAuthSlice(...a),
-      ...createUiSlice(...a),
+    (...storeApi) => ({
+      ...createSongsSlice(...storeApi),
+      ...createAuthSlice(...storeApi),
+      ...createUiSlice(...storeApi),
 
       clearPlaylist: () =>
-        a[0]({
+        storeApi[0]({
           selectedSongs: [],
           playlistName: INITIAL_PLAYLIST_STATE.title,
           isLocked: false,

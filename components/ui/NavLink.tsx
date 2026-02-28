@@ -8,7 +8,7 @@ type NavLinkProps = ComponentProps<typeof Link>;
 
 export const NavLink = ({ className, href, ...props }: NavLinkProps) => {
   const pathname = usePathname();
-  const hrefString = typeof href === "string" ? href : href.pathname || "";
+  const hrefString = typeof href === "string" ? href.split("?")[0] : href.pathname || "";
   const isActive = pathname === hrefString;
 
   return (

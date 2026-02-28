@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { sileo } from "sileo";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useIsMounted } from "../shared/useIsMounted";
-
 import { usePlaylistPersistence } from "./usePlaylistPersistence";
 
 export const usePlaylistTitle = () => {
@@ -44,8 +44,8 @@ export const usePlaylistTitle = () => {
 
     try {
       await syncPlaylist({ title: trimmed });
-    } catch (error) {
-      console.error("Error al guardar el título:", error);
+    } catch {
+      sileo.error({ title: "Error al guardar el título" });
     }
   };
 

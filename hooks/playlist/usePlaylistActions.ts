@@ -1,5 +1,6 @@
 "use client";
 
+import { sileo } from "sileo";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { savePlaylist } from "@/actions/playlist";
 import { useIsMounted } from "../shared/useIsMounted";
@@ -33,8 +34,8 @@ export const usePlaylistActions = () => {
     if (savedPlaylistId) {
       try {
         await syncPlaylist({ isLocked: newLocked });
-      } catch (error) {
-        console.error("Error al sincronizar bloqueo:", error);
+      } catch {
+        sileo.error({ title: "Error al cambiar el bloqueo" });
       }
     }
   };
@@ -42,18 +43,23 @@ export const usePlaylistActions = () => {
   const handleGenerateQR = async () => {
     try {
       setIsSaving(true);
-      const selectedSongs = usePlaylistStore.getState().selectedSongs;
-      const { playlistId, ownerToken: _ } = await savePlaylist(
-        selectedSongs,
-        playlistName,
-        isLocked,
-        savedPlaylistId,
-      );
-      setSavedPlaylistId(playlistId);
+
+      if (savedPlaylistId) {
+        await syncPlaylist();
+      } else {
+        const selectedSongs = usePlaylistStore.getState().selectedSongs;
+        const { playlistId, ownerToken: newToken } = await savePlaylist(
+          selectedSongs,
+          playlistName,
+          isLocked,
+        );
+        setSavedPlaylistId(playlistId);
+        usePlaylistStore.getState().setOwnerToken(newToken);
+      }
+
       setIsShowQr(true);
-    } catch (error) {
-      console.error("Error al guardar la playlist:", error);
-      alert("No se pudo guardar la playlist. Inténtalo de nuevo.");
+    } catch {
+      sileo.error({ title: "No se pudo guardar la playlist" });
     } finally {
       setIsSaving(false);
     }

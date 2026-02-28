@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { sileo } from "sileo";
 import { Song } from "@/lib/types/domain/song";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { ALLOWED_IMAGE_DOMAINS } from "@/lib/constants/images";
@@ -51,8 +52,8 @@ export const useSongItemActions = (song: Song) => {
       }
 
       await syncPlaylist();
-    } catch (error) {
-      console.error("Error al gestionar la canción:", error);
+    } catch {
+      sileo.error({ title: "Error al gestionar la canción" });
     } finally {
       setIsActionProcessing(false);
     }

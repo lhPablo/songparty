@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { sileo } from "sileo";
 import { savePlaylist } from "@/actions/playlist";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import {
@@ -28,13 +29,11 @@ export const useCreatePlaylist = () => {
 
       setSavedPlaylistId(playlistId);
 
-      console.log(`Playlist creada: ${playlistId}`);
-
       // Build the URL with the token for admin permissions
       const adminPath = `/playlist/${playlistId}?${URL_TOKEN_PARAM}=${ownerToken}`;
       router.push(adminPath);
-    } catch (error) {
-      console.error("Error al crear la playlist:", error);
+    } catch {
+      sileo.error({ title: "Error al crear la playlist" });
       setIsCreating(false);
     }
   };

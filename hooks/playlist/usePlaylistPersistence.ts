@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import { sileo } from "sileo";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useIsMounted } from "../shared/useIsMounted";
 import { Song } from "@/lib/types/domain/song";
@@ -36,7 +37,7 @@ export const usePlaylistPersistence = () => {
           ownerToken || undefined,
         );
       } catch (error) {
-        console.error("Error al persistir la lista:", error);
+        sileo.error({ title: "Error al sincronizar la playlist" });
         throw error;
       } finally {
         setIsSaving(false);

@@ -13,9 +13,7 @@ export const useSongItemActions = (song: Song) => {
 
   const addSong = usePlaylistStore((state) => state.addSong);
   const removeSong = usePlaylistStore((state) => state.removeSong);
-  const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
   const isLocked = usePlaylistStore((state) => state.isLocked);
-  const playlistName = usePlaylistStore((state) => state.playlistName);
   const ownerToken = usePlaylistStore((state) => state.ownerToken);
 
   const isSelectedInStore = usePlaylistStore((state) =>

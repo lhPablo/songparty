@@ -4,9 +4,7 @@ import { useState, useCallback } from "react";
 import { Song } from "@/lib/types/domain/song";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { ALLOWED_IMAGE_DOMAINS } from "@/lib/constants/images";
-import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 import { useIsMounted } from "../shared/useIsMounted";
-import { useSearchParams } from "next/navigation";
 import { usePlaylistPersistence } from "../playlist/usePlaylistPersistence";
 
 export const useSongItemActions = (song: Song) => {
@@ -18,9 +16,7 @@ export const useSongItemActions = (song: Song) => {
   const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
   const isLocked = usePlaylistStore((state) => state.isLocked);
   const playlistName = usePlaylistStore((state) => state.playlistName);
-
-  const searchParams = useSearchParams();
-  const ownerToken = searchParams.get(URL_TOKEN_PARAM);
+  const ownerToken = usePlaylistStore((state) => state.ownerToken);
 
   const isSelectedInStore = usePlaylistStore((state) =>
     state.selectedSongs.some((s) => s.id === song.id),

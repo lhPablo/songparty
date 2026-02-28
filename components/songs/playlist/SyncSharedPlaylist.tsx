@@ -1,6 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { usePlaylistPolling } from "@/hooks/playlist/usePlaylistPolling";
+import { usePlaylistStore } from "@/store/usePlaylistStore";
+import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 import { Song } from "@/lib/types/domain/song";
 
 interface SyncSharedPlaylistProps {
@@ -11,6 +15,14 @@ interface SyncSharedPlaylistProps {
 }
 
 export const SyncSharedPlaylist = (props: SyncSharedPlaylistProps) => {
+  const searchParams = useSearchParams();
+  const setOwnerToken = usePlaylistStore((state) => state.setOwnerToken);
+
+  useEffect(() => {
+    const token = searchParams.get(URL_TOKEN_PARAM);
+    setOwnerToken(token);
+  }, [searchParams, setOwnerToken]);
+
   usePlaylistPolling(props);
   return null;
 };

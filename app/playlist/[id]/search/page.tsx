@@ -39,7 +39,6 @@ export default async function PlaylistSearchPage({
         songs={playlist.songs}
         isLocked={playlist.isLocked}
         title={playlist.title}
-        ownerToken={token}
       />
       <div className="flex-1 flex flex-col items-center">
         <section className="layout-content-container flex flex-col w-full max-w-7xl flex-1 py-8 px-4">

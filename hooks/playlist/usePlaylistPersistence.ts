@@ -2,17 +2,14 @@
 
 import { useCallback } from "react";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
-import { useSearchParams } from "next/navigation";
-import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 import { useIsMounted } from "../shared/useIsMounted";
 import { Song } from "@/lib/types/domain/song";
 
 export const usePlaylistPersistence = () => {
   const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
   const setIsSaving = usePlaylistStore((state) => state.setIsSaving);
+  const ownerToken = usePlaylistStore((state) => state.ownerToken);
   const isMounted = useIsMounted();
-  const searchParams = useSearchParams();
-  const ownerToken = searchParams.get(URL_TOKEN_PARAM);
 
   const syncPlaylist = useCallback(
     async (overrides?: {

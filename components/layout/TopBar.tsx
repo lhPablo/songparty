@@ -4,19 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { NavLink } from "@/components/ui/NavLink";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
-import { useSearchParams } from "next/navigation";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 
 export const TopBar = () => {
   const count = usePlaylistStore((state) => state.selectedSongs.length);
   const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
   const playlistName = usePlaylistStore((state) => state.playlistName);
-
-  const searchParams = useSearchParams();
-  const token = searchParams.get(URL_TOKEN_PARAM);
+  const ownerToken = usePlaylistStore((state) => state.ownerToken);
 
   const playlistHref = savedPlaylistId
-    ? `/playlist/${savedPlaylistId}${token ? `?${URL_TOKEN_PARAM}=${token}` : ""}`
+    ? `/playlist/${savedPlaylistId}${ownerToken ? `?${URL_TOKEN_PARAM}=${ownerToken}` : ""}`
     : null;
 
   return (
@@ -33,7 +30,7 @@ export const TopBar = () => {
         <nav className="hidden md:flex items-center gap-9">
           {playlistHref && (
             <NavLink href={playlistHref}>
-              {playlistName}{" "}
+              {"Mi Lista"}
               <span>
                 (
                 <span

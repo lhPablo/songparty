@@ -10,6 +10,7 @@ interface PlaylistState {
   isSaving: boolean;
   savedPlaylistId: string | null;
   isShowQr: boolean;
+  ownerToken: string | null;
   addSong: (song: Song) => void;
   removeSong: (songId: number) => void;
   setPlaylistName: (name: string) => void;
@@ -17,6 +18,7 @@ interface PlaylistState {
   setIsSaving: (isSaving: boolean) => void;
   setSavedPlaylistId: (id: string | null) => void;
   setIsShowQr: (show: boolean) => void;
+  setOwnerToken: (token: string | null) => void;
   setSongs: (songs: Song[]) => void;
   reorderSongs: (startIndex: number, endIndex: number) => void;
   clearPlaylist: () => void;
@@ -32,6 +34,7 @@ export const usePlaylistStore = create<PlaylistState>()(
       isSaving: false,
       savedPlaylistId: null,
       isShowQr: false,
+      ownerToken: null,
 
       addSong: (song) => {
         const { selectedSongs } = get();
@@ -65,6 +68,11 @@ export const usePlaylistStore = create<PlaylistState>()(
 
       setIsShowQr: (show) => set({ isShowQr: show }),
 
+      setOwnerToken: (token) => {
+        if (get().ownerToken === token) return;
+        set({ ownerToken: token });
+      },
+
       setSongs: (songs) => {
         const currentSongs = get().selectedSongs;
         if (
@@ -93,6 +101,7 @@ export const usePlaylistStore = create<PlaylistState>()(
           isSaving: false,
           savedPlaylistId: null,
           isShowQr: false,
+          ownerToken: null,
         }),
 
       isSongSelected: (songId) => {
@@ -104,7 +113,8 @@ export const usePlaylistStore = create<PlaylistState>()(
       partialize: (state) =>
         Object.fromEntries(
           Object.entries(state).filter(
-            ([key]) => !["isShowQr", "isSaving", "isLocked"].includes(key),
+            ([key]) =>
+              !["isShowQr", "isSaving", "isLocked", "ownerToken"].includes(key),
           ),
         ),
     },

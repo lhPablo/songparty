@@ -3,14 +3,10 @@
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { savePlaylist } from "@/actions/playlist";
 import { useIsMounted } from "../shared/useIsMounted";
-import { useSearchParams } from "next/navigation";
-import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 import { usePlaylistPersistence } from "./usePlaylistPersistence";
 
 export const usePlaylistActions = () => {
   const isMounted = useIsMounted();
-  const searchParams = useSearchParams();
-  const urlToken = searchParams.get(URL_TOKEN_PARAM);
   const { syncPlaylist } = usePlaylistPersistence();
 
   const playlistNameStore = usePlaylistStore((state) => state.playlistName);
@@ -25,8 +21,9 @@ export const usePlaylistActions = () => {
   );
   const isShowQrStore = usePlaylistStore((state) => state.isShowQr);
   const setIsShowQr = usePlaylistStore((state) => state.setIsShowQr);
+  const ownerToken = usePlaylistStore((state) => state.ownerToken);
 
-  const isOwner = isMounted ? !!urlToken : false;
+  const isOwner = isMounted ? !!ownerToken : false;
   const isShowQr = isMounted ? isShowQrStore : false;
   const isLocked = isMounted ? isLockedStore : false;
   const playlistName = isMounted ? playlistNameStore : "Mi lista";
@@ -73,6 +70,6 @@ export const usePlaylistActions = () => {
     clearPlaylist,
     handleGenerateQR,
     isOwner,
-    ownerToken: urlToken,
+    ownerToken,
   };
 };

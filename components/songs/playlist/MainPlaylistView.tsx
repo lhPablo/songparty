@@ -22,6 +22,8 @@ export const MainPlaylistView = ({
   const isShowQr = usePlaylistStore((state) => state.isShowQr);
   const selectedSongs = usePlaylistStore((state) => state.selectedSongs);
   const isLocked = usePlaylistStore((state) => state.isLocked);
+  const ownerToken = usePlaylistStore((state) => state.ownerToken);
+  const isOwner = !!ownerToken;
   const hasSongs = selectedSongs.length > 0;
 
   if (!isMounted) return null;
@@ -50,7 +52,7 @@ export const MainPlaylistView = ({
       ) : (
         <div className="animate-zoom-in w-full">
           {hasSongs ? (
-            <SongList songs={selectedSongs} isSortable={!isLocked} />
+            <SongList songs={selectedSongs} isSortable={!isLocked || isOwner} />
           ) : (
             <div className="flex flex-col items-center gap-6 py-20">
               <ListPlaceholder

@@ -7,7 +7,6 @@ import { Playlist } from "@/lib/types/domain/playlist";
 
 interface Props {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ token?: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -22,12 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function SharedPlaylistPage({
-  params,
-  searchParams,
-}: Props) {
+export default async function SharedPlaylistPage({ params }: Props) {
   const { id } = await params;
-  const { token } = await searchParams;
   const playlist = await getPlaylist(id);
 
   if (!playlist) {
@@ -48,11 +43,13 @@ export default async function SharedPlaylistPage({
         songs={playlist.songs}
         isLocked={playlist.isLocked}
         title={playlist.title}
-        ownerToken={token}
       />
       <div className="flex-1 flex flex-col items-center">
         <section className="layout-content-container flex flex-col w-full max-w-7xl flex-1 py-8 px-4">
-          <MainPlaylistView playlist={publicPlaylist} playlistId={id} />
+          <MainPlaylistView
+            playlist={publicPlaylist}
+            playlistId={id}
+          />
         </section>
       </div>
     </main>

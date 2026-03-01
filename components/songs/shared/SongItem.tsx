@@ -21,15 +21,15 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
 
   return (
     <>
-      <div className="flex items-center gap-4">
-        <div className="w-14 h-14 rounded-lg bg-gray-200 dark:bg-primary/10 relative overflow-hidden flex items-center justify-center">
+      <div className="flex items-center gap-3 md:gap-4">
+        <div className="w-10 h-10 md:w-14 md:h-14 rounded-lg bg-gray-200 dark:bg-primary/10 relative overflow-hidden flex-shrink-0 flex items-center justify-center">
           {!imgError ? (
             useNextImage ? (
               <Image
                 src={song.coverUrl}
                 alt={`Portada del álbum ${song.title}`}
                 fill
-                sizes="56px"
+                sizes="(max-width: 768px) 40px, 56px"
                 className="object-cover"
                 onError={() => setImgError(true)}
               />

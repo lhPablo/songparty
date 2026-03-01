@@ -2,9 +2,12 @@
 
 import { QRCodeSVG } from "qrcode.react";
 import { Button } from "@/components/ui/Button";
+import { StatusToggle } from "@/components/ui/StatusToggle";
 import { usePlaylistShareCard } from "@/hooks/playlist/usePlaylistShareCard";
+import { usePlaylistActions } from "@/hooks/playlist/usePlaylistActions";
+import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useIsMounted } from "@/hooks/shared/useIsMounted";
-import { Share2, Check, Copy, Printer, ArrowLeft } from "lucide-react";
+import { Share2, Check, Copy, Printer, Lock, Users } from "lucide-react";
 
 export const QRViewer = () => {
   const {
@@ -14,15 +17,18 @@ export const QRViewer = () => {
     handlePrint,
     handleCopyLink,
     handleShare,
-    handleClose,
   } = usePlaylistShareCard();
 
   const isMounted = useIsMounted();
+  const isLocked = usePlaylistStore((state) => state.isLocked);
+  const ownerToken = usePlaylistStore((state) => state.ownerToken);
+  const isOwner = !!ownerToken;
+  const { handleToggleLocked } = usePlaylistActions();
 
   if (!isMounted || !savedPlaylistId) return null;
 
   return (
-    <div className="bg-gradient-to-br from-[#4a213c] to-[#230f1c] py-8 md:py-10 lg:py-14 px-6 md:px-8 lg:px-12 rounded-[3rem] lg:rounded-[4rem] border border-primary/20 shadow-2xl shadow-primary/20 w-full max-w-[26rem] md:max-w-[28rem] lg:max-w-[34rem]">
+    <div className="bg-gradient-to-br from-[#4a213c] to-[#230f1c] py-8 md:py-10 lg:py-14 px-6 md:px-8 lg:px-12 rounded-2xl border border-primary/20 shadow-2xl shadow-primary/20 w-full max-w-[26rem] md:max-w-[28rem] lg:max-w-[34rem]">
       <div className="flex flex-col items-center text-center gap-5 md:gap-6 lg:gap-8">
         <div className="space-y-2 lg:space-y-3">
           <h3 className="text-2xl lg:text-3xl font-black font-display tracking-tight text-white italic uppercase leading-none">
@@ -78,14 +84,28 @@ export const QRViewer = () => {
             </Button>
           </div>
 
-          <Button
-            variant="transparent"
-            className="w-full h-10 lg:h-11 rounded-xl uppercase tracking-widest text-[10px] font-black text-white/40 hover:text-white"
-            icon={ArrowLeft}
-            onClick={handleClose}
-          >
-            Volver a la edición
-          </Button>
+          {isOwner && (
+            <div className="pt-2">
+              <StatusToggle
+                checked={isLocked}
+                onChange={() => handleToggleLocked(!isLocked)}
+                falseOption={{
+                  label: "Colaborativa",
+                  icon: Users,
+                  activeBg: "bg-green-500",
+                  activeShadow: "shadow-green-500/20",
+                  inactiveText: "text-green-600",
+                }}
+                trueOption={{
+                  label: "Solo Lectura",
+                  icon: Lock,
+                  activeBg: "bg-amber-500",
+                  activeShadow: "shadow-amber-500/20",
+                  inactiveText: "text-amber-600",
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

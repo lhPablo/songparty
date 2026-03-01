@@ -40,7 +40,7 @@ export const Button = React.memo(
         {CurrentIcon && (
           <CurrentIcon
             size={24}
-            className={loading ? "animate-spin" : "group-hover:animate-shake"}
+            className={loading ? "animate-spin" : ""}
           />
         )}
         <span className="leading-none">{children}</span>

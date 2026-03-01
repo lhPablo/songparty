@@ -30,7 +30,7 @@ export const SortableSongItem = ({ song }: SortableSongItemProps) => {
       ref={setNodeRef}
       style={style}
       className={`
-        flex items-center p-4 rounded-xl group border
+        flex items-center p-3 md:p-4 rounded-xl group border
         ${
           isDragging
             ? "bg-white dark:bg-primary/20 border-primary shadow-xl scale-[1.02] z-50 pointer-events-none"

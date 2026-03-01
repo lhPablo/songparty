@@ -6,7 +6,7 @@ import { getPlaylist } from "@/actions/playlist";
 
 const POLL_INTERVAL_ACTIVE_MS = 30000;
 const POLL_INTERVAL_PASSIVE_MS = 60000;
-const INACTIVITY_THRESHOLD_MS = 3 * 60 * 1000; // 3 minutes
+const INACTIVITY_THRESHOLD_MS = 1 * 60 * 1000; // 1 minutes
 const ACTIVITY_EVENTS: (keyof WindowEventMap)[] = [
   "keydown",
   "click",

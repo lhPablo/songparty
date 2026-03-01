@@ -2,8 +2,6 @@ import { StateCreator } from "zustand";
 import { PlaylistState } from "../usePlaylistStore";
 
 export interface UiSlice {
-  isShowQr: boolean;
-  setIsShowQr: (show: boolean) => void;
   isSaving: boolean;
   setIsSaving: (isSaving: boolean) => void;
   clearUi: () => void;
@@ -15,11 +13,9 @@ export const createUiSlice: StateCreator<
   [],
   UiSlice
 > = (set) => ({
-  isShowQr: false,
   isSaving: false,
 
-  setIsShowQr: (show) => set({ isShowQr: show }),
   setIsSaving: (isSaving) => set({ isSaving }),
 
-  clearUi: () => set({ isShowQr: false, isSaving: false }),
+  clearUi: () => set({ isSaving: false }),
 });

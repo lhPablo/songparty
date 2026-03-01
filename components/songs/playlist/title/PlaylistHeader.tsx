@@ -19,7 +19,7 @@ export const PlaylistHeader = React.memo(
     const isLocked = usePlaylistStore((state) => state.isLocked);
 
     return (
-      <div className="space-y-2">
+      <div className="space-y-2 p-6 bg-[#2e1425] rounded-2xl border border-white/5 w-full">
         <div className="flex items-center gap-3 flex-wrap">
           {isLocked ? (
             <Chip variant="warning" icon={Lock} label="Solo lectura" />

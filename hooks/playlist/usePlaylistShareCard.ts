@@ -1,12 +1,11 @@
 "use client";
 
-import { useMemo, useState, useCallback, useEffect } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { usePlaylistShareActions } from "./usePlaylistShareActions";
 
 export const usePlaylistShareCard = () => {
   const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
-  const setIsShowQr = usePlaylistStore((state) => state.setIsShowQr);
   const playlistName = usePlaylistStore((state) => state.playlistName);
 
   const {
@@ -41,10 +40,6 @@ export const usePlaylistShareCard = () => {
     });
   }, [handleNativeShare, playlistName, shareUrl]);
 
-  const handleClose = useCallback(() => {
-    setIsShowQr(false);
-  }, [setIsShowQr]);
-
   return {
     savedPlaylistId,
     shareUrl,
@@ -52,6 +47,5 @@ export const usePlaylistShareCard = () => {
     handlePrint,
     handleCopyLink,
     handleShare,
-    handleClose,
   };
 };

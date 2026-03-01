@@ -30,7 +30,7 @@ export const usePlaylistStore = create<PlaylistState>()(
         Object.fromEntries(
           Object.entries(state).filter(
             ([key]) =>
-              !["isShowQr", "isSaving", "isLocked", "ownerToken"].includes(key),
+              !["isSaving", "isLocked", "ownerToken"].includes(key),
           ),
         ),
     },

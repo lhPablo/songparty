@@ -22,15 +22,15 @@ export const CircleLink = React.memo(
     ...props
   }: CircleLinkProps) => {
     const sizeClasses = {
-      sm: "size-8",
-      md: "size-10",
-      lg: "size-12",
+      sm: "size-7 md:size-8",
+      md: "size-9 md:size-10",
+      lg: "size-9 md:size-12",
     };
 
     const iconSizes = {
-      sm: 16,
-      md: 20,
-      lg: 24,
+      sm: 14,
+      md: 18,
+      lg: 18,
     };
 
     const variantClasses = {

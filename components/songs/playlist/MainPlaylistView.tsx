@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import { PlaylistHeader } from "./title/PlaylistHeader";
 import { SongList } from "../shared/SongList";
 import { ListPlaceholder } from "../shared/ListPlaceholder";
@@ -20,60 +19,40 @@ export const MainPlaylistView = ({
   playlistId,
 }: MainPlaylistViewProps) => {
   const isMounted = useIsMounted();
-  const isShowQr = usePlaylistStore((state) => state.isShowQr);
   const selectedSongs = usePlaylistStore((state) => state.selectedSongs);
   const isLocked = usePlaylistStore((state) => state.isLocked);
   const ownerToken = usePlaylistStore((state) => state.ownerToken);
   const isOwner = !!ownerToken;
   const hasSongs = selectedSongs.length > 0;
-  const hasToggledQr = useRef(false);
-
-  if (isShowQr) {
-    hasToggledQr.current = true;
-  }
 
   if (!isMounted) return null;
 
-  const shouldAnimate = hasToggledQr.current;
-
   return (
-    <div
-      className={`flex flex-col w-full max-w-4xl mx-auto transition-all duration-500 ${isShowQr ? "gap-0 min-h-[60vh] justify-center" : "gap-8"}`}
-    >
-      <div
-        className={`transition-all duration-500 ease-in-out ${
-          isShowQr
-            ? "animate-zoom-out h-0 overflow-hidden opacity-0 pointer-events-none"
-            : shouldAnimate
-              ? "animate-zoom-in-instant block"
-              : "block"
-        }`}
-      >
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full">
+      <div className="lg:col-span-7 flex flex-col gap-8">
         <PlaylistHeader
           createdAt={playlist.createdAt}
           expiresAt={playlist.expiresAt}
           playlistId={playlistId}
         />
-      </div>
 
-      {isShowQr ? (
-        <div className="animate-zoom-in w-full flex justify-center py-4">
-          <QRViewer />
-        </div>
-      ) : (
-        <div className={`w-full ${shouldAnimate ? "animate-zoom-in-instant" : ""}`}>
+        <div className="bg-panel/40 p-3 md:p-6 lg:p-8 rounded-2xl border border-border-dark shadow-glass">
           {hasSongs ? (
             <SongList songs={selectedSongs} isSortable={!isLocked || isOwner} />
           ) : (
-            <div className="flex flex-col items-center gap-6 py-20">
-              <ListPlaceholder
-                message="Esta lista no tiene canciones todavía."
-                icon={HeadphoneOff}
-              />
-            </div>
+            <ListPlaceholder
+              message="Esta lista no tiene canciones todavía."
+              icon={HeadphoneOff}
+            />
           )}
         </div>
-      )}
+      </div>
+
+      <div id="qr-section" className="lg:col-span-5">
+        <div className="sticky top-24 flex justify-center">
+          <QRViewer />
+        </div>
+      </div>
     </div>
   );
 };

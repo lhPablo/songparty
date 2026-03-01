@@ -44,7 +44,7 @@ export const StatusToggle = ({
       {/* False Option (Left) */}
       <div
         className={`
-        flex items-center gap-2 px-3 h-full rounded-full transition-all duration-300
+        flex items-center justify-center gap-2 w-1/2 px-3 h-full rounded-full transition-all duration-300
         ${!checked ? `${falseOption.activeBg} text-white shadow-lg ${falseOption.activeShadow}` : falseOption.inactiveText}
       `}
       >
@@ -57,7 +57,7 @@ export const StatusToggle = ({
       {/* True Option (Right) */}
       <div
         className={`
-        flex items-center gap-2 px-3 h-full rounded-full transition-all duration-300
+        flex items-center justify-center gap-2 w-1/2 px-3 h-full rounded-full transition-all duration-300
         ${checked ? `${trueOption.activeBg} text-white shadow-lg ${trueOption.activeShadow}` : trueOption.inactiveText}
       `}
       >

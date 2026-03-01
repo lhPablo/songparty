@@ -1,7 +1,21 @@
 import { NextResponse } from "next/server";
 import { searchSongs } from "@/lib/services/domain/songService";
+import { songSearchRateLimit } from "@/lib/rateLimit";
 
 export async function GET(request: Request) {
+  const ip =
+    request.headers.get("cf-connecting-ip") ??
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    "anonymous";
+
+  const { success } = await songSearchRateLimit.limit(ip);
+  if (!success) {
+    return NextResponse.json(
+      { error: "Demasiadas peticiones. Inténtalo de nuevo en unos segundos." },
+      { status: 429 },
+    );
+  }
+
   const { searchParams } = new URL(request.url);
 
   const title = searchParams.get("title")?.trim() || "";

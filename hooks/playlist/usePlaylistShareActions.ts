@@ -2,8 +2,11 @@
 
 import { useCallback } from "react";
 import { sileo } from "sileo";
+import { useTranslations } from "next-intl";
 
 export const usePlaylistShareActions = () => {
+  const t = useTranslations("errors");
+
   const handlePrint = useCallback(() => {
     window.print();
   }, []);
@@ -12,9 +15,9 @@ export const usePlaylistShareActions = () => {
     try {
       await navigator.clipboard.writeText(url);
     } catch {
-      sileo.error({ title: "Error al copiar el enlace" });
+      sileo.error({ title: t("copyLink") });
     }
-  }, []);
+  }, [t]);
 
   const handleNativeShare = useCallback(
     async (data: { title: string; text: string; url: string }) => {
@@ -23,12 +26,12 @@ export const usePlaylistShareActions = () => {
           await navigator.share(data);
         } catch (err) {
           if ((err as Error).name !== "AbortError") {
-            sileo.error({ title: "Error al compartir" });
+            sileo.error({ title: t("share") });
           }
         }
       }
     },
-    [],
+    [t],
   );
 
   return {

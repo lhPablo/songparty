@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { sileo } from "sileo";
+import { useTranslations } from "next-intl";
 import { Song } from "@/lib/types/domain/song";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { ALLOWED_IMAGE_DOMAINS } from "@/lib/constants/images";
@@ -11,6 +12,7 @@ import { usePlaylistPersistence } from "../playlist/usePlaylistPersistence";
 export const useSongItemActions = (song: Song) => {
   const [imgError, setImgError] = useState(false);
   const isMounted = useIsMounted();
+  const t = useTranslations("errors");
 
   const addSong = usePlaylistStore((state) => state.addSong);
   const removeSong = usePlaylistStore((state) => state.removeSong);
@@ -31,7 +33,7 @@ export const useSongItemActions = (song: Song) => {
 
     const canModify = !isLocked || !!ownerToken;
     if (!canModify) {
-      sileo.warning({ title: "Esta lista está bloqueada" });
+      sileo.warning({ title: t("lockedList") });
       return;
     }
 
@@ -51,7 +53,7 @@ export const useSongItemActions = (song: Song) => {
 
       await syncPlaylist();
     } catch {
-      sileo.error({ title: "Error al gestionar la canción" });
+      sileo.error({ title: t("manageSong") });
     } finally {
       setIsActionProcessing(false);
     }
@@ -63,6 +65,7 @@ export const useSongItemActions = (song: Song) => {
     song,
     addSong,
     syncPlaylist,
+    t,
   ]);
 
   const isAllowedDomain = useCallback((url: string) => {

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/Button";
 import { useQRScanner } from "@/hooks/qr/useQRScanner";
+import { useTranslations } from "next-intl";
 import { ScanQrCode } from "lucide-react";
 
 export const QRScanner = () => {
@@ -12,6 +13,7 @@ export const QRScanner = () => {
     handleFileSelect,
     handleButtonClick,
   } = useQRScanner();
+  const t = useTranslations("qr");
 
   return (
     <div className="w-full">
@@ -34,7 +36,7 @@ export const QRScanner = () => {
         onClick={handleButtonClick}
         disabled={isScanning}
       >
-        {isScanning ? "Leyendo imagen..." : "Unirse con Captura de QR"}
+        {isScanning ? t("scanning") : t("joinWithQR")}
       </Button>
 
       {error && (

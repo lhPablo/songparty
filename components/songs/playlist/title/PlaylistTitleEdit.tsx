@@ -2,6 +2,7 @@
 
 import { IconButton } from "@/components/ui/IconButton";
 import { TitleInput } from "@/components/ui/TitleInput";
+import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 
 interface PlaylistTitleEditProps {
@@ -19,6 +20,8 @@ export const PlaylistTitleEdit = ({
   handleKeyDown,
   inputRef,
 }: PlaylistTitleEditProps) => {
+  const t = useTranslations("playlist");
+
   return (
     <div className="flex items-center flex-1 max-w-2xl">
       <TitleInput
@@ -27,7 +30,7 @@ export const PlaylistTitleEdit = ({
         onChange={(e) => setTempName(e.target.value)}
         onBlur={handleSave}
         onKeyDown={handleKeyDown}
-        placeholder="Nombre de la lista..."
+        placeholder={t("titlePlaceholder")}
       />
       <div className="flex items-center gap-1 ml-4 animate-in slide-in-from-left-4 duration-500">
         <IconButton
@@ -36,7 +39,7 @@ export const PlaylistTitleEdit = ({
             e.preventDefault();
             handleSave();
           }}
-          title="Guardar nombre"
+          title={t("saveName")}
           className="bg-primary text-white shadow-lg shadow-primary/20 p-2"
         />
       </div>

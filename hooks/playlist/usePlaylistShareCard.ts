@@ -1,12 +1,14 @@
 "use client";
 
 import { useMemo, useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { usePlaylistShareActions } from "./usePlaylistShareActions";
 
 export const usePlaylistShareCard = () => {
   const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
   const playlistName = usePlaylistStore((state) => state.playlistName);
+  const t = useTranslations("share");
 
   const {
     handlePrint,
@@ -34,11 +36,11 @@ export const usePlaylistShareCard = () => {
 
   const handleShare = useCallback(async () => {
     await handleNativeShare({
-      title: `Únete a mi Song Party: ${playlistName}`,
-      text: `Entra en mi lista colaborativa de karaoke y añade tus canciones favoritas.`,
+      title: t("nativeShareTitle", { name: playlistName }),
+      text: t("nativeShareText"),
       url: shareUrl,
     });
-  }, [handleNativeShare, playlistName, shareUrl]);
+  }, [handleNativeShare, playlistName, shareUrl, t]);
 
   return {
     savedPlaylistId,

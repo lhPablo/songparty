@@ -1,0 +1,91 @@
+{
+  "common": {
+    "appName": "Song Party",
+    "backToHome": "Volver al inicio"
+  },
+  "home": {
+    "tagline": "Crea listas colaborativas de karaoke para tus eventos",
+    "createPlaylist": "Crear Nueva Lista",
+    "creating": "Creando..."
+  },
+  "qr": {
+    "scanning": "Leyendo imagen...",
+    "joinWithQR": "Unirse con Captura de QR",
+    "readError": "No se pudo leer el código QR correctamente",
+    "readErrorImage": "No se pudo leer el código QR. Asegúrate de que la imagen sea clara."
+  },
+  "playlist": {
+    "myList": "Mi Lista",
+    "defaultTitle": "Mi Lista",
+    "emptyState": "Esta lista no tiene canciones todavía.",
+    "addSongs": "Añadir canciones",
+    "titlePlaceholder": "Nombre de la lista...",
+    "saveName": "Guardar nombre",
+    "readOnly": "Solo lectura",
+    "openList": "Lista Abierta",
+    "viewQR": "Ver QR",
+    "createdAt": "Creada el {date}",
+    "expiresAt": "Se borrará el {date} (en {days} {days, plural, one {día} other {días}})",
+    "goToHome": "Ir al inicio"
+  },
+  "search": {
+    "title": "Busca tu Canción",
+    "addSongsTo": "Añade canciones a",
+    "backTo": "Volver a {title}",
+    "artistLabel": "Artista",
+    "artistPlaceholder": "Escribe el nombre del artista...",
+    "songLabel": "Título de la canción",
+    "songPlaceholder": "Escribe el título de la canción...",
+    "searchButton": "Buscar",
+    "noResults": "No se han encontrado canciones, prueba con otra búsqueda",
+    "initialMessage": "Busca tus canciones favoritas para empezar la fiesta",
+    "accessDeniedTitle": "Lista Bloqueada",
+    "accessDeniedMessage": "Esta lista está en modo solo lectura y no se pueden añadir más canciones.",
+    "backToList": "Volver a la lista"
+  },
+  "songs": {
+    "viewLyrics": "Ver letra en Genius",
+    "removeFromList": "Quitar de la lista",
+    "addToList": "Añadir a la lista"
+  },
+  "share": {
+    "title": "¡Lista Listísima!",
+    "subtitle": "Comparte este QR con tus invitados para empezar el karaoke.",
+    "shareInvitation": "Compartir Invitación",
+    "linkCopied": "Enlace copiado",
+    "copyLink": "Copiar Enlace",
+    "printQR": "Imprimir QR",
+    "collaborative": "Colaborativa",
+    "readOnly": "Solo Lectura",
+    "nativeShareTitle": "Únete a mi Song Party: {name}",
+    "nativeShareText": "Entra en mi lista colaborativa de karaoke y añade tus canciones favoritas."
+  },
+  "errors": {
+    "createPlaylist": "Error al crear la playlist",
+    "toggleLock": "Error al cambiar el bloqueo",
+    "saveTitle": "Error al guardar el título",
+    "syncPlaylist": "Error al sincronizar la playlist",
+    "copyLink": "Error al copiar el enlace",
+    "share": "Error al compartir",
+    "manageSong": "Error al gestionar la canción",
+    "lockedList": "Esta lista está bloqueada",
+    "saveOrder": "Error al guardar el orden",
+    "genericTitle": "Algo salió mal",
+    "genericMessage": "Ocurrió un error inesperado. Puedes intentar de nuevo o volver al inicio.",
+    "retry": "Reintentar",
+    "playlistLoadTitle": "Error al cargar la playlist",
+    "playlistLoadMessage": "No se pudo cargar la playlist. Puede que haya expirado o que haya un problema temporal.",
+    "playlistNotFound": "Playlist no encontrada",
+    "playlistDescription": "Lista colaborativa de karaoke para tu evento"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "message": "Esta página no existe o la lista que buscas ya expiró."
+  },
+  "footer": {
+    "tagline": "Diseñado para noches de fiesta inolvidables."
+  },
+  "topBar": {
+    "goToHome": "Ir al inicio"
+  }
+}

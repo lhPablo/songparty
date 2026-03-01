@@ -9,6 +9,7 @@ import {
 } from "@dnd-kit/core";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { sileo } from "sileo";
+import { useTranslations } from "next-intl";
 import { Song } from "@/lib/types/domain/song";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { usePlaylistPersistence } from "../playlist/usePlaylistPersistence";
@@ -16,6 +17,7 @@ import { usePlaylistPersistence } from "../playlist/usePlaylistPersistence";
 export const useSongListDnd = (songs: Song[]) => {
   const reorderSongs = usePlaylistStore((state) => state.reorderSongs);
   const { syncPlaylist } = usePlaylistPersistence();
+  const t = useTranslations("errors");
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -40,7 +42,7 @@ export const useSongListDnd = (songs: Song[]) => {
       try {
         await syncPlaylist();
       } catch {
-        sileo.error({ title: "Error al guardar el orden" });
+        sileo.error({ title: t("saveOrder") });
       }
     }
   };

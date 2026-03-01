@@ -8,6 +8,7 @@ import { SyncSharedPlaylist } from "@/components/songs/playlist/SyncSharedPlayli
 import { SearchAccessDenied } from "@/components/songs/search/SearchAccessDenied";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 import { ArrowLeft } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -21,6 +22,7 @@ export default async function PlaylistSearchPage({
   const { id } = await params;
   const { token } = await searchParams;
   const playlist = await getPlaylist(id);
+  const t = await getTranslations("search");
 
   if (!playlist) {
     notFound();
@@ -51,17 +53,17 @@ export default async function PlaylistSearchPage({
               className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
             >
               <ArrowLeft className="size-5" />
-              Volver a {playlist.title}
+              {t("backTo", { title: playlist.title })}
             </Link>
           </div>
 
           <div className="flex flex-col gap-6">
             <div className="space-y-2">
               <h1 className="text-gray-900 dark:text-white tracking-tight text-[32px] md:text-[48px] font-black leading-tight">
-                Busca tu Canción
+                {t("title")}
               </h1>
               <p className="text-gray-500 dark:text-gray-400">
-                Añade canciones a{" "}
+                {t("addSongsTo")}{" "}
                 <span className="font-bold text-primary">{playlist.title}</span>
               </p>
             </div>

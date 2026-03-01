@@ -8,6 +8,7 @@ import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useIsMounted } from "@/hooks/shared/useIsMounted";
 import { Playlist } from "@/lib/types/domain/playlist";
 import { QRViewer } from "@/components/qr/QRViewer";
+import { useTranslations } from "next-intl";
 import { HeadphoneOff } from "lucide-react";
 
 interface MainPlaylistViewProps {
@@ -26,6 +27,7 @@ export const MainPlaylistView = ({
   const isOwner = !!ownerToken;
   const hasSongs = selectedSongs.length > 0;
   const canAdd = !isLocked || isOwner;
+  const t = useTranslations("playlist");
 
   if (!isMounted) return null;
 
@@ -47,7 +49,7 @@ export const MainPlaylistView = ({
           </div>
         ) : (
           <ListPlaceholder
-            message="Esta lista no tiene canciones todavía."
+            message={t("emptyState")}
             icon={HeadphoneOff}
           />
         )}

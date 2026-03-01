@@ -5,6 +5,7 @@ import { MainPlaylistView } from "@/components/songs/playlist/MainPlaylistView";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { Playlist } from "@/lib/types/domain/playlist";
+import { getTranslations } from "next-intl/server";
 
 const getCachedPlaylist = cache(getPlaylist);
 
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations("errors");
+
   try {
     const { id } = await params;
     const playlist = await getCachedPlaylist(id);
@@ -20,13 +23,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: playlist
         ? `${playlist.title} - Song Party`
-        : "Playlist no encontrada",
-      description: "Lista colaborativa de karaoke para tu evento",
+        : t("playlistNotFound"),
+      description: t("playlistDescription"),
     };
   } catch {
     return {
       title: "Song Party",
-      description: "Lista colaborativa de karaoke para tu evento",
+      description: t("playlistDescription"),
     };
   }
 }

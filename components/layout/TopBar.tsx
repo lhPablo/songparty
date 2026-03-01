@@ -3,14 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NavLink } from "@/components/ui/NavLink";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
+import { useTranslations } from "next-intl";
 
 export const TopBar = () => {
   const count = usePlaylistStore((state) => state.selectedSongs.length);
   const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
-  const playlistName = usePlaylistStore((state) => state.playlistName);
   const ownerToken = usePlaylistStore((state) => state.ownerToken);
+  const t = useTranslations("playlist");
+  const tTopBar = useTranslations("topBar");
 
   const playlistHref = savedPlaylistId
     ? `/playlist/${savedPlaylistId}${ownerToken ? `?${URL_TOKEN_PARAM}=${ownerToken}` : ""}`
@@ -20,7 +23,7 @@ export const TopBar = () => {
     <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-gray-200 dark:border-b-[#4a213c] px-6 md:px-20 py-4 sticky top-0 bg-bg-light/80 dark:bg-bg-dark/80 backdrop-blur-md z-50">
       <Link
         href="/"
-        title="Ir al inicio"
+        title={tTopBar("goToHome")}
         className="flex items-center gap-4 text-primary hover:scale-110 transition-transform"
       >
         <div className="size-8">
@@ -31,7 +34,7 @@ export const TopBar = () => {
         <nav className="hidden md:flex items-center gap-9">
           {playlistHref && (
             <NavLink href={playlistHref}>
-              {"Mi Lista"}
+              {t("myList")}
               <span>
                 (
                 <span
@@ -46,6 +49,7 @@ export const TopBar = () => {
             </NavLink>
           )}
         </nav>
+        <LanguageSwitcher />
       </div>
     </header>
   );

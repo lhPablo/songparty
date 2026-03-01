@@ -2,6 +2,7 @@
 
 import { TriangleAlert, RotateCcw, Home } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export default function PlaylistError({
   reset,
@@ -9,6 +10,9 @@ export default function PlaylistError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations("errors");
+  const tCommon = useTranslations("common");
+
   return (
     <main className="flex flex-1 items-center justify-center">
       <div className="w-full max-w-2xl px-6 py-12">
@@ -19,11 +23,10 @@ export default function PlaylistError({
               className="mx-auto text-primary neon-text"
             />
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-              Error al cargar la playlist
+              {t("playlistLoadTitle")}
             </h1>
             <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-lg mx-auto">
-              No se pudo cargar la playlist. Puede que haya expirado o que haya
-              un problema temporal.
+              {t("playlistLoadMessage")}
             </p>
           </div>
 
@@ -33,7 +36,7 @@ export default function PlaylistError({
               className="group flex items-center justify-center gap-2 px-6 h-12 rounded-xl font-medium transition-all duration-300 bg-primary text-white hover:bg-primary/80"
             >
               <RotateCcw size={20} className="group-hover:animate-shake" />
-              <span className="leading-none">Reintentar</span>
+              <span className="leading-none">{t("retry")}</span>
             </button>
 
             <Link
@@ -41,7 +44,7 @@ export default function PlaylistError({
               className="group flex items-center justify-center gap-2 px-6 h-12 rounded-xl font-medium transition-all duration-300 bg-primary/10 text-primary hover:bg-primary hover:text-white border border-primary/20"
             >
               <Home size={20} className="group-hover:animate-shake" />
-              <span className="leading-none">Volver al inicio</span>
+              <span className="leading-none">{tCommon("backToHome")}</span>
             </Link>
           </div>
         </div>

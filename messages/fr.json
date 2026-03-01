@@ -1,0 +1,91 @@
+{
+  "common": {
+    "appName": "Song Party",
+    "backToHome": "Retour à l'accueil"
+  },
+  "home": {
+    "tagline": "Créez des playlists karaoké collaboratives pour vos événements",
+    "createPlaylist": "Créer une Nouvelle Liste",
+    "creating": "Création..."
+  },
+  "qr": {
+    "scanning": "Lecture de l'image...",
+    "joinWithQR": "Rejoindre avec Capture QR",
+    "readError": "Impossible de lire le code QR correctement",
+    "readErrorImage": "Impossible de lire le code QR. Assurez-vous que l'image est nette."
+  },
+  "playlist": {
+    "myList": "Ma Liste",
+    "defaultTitle": "Ma Liste",
+    "emptyState": "Cette liste n'a pas encore de chansons.",
+    "addSongs": "Ajouter des chansons",
+    "titlePlaceholder": "Nom de la liste...",
+    "saveName": "Enregistrer le nom",
+    "readOnly": "Lecture seule",
+    "openList": "Liste Ouverte",
+    "viewQR": "Voir QR",
+    "createdAt": "Créée le {date}",
+    "expiresAt": "Supprimée le {date} (dans {days} {days, plural, one {jour} other {jours}})",
+    "goToHome": "Aller à l'accueil"
+  },
+  "search": {
+    "title": "Trouvez votre Chanson",
+    "addSongsTo": "Ajoutez des chansons à",
+    "backTo": "Retour à {title}",
+    "artistLabel": "Artiste",
+    "artistPlaceholder": "Tapez le nom de l'artiste...",
+    "songLabel": "Titre de la chanson",
+    "songPlaceholder": "Tapez le titre de la chanson...",
+    "searchButton": "Chercher",
+    "noResults": "Aucune chanson trouvée, essayez une autre recherche",
+    "initialMessage": "Cherchez vos chansons préférées pour commencer la fête",
+    "accessDeniedTitle": "Liste Verrouillée",
+    "accessDeniedMessage": "Cette liste est en lecture seule et aucune chanson ne peut être ajoutée.",
+    "backToList": "Retour à la liste"
+  },
+  "songs": {
+    "viewLyrics": "Voir les paroles sur Genius",
+    "removeFromList": "Retirer de la liste",
+    "addToList": "Ajouter à la liste"
+  },
+  "share": {
+    "title": "Prêt à Faire la Fête !",
+    "subtitle": "Partagez ce QR avec vos invités pour commencer le karaoké.",
+    "shareInvitation": "Partager l'Invitation",
+    "linkCopied": "Lien copié",
+    "copyLink": "Copier le Lien",
+    "printQR": "Imprimer QR",
+    "collaborative": "Collaborative",
+    "readOnly": "Lecture Seule",
+    "nativeShareTitle": "Rejoins ma Song Party : {name}",
+    "nativeShareText": "Rejoins ma playlist karaoké collaborative et ajoute tes chansons préférées."
+  },
+  "errors": {
+    "createPlaylist": "Erreur lors de la création de la playlist",
+    "toggleLock": "Erreur lors du changement de verrouillage",
+    "saveTitle": "Erreur lors de l'enregistrement du titre",
+    "syncPlaylist": "Erreur lors de la synchronisation de la playlist",
+    "copyLink": "Erreur lors de la copie du lien",
+    "share": "Erreur lors du partage",
+    "manageSong": "Erreur lors de la gestion de la chanson",
+    "lockedList": "Cette liste est verrouillée",
+    "saveOrder": "Erreur lors de l'enregistrement de l'ordre",
+    "genericTitle": "Quelque chose s'est mal passé",
+    "genericMessage": "Une erreur inattendue s'est produite. Vous pouvez réessayer ou revenir à l'accueil.",
+    "retry": "Réessayer",
+    "playlistLoadTitle": "Erreur lors du chargement de la playlist",
+    "playlistLoadMessage": "Impossible de charger la playlist. Elle a peut-être expiré ou il y a un problème temporaire.",
+    "playlistNotFound": "Playlist introuvable",
+    "playlistDescription": "Playlist karaoké collaborative pour votre événement"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "message": "Cette page n'existe pas ou la liste que vous cherchez a expiré."
+  },
+  "footer": {
+    "tagline": "Conçu pour des nuits de fête inoubliables."
+  },
+  "topBar": {
+    "goToHome": "Aller à l'accueil"
+  }
+}

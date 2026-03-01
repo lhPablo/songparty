@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
-export const Footer = () => {
+export const Footer = async () => {
+  const t = await getTranslations("footer");
+
   return (
     <footer className="mt-auto py-10 px-20 border-t border-[#4a213c] flex flex-col items-center gap-4 text-white/40">
       <div className="flex items-center gap-2">
@@ -14,7 +17,7 @@ export const Footer = () => {
         </div>
         <span className="font-bold text-white/60">Song Party</span>
       </div>
-      <p className="text-xs">Diseñado para noches de fiesta inolvidables.</p>
+      <p className="text-xs">{t("tagline")}</p>
     </footer>
   );
 };

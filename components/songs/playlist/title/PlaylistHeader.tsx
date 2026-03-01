@@ -5,6 +5,7 @@ import { Chip } from "@/components/ui/Chip";
 import { PlaylistMetaInfo } from "./PlaylistMetaInfo";
 import { Lock, Edit3, QrCode } from "lucide-react";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 interface PlaylistHeaderProps {
@@ -15,6 +16,7 @@ interface PlaylistHeaderProps {
 export const PlaylistHeader = React.memo(
   ({ createdAt, expiresAt }: PlaylistHeaderProps) => {
     const isLocked = usePlaylistStore((state) => state.isLocked);
+    const t = useTranslations("playlist");
 
     const handleScrollToQr = () => {
       document
@@ -28,14 +30,14 @@ export const PlaylistHeader = React.memo(
           <PlaylistMetaInfo createdAt={createdAt} expiresAt={expiresAt} />
           <div className="flex items-center gap-3">
             {isLocked ? (
-              <Chip variant="warning" icon={Lock} label="Solo lectura" />
+              <Chip variant="warning" icon={Lock} label={t("readOnly")} />
             ) : (
-              <Chip variant="success" icon={Edit3} label="Lista Abierta" />
+              <Chip variant="success" icon={Edit3} label={t("openList")} />
             )}
             <button
               onClick={handleScrollToQr}
               className="lg:hidden flex items-center justify-center size-9 rounded-full bg-white/5 text-white/50 hover:text-primary hover:bg-primary/10 transition-all"
-              title="Ver QR"
+              title={t("viewQR")}
             >
               <QrCode size={18} />
             </button>

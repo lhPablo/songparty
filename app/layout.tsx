@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro, Noto_Sans } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import { Providers } from "@/providers/Providers";
 
 import "@/styles/globals.css";
@@ -23,19 +25,24 @@ export const metadata: Metadata = {
   description: "Song Party app",
 };
 
-export default function LandingLayout({
+export default async function LandingLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
     <html
-      lang="es"
+      lang={locale}
       className={`dark ${beVietnamPro.variable} ${notoSans.variable} antialiased`}
     >
       <head />
       <body className="font-body bg-bg-light text-text-primary dark:bg-bg-dark dark:text-text-primary">
-        <Providers>{children}</Providers>
+        <NextIntlClientProvider messages={messages}>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -7,6 +7,7 @@ import { usePlaylistShareCard } from "@/hooks/playlist/usePlaylistShareCard";
 import { usePlaylistActions } from "@/hooks/playlist/usePlaylistActions";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useIsMounted } from "@/hooks/shared/useIsMounted";
+import { useTranslations } from "next-intl";
 import { Share2, Check, Copy, Printer, Lock, Users } from "lucide-react";
 
 export const QRViewer = () => {
@@ -24,6 +25,7 @@ export const QRViewer = () => {
   const ownerToken = usePlaylistStore((state) => state.ownerToken);
   const isOwner = !!ownerToken;
   const { handleToggleLocked } = usePlaylistActions();
+  const t = useTranslations("share");
 
   if (!isMounted || !savedPlaylistId) return null;
 
@@ -32,10 +34,10 @@ export const QRViewer = () => {
       <div className="flex flex-col items-center text-center gap-5 md:gap-6 lg:gap-8">
         <div className="space-y-2 lg:space-y-3">
           <h3 className="text-2xl lg:text-3xl font-black font-display tracking-tight text-white italic uppercase leading-none">
-            ¡Lista Listísima!
+            {t("title")}
           </h3>
           <p className="text-[#cc8eb8] text-sm lg:text-base max-w-xs mx-auto opacity-80 leading-relaxed">
-            Comparte este QR con tus invitados para empezar el karaoke.
+            {t("subtitle")}
           </p>
         </div>
 
@@ -62,7 +64,7 @@ export const QRViewer = () => {
             className="w-full h-12 lg:h-14 rounded-2xl text-base font-bold shadow-xl shadow-primary/20"
             onClick={handleShare}
           >
-            Compartir Invitación
+            {t("shareInvitation")}
           </Button>
 
           <div className="grid grid-cols-2 gap-3">
@@ -72,7 +74,7 @@ export const QRViewer = () => {
               className={`w-full h-11 lg:h-14 rounded-2xl font-bold transition-all duration-300 ${copied ? "!bg-green-500 !text-white !border-green-500" : ""}`}
               onClick={handleCopyLink}
             >
-              {copied ? "Enlace copiado" : "Copiar Enlace"}
+              {copied ? t("linkCopied") : t("copyLink")}
             </Button>
             <Button
               variant="secondary"
@@ -80,7 +82,7 @@ export const QRViewer = () => {
               className="w-full h-11 lg:h-14 rounded-2xl font-bold"
               onClick={handlePrint}
             >
-              Imprimir QR
+              {t("printQR")}
             </Button>
           </div>
 
@@ -90,14 +92,14 @@ export const QRViewer = () => {
                 checked={isLocked}
                 onChange={() => handleToggleLocked(!isLocked)}
                 falseOption={{
-                  label: "Colaborativa",
+                  label: t("collaborative"),
                   icon: Users,
                   activeBg: "bg-green-500",
                   activeShadow: "shadow-green-500/20",
                   inactiveText: "text-green-600",
                 }}
                 trueOption={{
-                  label: "Solo Lectura",
+                  label: t("readOnly"),
                   icon: Lock,
                   activeBg: "bg-amber-500",
                   activeShadow: "shadow-amber-500/20",

@@ -3,6 +3,7 @@
 import React from "react";
 import { CircleButton } from "@/components/ui/CircleButton";
 import { CircleLink } from "@/components/ui/CircleLink";
+import { useTranslations } from "next-intl";
 import { Check, Plus, MicVocal, Trash2 } from "lucide-react";
 
 interface SongItemActionsProps {
@@ -14,13 +15,15 @@ interface SongItemActionsProps {
 
 export const SongItemActions = React.memo(
   ({ lyricsUrl, isSelected, canEdit, onToggle }: SongItemActionsProps) => {
+    const t = useTranslations("songs");
+
     return (
       <div className="flex items-center gap-3">
         <CircleLink
           href={lyricsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          title="Ver letra en Genius"
+          title={t("viewLyrics")}
           variant="transparent"
           icon={MicVocal}
           size="lg"
@@ -35,7 +38,7 @@ export const SongItemActions = React.memo(
             glow={!isSelected}
             size="lg"
             hoverIconClassName={isSelected ? "animate-shake" : ""}
-            title={isSelected ? "Quitar de la lista" : "Añadir a la lista"}
+            title={isSelected ? t("removeFromList") : t("addToList")}
           />
         )}
       </div>

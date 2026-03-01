@@ -3,10 +3,12 @@
 import React from "react";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { useSongSearchForm } from "@/hooks/songs/useSongSearchForm";
+import { useTranslations } from "next-intl";
 import { Search, Type, User } from "lucide-react";
 
 export const SongSearchForm = React.memo(() => {
   const { songInputRef, authorInputRef, handleSubmit } = useSongSearchForm();
+  const t = useTranslations("search");
 
   return (
     <form
@@ -18,8 +20,8 @@ export const SongSearchForm = React.memo(() => {
           <SearchInput
             ref={authorInputRef}
             icon={User}
-            label="Artista"
-            placeholder="Escribe el nombre del artista..."
+            label={t("artistLabel")}
+            placeholder={t("artistPlaceholder")}
             showButton={false}
           />
         </div>
@@ -28,8 +30,8 @@ export const SongSearchForm = React.memo(() => {
           <SearchInput
             ref={songInputRef}
             icon={Type}
-            label="Título de la canción"
-            placeholder="Escribe el título de la canción..."
+            label={t("songLabel")}
+            placeholder={t("songPlaceholder")}
             showButton={false}
           />
         </div>
@@ -40,7 +42,7 @@ export const SongSearchForm = React.memo(() => {
             className="w-full h-14 flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-all shadow-lg shadow-primary/20 cursor-pointer"
           >
             <Search className="size-5" />
-            <span className="md:hidden lg:inline">Buscar</span>
+            <span className="md:hidden lg:inline">{t("searchButton")}</span>
           </button>
         </div>
       </div>

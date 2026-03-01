@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { sileo } from "sileo";
+import { useTranslations } from "next-intl";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useIsMounted } from "../shared/useIsMounted";
 import { usePlaylistPersistence } from "./usePlaylistPersistence";
@@ -11,6 +12,7 @@ export const usePlaylistTitle = () => {
   const setPlaylistName = usePlaylistStore((state) => state.setPlaylistName);
   const ownerToken = usePlaylistStore((state) => state.ownerToken);
   const { syncPlaylist } = usePlaylistPersistence();
+  const t = useTranslations("errors");
 
   const isMounted = useIsMounted();
   const [isEditing, setIsEditing] = useState(false);
@@ -45,7 +47,7 @@ export const usePlaylistTitle = () => {
     try {
       await syncPlaylist({ title: trimmed });
     } catch {
-      sileo.error({ title: "Error al guardar el título" });
+      sileo.error({ title: t("saveTitle") });
     }
   };
 

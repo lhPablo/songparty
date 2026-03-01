@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
+import { useTranslations } from "next-intl";
 import { CirclePlus } from "lucide-react";
 
 interface AddSongsLinkProps {
@@ -12,6 +13,7 @@ interface AddSongsLinkProps {
 export const AddSongsLink = ({ playlistId }: AddSongsLinkProps) => {
   const ownerToken = usePlaylistStore((state) => state.ownerToken);
   const isOwner = !!ownerToken;
+  const t = useTranslations("playlist");
 
   const href = `/playlist/${playlistId}/search${isOwner && ownerToken ? `?${URL_TOKEN_PARAM}=${ownerToken}` : ""}`;
 
@@ -25,7 +27,7 @@ export const AddSongsLink = ({ playlistId }: AddSongsLinkProps) => {
         className="text-primary group-hover:scale-110 transition-transform"
       />
       <span className="text-white/60 group-hover:text-white/80 font-medium transition-colors">
-        Añadir canciones
+        {t("addSongs")}
       </span>
     </Link>
   );

@@ -3,12 +3,14 @@
 import { useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export const useQRScanner = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const t = useTranslations("qr");
 
   const handleFileSelect = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -36,13 +38,11 @@ export const useQRScanner = () => {
       if (playlistId) {
         router.push(`/playlist/${playlistId}`);
       } else {
-        setError("No se pudo leer el código QR correctamente");
+        setError(t("readError"));
       }
     } catch (err) {
       console.error("Error scanning QR:", err);
-      setError(
-        "No se pudo leer el código QR. Asegúrate de que la imagen sea clara.",
-      );
+      setError(t("readErrorImage"));
     } finally {
       setIsScanning(false);
 

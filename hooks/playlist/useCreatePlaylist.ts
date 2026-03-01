@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { sileo } from "sileo";
+import { useTranslations } from "next-intl";
 import { savePlaylist } from "@/actions/playlist";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import {
@@ -16,6 +17,7 @@ export const useCreatePlaylist = () => {
     (state) => state.setSavedPlaylistId,
   );
   const router = useRouter();
+  const t = useTranslations("errors");
 
   const createPlaylist = async () => {
     setIsCreating(true);
@@ -33,7 +35,7 @@ export const useCreatePlaylist = () => {
       const adminPath = `/playlist/${playlistId}?${URL_TOKEN_PARAM}=${ownerToken}`;
       router.push(adminPath);
     } catch {
-      sileo.error({ title: "Error al crear la playlist" });
+      sileo.error({ title: t("createPlaylist") });
       setIsCreating(false);
     }
   };

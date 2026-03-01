@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchStore } from "@/store/useSearchStore";
+import { useTranslations } from "next-intl";
 import { Song } from "@/lib/types/domain/song";
 import { SearchX, Music } from "lucide-react";
 
@@ -14,6 +15,7 @@ export const useSongSearchResults = ({
   const showLoading = useSearchStore((state) => state.showLoading);
   const showEmptyMessage = useSearchStore((state) => state.showEmptyMessage);
   const hasSearched = useSearchStore((state) => state.hasSearched);
+  const t = useTranslations("search");
 
   const isEmpty = songs.length === 0;
   const shouldShowList = songs.length > 0;
@@ -22,8 +24,8 @@ export const useSongSearchResults = ({
 
   const emptyStateConfig = {
     message: hasSearched
-      ? "No se han encontrado canciones, prueba con otra búsqueda"
-      : "Busca tus canciones favoritas para empezar la fiesta",
+      ? t("noResults")
+      : t("initialMessage"),
     icon: hasSearched ? SearchX : Music,
   };
 

@@ -1,0 +1,50 @@
+"use client";
+
+import { IconButton } from "@/components/ui/IconButton";
+import { TitleInput } from "@/components/ui/TitleInput";
+import { useTranslations } from "next-intl";
+import { Check } from "lucide-react";
+
+interface PlaylistTitleEditProps {
+  tempName: string;
+  setTempName: (name: string) => void;
+  handleSave: () => void;
+  handleKeyDown: (e: React.KeyboardEvent) => void;
+  inputRef: React.RefObject<HTMLInputElement | null>;
+}
+
+export const PlaylistTitleEdit = ({
+  tempName,
+  setTempName,
+  handleSave,
+  handleKeyDown,
+  inputRef,
+}: PlaylistTitleEditProps) => {
+  const t = useTranslations("playlist");
+
+  return (
+    <div className="flex items-center flex-1 max-w-2xl">
+      <TitleInput
+        ref={inputRef}
+        value={tempName}
+        onChange={(e) => setTempName(e.target.value)}
+        onBlur={handleSave}
+        onKeyDown={handleKeyDown}
+        placeholder={t("titlePlaceholder")}
+      />
+      <div className="flex items-center gap-1 ml-4 animate-in slide-in-from-left-4 duration-500">
+        <IconButton
+          icon={Check}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            handleSave();
+          }}
+          title={t("saveName")}
+          className="bg-primary text-white shadow-lg shadow-primary/20 p-2"
+        />
+      </div>
+    </div>
+  );
+};
+
+PlaylistTitleEdit.displayName = "PlaylistTitleEdit";

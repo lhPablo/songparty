@@ -1,0 +1,91 @@
+{
+  "common": {
+    "appName": "Song Party",
+    "backToHome": "Back to home"
+  },
+  "home": {
+    "tagline": "Create collaborative karaoke playlists for your events",
+    "createPlaylist": "Create New Playlist",
+    "creating": "Creating..."
+  },
+  "qr": {
+    "scanning": "Reading image...",
+    "joinWithQR": "Join with QR Capture",
+    "readError": "Could not read the QR code correctly",
+    "readErrorImage": "Could not read the QR code. Make sure the image is clear."
+  },
+  "playlist": {
+    "myList": "My Playlist",
+    "defaultTitle": "My Playlist",
+    "emptyState": "This playlist has no songs yet.",
+    "addSongs": "Add songs",
+    "titlePlaceholder": "Playlist name...",
+    "saveName": "Save name",
+    "readOnly": "Read only",
+    "openList": "Open List",
+    "viewQR": "View QR",
+    "createdAt": "Created on {date}",
+    "expiresAt": "Expires on {date} (in {days} {days, plural, one {day} other {days}})",
+    "goToHome": "Go to home"
+  },
+  "search": {
+    "title": "Find your Song",
+    "addSongsTo": "Add songs to",
+    "backTo": "Back to {title}",
+    "artistLabel": "Artist",
+    "artistPlaceholder": "Type the artist name...",
+    "songLabel": "Song title",
+    "songPlaceholder": "Type the song title...",
+    "searchButton": "Search",
+    "noResults": "No songs found, try a different search",
+    "initialMessage": "Search for your favorite songs to start the party",
+    "accessDeniedTitle": "Playlist Locked",
+    "accessDeniedMessage": "This playlist is in read-only mode and no more songs can be added.",
+    "backToList": "Back to playlist"
+  },
+  "songs": {
+    "viewLyrics": "View lyrics on Genius",
+    "removeFromList": "Remove from playlist",
+    "addToList": "Add to playlist"
+  },
+  "share": {
+    "title": "Ready to Party!",
+    "subtitle": "Share this QR with your guests to start the karaoke.",
+    "shareInvitation": "Share Invitation",
+    "linkCopied": "Link copied",
+    "copyLink": "Copy Link",
+    "printQR": "Print QR",
+    "collaborative": "Collaborative",
+    "readOnly": "Read Only",
+    "nativeShareTitle": "Join my Song Party: {name}",
+    "nativeShareText": "Join my collaborative karaoke playlist and add your favorite songs."
+  },
+  "errors": {
+    "createPlaylist": "Error creating playlist",
+    "toggleLock": "Error changing lock status",
+    "saveTitle": "Error saving title",
+    "syncPlaylist": "Error syncing playlist",
+    "copyLink": "Error copying link",
+    "share": "Error sharing",
+    "manageSong": "Error managing song",
+    "lockedList": "This playlist is locked",
+    "saveOrder": "Error saving order",
+    "genericTitle": "Something went wrong",
+    "genericMessage": "An unexpected error occurred. You can try again or go back to home.",
+    "retry": "Retry",
+    "playlistLoadTitle": "Error loading playlist",
+    "playlistLoadMessage": "Could not load the playlist. It may have expired or there may be a temporary issue.",
+    "playlistNotFound": "Playlist not found",
+    "playlistDescription": "Collaborative karaoke playlist for your event"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "message": "This page does not exist or the playlist you are looking for has expired."
+  },
+  "footer": {
+    "tagline": "Designed for unforgettable party nights."
+  },
+  "topBar": {
+    "goToHome": "Go to home"
+  }
+}

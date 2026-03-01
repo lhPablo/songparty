@@ -20,7 +20,8 @@ export const TopBar = () => {
     <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-gray-200 dark:border-b-[#4a213c] px-6 md:px-20 py-4 sticky top-0 bg-bg-light/80 dark:bg-bg-dark/80 backdrop-blur-md z-50">
       <Link
         href="/"
-        className="flex items-center gap-4 text-primary hover:opacity-80 transition-opacity"
+        title="Ir al inicio"
+        className="flex items-center gap-4 text-primary hover:scale-110 transition-transform"
       >
         <div className="size-8">
           <Image src="/logo.svg" alt="Song Party" width={32} height={32} />

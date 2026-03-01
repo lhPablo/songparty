@@ -15,12 +15,21 @@ export const PlaylistMetaInfo = ({
   );
 
   return (
-    <p className="text-gray-500 dark:text-gray-400 text-sm">
-      Creada el {new Date(createdAt).toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric" })}
-      <span className="mx-2 opacity-50">•</span>
+    <p className="text-gray-500 dark:text-gray-400 text-xs whitespace-nowrap">
+      Creada el{" "}
+      {new Date(createdAt).toLocaleDateString("es-ES", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })}
+      <span className="mx-1.5 opacity-50">•</span>
       <span className="text-amber-600/80 font-medium">
         Se borrará el{" "}
-        {new Date(expiresAt).toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric" })}{" "}
+        {new Date(expiresAt).toLocaleDateString("es-ES", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })}{" "}
         (en {remainingDays} {remainingDays === 1 ? "día" : "días"})
       </span>
     </p>

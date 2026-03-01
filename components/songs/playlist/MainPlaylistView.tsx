@@ -1,6 +1,7 @@
 "use client";
 
 import { PlaylistHeader } from "./title/PlaylistHeader";
+import { AddSongsLink } from "./AddSongsLink";
 import { SongList } from "../shared/SongList";
 import { ListPlaceholder } from "../shared/ListPlaceholder";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
@@ -24,28 +25,37 @@ export const MainPlaylistView = ({
   const ownerToken = usePlaylistStore((state) => state.ownerToken);
   const isOwner = !!ownerToken;
   const hasSongs = selectedSongs.length > 0;
+  const canAdd = !isLocked || isOwner;
 
   if (!isMounted) return null;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full">
-      <div className="lg:col-span-7 flex flex-col gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
+      <div className="lg:col-span-12">
         <PlaylistHeader
           createdAt={playlist.createdAt}
           expiresAt={playlist.expiresAt}
-          playlistId={playlistId}
         />
+      </div>
 
-        <div className="bg-panel/40 p-3 md:p-6 lg:p-8 rounded-2xl border border-border-dark shadow-glass">
-          {hasSongs ? (
-            <SongList songs={selectedSongs} isSortable={!isLocked || isOwner} />
-          ) : (
-            <ListPlaceholder
-              message="Esta lista no tiene canciones todavía."
-              icon={HeadphoneOff}
-            />
-          )}
-        </div>
+      <div className="lg:col-span-7 bg-panel/40 p-3 md:p-6 lg:p-8 rounded-2xl border border-border-dark shadow-glass flex flex-col gap-3 justify-between">
+        {hasSongs ? (
+          <div
+            className="overflow-y-auto max-h-[75vh] pr-1 pt-4 pb-4 custom-scrollbar scroll-fade"
+          >
+            <SongList songs={selectedSongs} isSortable={canAdd} />
+          </div>
+        ) : (
+          <ListPlaceholder
+            message="Esta lista no tiene canciones todavía."
+            icon={HeadphoneOff}
+          />
+        )}
+        {canAdd && (
+          <div className="mt-auto">
+            <AddSongsLink playlistId={playlistId} />
+          </div>
+        )}
       </div>
 
       <div id="qr-section" className="lg:col-span-5">

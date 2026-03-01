@@ -17,7 +17,7 @@ export const Button = React.memo(
     ...props
   }: ButtonProps) => {
     const baseClasses =
-      "group flex items-center justify-center gap-2 px-6 h-12 rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
+      "group flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-6 h-10 md:h-12 rounded-xl text-sm md:text-base font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
 
     const variants = {
       primary:
@@ -39,8 +39,7 @@ export const Button = React.memo(
       >
         {CurrentIcon && (
           <CurrentIcon
-            size={24}
-            className={loading ? "animate-spin" : ""}
+            className={`size-[18px] md:size-6 ${loading ? "animate-spin" : ""}`}
           />
         )}
         <span className="leading-none">{children}</span>

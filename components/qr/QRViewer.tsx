@@ -69,7 +69,7 @@ export const QRViewer = () => {
             <Button
               variant="secondary"
               icon={copied ? Check : Copy}
-              className={`w-full h-11 lg:h-14 rounded-2xl text-[10px] uppercase font-bold transition-all duration-300 ${copied ? "!bg-green-500 !text-white !border-green-500" : ""}`}
+              className={`w-full h-11 lg:h-14 rounded-2xl font-bold transition-all duration-300 ${copied ? "!bg-green-500 !text-white !border-green-500" : ""}`}
               onClick={handleCopyLink}
             >
               {copied ? "Enlace copiado" : "Copiar Enlace"}
@@ -77,7 +77,7 @@ export const QRViewer = () => {
             <Button
               variant="secondary"
               icon={Printer}
-              className="w-full h-11 lg:h-14 rounded-2xl text-[10px] uppercase font-bold"
+              className="w-full h-11 lg:h-14 rounded-2xl font-bold"
               onClick={handlePrint}
             >
               Imprimir QR

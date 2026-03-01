@@ -21,7 +21,7 @@ export const SongSearchResults = React.memo(
     } = useSongSearchResults({ songs });
 
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 min-h-[280px]">
         {shouldShowList && <SongList songs={songs} />}
 
         {showLoading && (

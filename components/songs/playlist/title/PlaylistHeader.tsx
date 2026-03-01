@@ -3,33 +3,45 @@
 import { PlaylistTitle } from "./PlaylistTitle";
 import { Chip } from "@/components/ui/Chip";
 import { PlaylistMetaInfo } from "./PlaylistMetaInfo";
-import { PlaylistTools } from "./PlaylistTools";
-import { Lock, Edit3 } from "lucide-react";
+import { Lock, Edit3, QrCode } from "lucide-react";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import React from "react";
 
 interface PlaylistHeaderProps {
   createdAt: string;
   expiresAt: string;
-  playlistId: string;
 }
 
 export const PlaylistHeader = React.memo(
-  ({ createdAt, expiresAt, playlistId }: PlaylistHeaderProps) => {
+  ({ createdAt, expiresAt }: PlaylistHeaderProps) => {
     const isLocked = usePlaylistStore((state) => state.isLocked);
+
+    const handleScrollToQr = () => {
+      document
+        .getElementById("qr-section")
+        ?.scrollIntoView({ behavior: "smooth" });
+    };
 
     return (
       <div className="space-y-2 p-6 bg-[#2e1425] rounded-2xl border border-white/5 w-full">
-        <div className="flex items-center gap-3 flex-wrap">
-          {isLocked ? (
-            <Chip variant="warning" icon={Lock} label="Solo lectura" />
-          ) : (
-            <Chip variant="success" icon={Edit3} label="Lista Abierta" />
-          )}
+        <div className="flex items-center justify-between gap-3">
+          <PlaylistMetaInfo createdAt={createdAt} expiresAt={expiresAt} />
+          <div className="flex items-center gap-3">
+            {isLocked ? (
+              <Chip variant="warning" icon={Lock} label="Solo lectura" />
+            ) : (
+              <Chip variant="success" icon={Edit3} label="Lista Abierta" />
+            )}
+            <button
+              onClick={handleScrollToQr}
+              className="lg:hidden flex items-center justify-center size-9 rounded-full bg-white/5 text-white/50 hover:text-primary hover:bg-primary/10 transition-all"
+              title="Ver QR"
+            >
+              <QrCode size={18} />
+            </button>
+          </div>
         </div>
         <PlaylistTitle />
-        <PlaylistMetaInfo createdAt={createdAt} expiresAt={expiresAt} />
-        <PlaylistTools playlistId={playlistId} />
       </div>
     );
   },

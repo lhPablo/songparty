@@ -84,6 +84,21 @@
   border: 1px solid var(--color-neon-glow);
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-panel);
+  border-radius: 10px;
+}
+
+.scroll-fade {
+  mask-image: linear-gradient(to bottom, transparent, black 3rem, black calc(100% - 3rem), transparent);
+}
+
 body {
   @apply cursor-default select-none;
 }

@@ -14,6 +14,7 @@ export interface SongsSlice {
   isSongSelected: (songId: number) => boolean;
   setPlaylistName: (name: string) => void;
   setSavedPlaylistId: (id: string | null) => void;
+  clearSongs: () => void;
 }
 
 export const createSongsSlice: StateCreator<
@@ -53,7 +54,7 @@ export const createSongsSlice: StateCreator<
     const currentSongs = get().selectedSongs;
     if (
       currentSongs.length === songs.length &&
-      JSON.stringify(currentSongs) === JSON.stringify(songs)
+      currentSongs.every((s, i) => s.id === songs[i].id)
     ) {
       return;
     }
@@ -72,4 +73,11 @@ export const createSongsSlice: StateCreator<
   isSongSelected: (songId) => {
     return get().selectedSongs.some((s) => s.id === songId);
   },
+
+  clearSongs: () =>
+    set({
+      selectedSongs: [],
+      playlistName: INITIAL_PLAYLIST_STATE.title,
+      savedPlaylistId: null,
+    }),
 });

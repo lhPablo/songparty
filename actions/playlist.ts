@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Playlist } from "@/lib/types/domain/playlist";
 import {
   PLAYLIST_EXPIRATION_SECONDS,
+  PLAYLIST_EXPIRATION_MS,
   INITIAL_PLAYLIST_STATE,
 } from "@/lib/constants/playlist";
 
@@ -14,27 +15,19 @@ export async function savePlaylist(
   songs: Song[] = INITIAL_PLAYLIST_STATE.songs,
   title: string = INITIAL_PLAYLIST_STATE.title,
   isLocked: boolean = INITIAL_PLAYLIST_STATE.isLocked,
-  id?: string | null,
 ) {
-  const playlistId = id || uuidv4();
+  const playlistId = uuidv4();
+  const ownerToken = uuidv4();
 
-  let existingToken: string | null = null;
-  if (id) {
-    const existing = await getPlaylist(id);
-    if (existing && existing.ownerToken) {
-      existingToken = existing.ownerToken;
-    }
-  }
-
-  const ownerToken = existingToken || uuidv4();
-
+  const now = new Date();
   const playlistData: Playlist = {
     title,
     songs,
     isLocked,
     ownerToken,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdAt: now.toISOString(),
+    updatedAt: now.toISOString(),
+    expiresAt: new Date(now.getTime() + PLAYLIST_EXPIRATION_MS).toISOString(),
   };
 
   await redis.set(`playlist:${playlistId}`, JSON.stringify(playlistData), {
@@ -80,12 +73,14 @@ export async function updatePlaylist(
     );
   }
 
+  const now = new Date();
   const updatedPlaylist: Playlist = {
     ...existingPlaylist,
     songs,
     title,
     isLocked,
-    updatedAt: new Date().toISOString(),
+    updatedAt: now.toISOString(),
+    expiresAt: new Date(now.getTime() + PLAYLIST_EXPIRATION_MS).toISOString(),
   };
 
   await redis.set(`playlist:${id}`, JSON.stringify(updatedPlaylist), {

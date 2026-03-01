@@ -8,9 +8,9 @@ export const usePlaylistShareActions = () => {
     window.print();
   }, []);
 
-  const handleCopyLink = useCallback((url: string) => {
+  const handleCopyLink = useCallback(async (url: string) => {
     try {
-      navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(url);
     } catch {
       sileo.error({ title: "Error al copiar el enlace" });
     }
@@ -23,11 +23,9 @@ export const usePlaylistShareActions = () => {
           await navigator.share(data);
         } catch (err) {
           if ((err as Error).name !== "AbortError") {
-            console.error("Error al compartir:", err);
+            sileo.error({ title: "Error al compartir" });
           }
         }
-      } else {
-        console.warn("Web Share API no soportada en este navegador");
       }
     },
     [],

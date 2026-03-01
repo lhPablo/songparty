@@ -1,3 +1,4 @@
+import { Suspense, cache } from "react";
 import { getPlaylist } from "@/actions/playlist";
 import { SyncSharedPlaylist } from "@/components/songs/playlist/SyncSharedPlaylist";
 import { MainPlaylistView } from "@/components/songs/playlist/MainPlaylistView";
@@ -5,25 +6,34 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { Playlist } from "@/lib/types/domain/playlist";
 
+const getCachedPlaylist = cache(getPlaylist);
+
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
-  const playlist = await getPlaylist(id);
+  try {
+    const { id } = await params;
+    const playlist = await getCachedPlaylist(id);
 
-  return {
-    title: playlist
-      ? `${playlist.title} - Song Party`
-      : "Playlist no encontrada",
-    description: "Lista colaborativa de karaoke para tu evento",
-  };
+    return {
+      title: playlist
+        ? `${playlist.title} - Song Party`
+        : "Playlist no encontrada",
+      description: "Lista colaborativa de karaoke para tu evento",
+    };
+  } catch {
+    return {
+      title: "Song Party",
+      description: "Lista colaborativa de karaoke para tu evento",
+    };
+  }
 }
 
 export default async function SharedPlaylistPage({ params }: Props) {
   const { id } = await params;
-  const playlist = await getPlaylist(id);
+  const playlist = await getCachedPlaylist(id);
 
   if (!playlist) {
     notFound();
@@ -33,17 +43,19 @@ export default async function SharedPlaylistPage({ params }: Props) {
   // preventing it from being exposed in the initial HTML or propagated through component props.
   const publicPlaylist: Playlist = {
     ...playlist,
-    ownerToken: undefined,
+    ownerToken: null,
   };
 
   return (
     <main className="flex flex-1 justify-center">
-      <SyncSharedPlaylist
-        id={id}
-        songs={playlist.songs}
-        isLocked={playlist.isLocked}
-        title={playlist.title}
-      />
+      <Suspense fallback={null}>
+        <SyncSharedPlaylist
+          id={id}
+          songs={playlist.songs}
+          isLocked={playlist.isLocked}
+          title={playlist.title}
+        />
+      </Suspense>
       <div className="flex-1 flex flex-col items-center">
         <section className="layout-content-container flex flex-col w-full max-w-7xl flex-1 py-8 px-4">
           <MainPlaylistView

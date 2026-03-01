@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+let loadingTimer: NodeJS.Timeout | null = null;
+
 interface SearchState {
   // Input values (temporary)
   songQuery: string;
@@ -14,10 +16,6 @@ interface SearchState {
   showEmptyMessage: boolean;
   showLoading: boolean;
 
-  // Internal timer references
-  _emptyMessageTimer: NodeJS.Timeout | null;
-  _loadingTimer: NodeJS.Timeout | null;
-
   // Actions
   setSongQuery: (query: string) => void;
   setAuthorQuery: (query: string) => void;
@@ -28,7 +26,7 @@ interface SearchState {
   syncLoadingState: (isLoading: boolean, songCount: number) => void;
 }
 
-export const useSearchStore = create<SearchState>((set, get) => ({
+export const useSearchStore = create<SearchState>((set) => ({
   songQuery: "",
   authorQuery: "",
   appliedSongQuery: "",
@@ -36,8 +34,6 @@ export const useSearchStore = create<SearchState>((set, get) => ({
   hasSearched: false,
   showEmptyMessage: false,
   showLoading: false,
-  _emptyMessageTimer: null,
-  _loadingTimer: null,
 
   setSongQuery: (query) => set({ songQuery: query }),
   setAuthorQuery: (query) => set({ authorQuery: query }),
@@ -64,25 +60,19 @@ export const useSearchStore = create<SearchState>((set, get) => ({
     }),
 
   syncLoadingState: (isLoading, songCount) => {
-    const state = get();
-
-    // 1. Handle Loading Flashing
     if (isLoading) {
-      if (state._loadingTimer) clearTimeout(state._loadingTimer);
-      set({ showLoading: true, _loadingTimer: null });
-    } else if (!state._loadingTimer) {
-      const timer = setTimeout(() => {
+      if (loadingTimer) clearTimeout(loadingTimer);
+      loadingTimer = null;
+      set({ showLoading: true });
+    } else if (!loadingTimer) {
+      loadingTimer = setTimeout(() => {
+        loadingTimer = null;
         if (songCount > 0) {
-          set({ showLoading: false, _loadingTimer: null });
+          set({ showLoading: false });
         } else {
-          set({
-            showLoading: false,
-            showEmptyMessage: true,
-            _loadingTimer: null,
-          });
+          set({ showLoading: false, showEmptyMessage: true });
         }
       }, 500);
-      set({ _loadingTimer: timer });
     }
   },
 }));

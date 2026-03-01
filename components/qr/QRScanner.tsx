@@ -28,6 +28,7 @@ export const QRScanner = () => {
       <div id="qr-reader" className="hidden"></div>
 
       <Button
+        variant="secondary"
         className="w-full h-16 text-lg font-bold rounded-2xl shadow-2xl dark:shadow-white/5"
         icon={ScanQrCode}
         onClick={handleButtonClick}

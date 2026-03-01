@@ -6,6 +6,7 @@ export interface UiSlice {
   setIsShowQr: (show: boolean) => void;
   isSaving: boolean;
   setIsSaving: (isSaving: boolean) => void;
+  clearUi: () => void;
 }
 
 export const createUiSlice: StateCreator<
@@ -19,4 +20,6 @@ export const createUiSlice: StateCreator<
 
   setIsShowQr: (show) => set({ isShowQr: show }),
   setIsSaving: (isSaving) => set({ isSaving }),
+
+  clearUi: () => set({ isShowQr: false, isSaving: false }),
 });

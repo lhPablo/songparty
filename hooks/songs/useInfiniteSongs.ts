@@ -11,6 +11,8 @@ interface UseSongsProps {
 
 export const useInfiniteSongs = (query: UseSongsProps) => {
   return useInfiniteQuery({
+    enabled: !!(query.song || query.author),
+    staleTime: 1000 * 60 * 5, // 5 minutos
     refetchOnWindowFocus: false,
     queryKey: ["songs", query.song, query.author],
     queryFn: ({ pageParam }: { pageParam: number }) =>

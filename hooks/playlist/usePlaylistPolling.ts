@@ -2,10 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
-import { Song } from "@/lib/types/domain/song";
 import { getPlaylist } from "@/actions/playlist";
 
-const POLL_INTERVAL_MS = 10000;
+const POLL_INTERVAL_ACTIVE_MS = 30000;
+const POLL_INTERVAL_PASSIVE_MS = 60000;
 const INACTIVITY_THRESHOLD_MS = 3 * 60 * 1000; // 3 minutes
 const ACTIVITY_EVENTS: (keyof WindowEventMap)[] = [
   "keydown",
@@ -14,42 +14,13 @@ const ACTIVITY_EVENTS: (keyof WindowEventMap)[] = [
   "scroll",
 ];
 
-interface UsePlaylistPollingProps {
-  id: string;
-  songs: Song[];
-  isLocked: boolean;
-  title: string;
-}
-
-export const usePlaylistPolling = ({
-  id,
-  songs,
-  isLocked,
-  title,
-}: UsePlaylistPollingProps) => {
+export const usePlaylistPolling = (id: string) => {
   const setSongs = usePlaylistStore((state) => state.setSongs);
-  const setSavedPlaylistId = usePlaylistStore(
-    (state) => state.setSavedPlaylistId,
-  );
   const setIsLocked = usePlaylistStore((state) => state.setIsLocked);
   const setPlaylistName = usePlaylistStore((state) => state.setPlaylistName);
+  const storeIsLocked = usePlaylistStore((state) => state.isLocked);
+  const ownerToken = usePlaylistStore((state) => state.ownerToken);
   const lastActivityRef = useRef(Date.now());
-
-  useEffect(() => {
-    setSongs(songs);
-    setSavedPlaylistId(id);
-    setIsLocked(isLocked);
-    setPlaylistName(title);
-  }, [
-    id,
-    songs,
-    isLocked,
-    title,
-    setSongs,
-    setSavedPlaylistId,
-    setIsLocked,
-    setPlaylistName,
-  ]);
 
   useEffect(() => {
     const handleActivity = () => {
@@ -77,7 +48,13 @@ export const usePlaylistPolling = ({
       }
     };
 
-    const interval = setInterval(poll, POLL_INTERVAL_MS);
+    const isOwner = !!ownerToken;
+    const pollInterval =
+      isOwner || !storeIsLocked
+        ? POLL_INTERVAL_ACTIVE_MS
+        : POLL_INTERVAL_PASSIVE_MS;
+
+    const interval = setInterval(poll, pollInterval);
 
     return () => {
       clearInterval(interval);
@@ -85,5 +62,5 @@ export const usePlaylistPolling = ({
         window.removeEventListener(event, handleActivity),
       );
     };
-  }, [id, setSongs, setIsLocked, setPlaylistName]);
+  }, [id, setSongs, setIsLocked, setPlaylistName, storeIsLocked, ownerToken]);
 };

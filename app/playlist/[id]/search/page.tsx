@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getPlaylist } from "@/actions/playlist";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -34,12 +35,14 @@ export default async function PlaylistSearchPage({
 
   return (
     <main className="flex flex-1 justify-center">
-      <SyncSharedPlaylist
-        id={id}
-        songs={playlist.songs}
-        isLocked={playlist.isLocked}
-        title={playlist.title}
-      />
+      <Suspense fallback={null}>
+        <SyncSharedPlaylist
+          id={id}
+          songs={playlist.songs}
+          isLocked={playlist.isLocked}
+          title={playlist.title}
+        />
+      </Suspense>
       <div className="flex-1 flex flex-col items-center">
         <section className="layout-content-container flex flex-col w-full max-w-7xl flex-1 py-8 px-4">
           <div className="mb-6">

@@ -6,19 +6,19 @@ import { SearchX, Music } from "lucide-react";
 
 interface UseSongSearchResultsProps {
   songs: Song[];
-  hasSearched: boolean;
 }
 
 export const useSongSearchResults = ({
   songs,
-  hasSearched,
 }: UseSongSearchResultsProps) => {
   const showLoading = useSearchStore((state) => state.showLoading);
   const showEmptyMessage = useSearchStore((state) => state.showEmptyMessage);
+  const hasSearched = useSearchStore((state) => state.hasSearched);
 
   const isEmpty = songs.length === 0;
   const shouldShowList = songs.length > 0;
-  const shouldShowEmptyState = isEmpty && showEmptyMessage && !showLoading;
+  const shouldShowEmptyState =
+    isEmpty && !showLoading && (!hasSearched || showEmptyMessage);
 
   const emptyStateConfig = {
     message: hasSearched

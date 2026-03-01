@@ -6,6 +6,6 @@ export interface GeniusSong {
     name: string;
   };
   song_art_image_thumbnail_url: string;
-  release_date_for_display: string;
+  release_date_for_display: string | null;
   lyrics_state: string;
 }

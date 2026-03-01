@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { useSyncPlaylistToStore } from "@/hooks/playlist/useSyncPlaylistToStore";
 import { usePlaylistPolling } from "@/hooks/playlist/usePlaylistPolling";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
@@ -14,7 +15,12 @@ interface SyncSharedPlaylistProps {
   title: string;
 }
 
-export const SyncSharedPlaylist = (props: SyncSharedPlaylistProps) => {
+export const SyncSharedPlaylist = ({
+  id,
+  songs,
+  isLocked,
+  title,
+}: SyncSharedPlaylistProps) => {
   const searchParams = useSearchParams();
   const setOwnerToken = usePlaylistStore((state) => state.setOwnerToken);
 
@@ -23,6 +29,8 @@ export const SyncSharedPlaylist = (props: SyncSharedPlaylistProps) => {
     setOwnerToken(token);
   }, [searchParams, setOwnerToken]);
 
-  usePlaylistPolling(props);
+  useSyncPlaylistToStore({ id, songs, isLocked, title });
+  usePlaylistPolling(id);
+
   return null;
 };

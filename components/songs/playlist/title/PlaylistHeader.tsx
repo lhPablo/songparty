@@ -10,11 +10,12 @@ import React from "react";
 
 interface PlaylistHeaderProps {
   createdAt: string;
+  expiresAt: string;
   playlistId: string;
 }
 
 export const PlaylistHeader = React.memo(
-  ({ createdAt, playlistId }: PlaylistHeaderProps) => {
+  ({ createdAt, expiresAt, playlistId }: PlaylistHeaderProps) => {
     const isLocked = usePlaylistStore((state) => state.isLocked);
 
     return (
@@ -27,7 +28,7 @@ export const PlaylistHeader = React.memo(
           )}
         </div>
         <PlaylistTitle />
-        <PlaylistMetaInfo createdAt={createdAt} />
+        <PlaylistMetaInfo createdAt={createdAt} expiresAt={expiresAt} />
         <PlaylistTools playlistId={playlistId} />
       </div>
     );

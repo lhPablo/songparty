@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { INITIAL_PLAYLIST_STATE } from "@/lib/constants/playlist";
 import { createSongsSlice, SongsSlice } from "./slices/songsSlice";
 import { createAuthSlice, AuthSlice } from "./slices/authSlice";
 import { createUiSlice, UiSlice } from "./slices/uiSlice";
@@ -13,21 +12,17 @@ export type PlaylistState = SongsSlice &
 
 export const usePlaylistStore = create<PlaylistState>()(
   persist(
-    (...storeApi) => ({
-      ...createSongsSlice(...storeApi),
-      ...createAuthSlice(...storeApi),
-      ...createUiSlice(...storeApi),
+    (set, get, store) => ({
+      ...createSongsSlice(set, get, store),
+      ...createAuthSlice(set, get, store),
+      ...createUiSlice(set, get, store),
 
-      clearPlaylist: () =>
-        storeApi[0]({
-          selectedSongs: [],
-          playlistName: INITIAL_PLAYLIST_STATE.title,
-          isLocked: false,
-          isSaving: false,
-          savedPlaylistId: null,
-          isShowQr: false,
-          ownerToken: null,
-        }),
+      clearPlaylist: () => {
+        const state = get();
+        state.clearSongs();
+        state.clearAuth();
+        state.clearUi();
+      },
     }),
     {
       name: "songparty-storage-v2",

@@ -9,7 +9,6 @@ export const useSongSearch = () => {
   const appliedAuthorQuery = useSearchStore(
     (state) => state.appliedAuthorQuery,
   );
-  const hasSearched = useSearchStore((state) => state.hasSearched);
   const syncLoadingState = useSearchStore((state) => state.syncLoadingState);
   const observerRef = useRef<HTMLDivElement>(null);
 
@@ -56,7 +55,6 @@ export const useSongSearch = () => {
 
   return {
     songs,
-    hasSearched,
     status,
     error,
     observerRef,

@@ -6,7 +6,6 @@ import { LucideIcon } from "lucide-react";
 interface IconButtonProps extends ComponentPropsWithoutRef<"button"> {
   icon: LucideIcon;
   iconClassName?: string;
-  iconSize?: number;
 }
 
 export const IconButton = React.memo(

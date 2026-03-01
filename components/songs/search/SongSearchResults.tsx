@@ -9,17 +9,16 @@ import { useSongSearchResults } from "@/hooks/songs/useSongSearchResults";
 
 interface SongSearchResultsProps {
   songs: Song[];
-  hasSearched?: boolean;
 }
 
 export const SongSearchResults = React.memo(
-  ({ songs, hasSearched = false }: SongSearchResultsProps) => {
+  ({ songs }: SongSearchResultsProps) => {
     const {
       showLoading,
       shouldShowList,
       shouldShowEmptyState,
       emptyStateConfig,
-    } = useSongSearchResults({ songs, hasSearched });
+    } = useSongSearchResults({ songs });
 
     return (
       <div className="flex flex-col gap-2">

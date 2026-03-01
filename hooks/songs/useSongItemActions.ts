@@ -31,9 +31,7 @@ export const useSongItemActions = (song: Song) => {
 
     const canModify = !isLocked || !!ownerToken;
     if (!canModify) {
-      console.warn(
-        "No tienes permiso para modificar esta lista (está bloqueada)",
-      );
+      sileo.warning({ title: "Esta lista está bloqueada" });
       return;
     }
 

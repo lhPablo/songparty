@@ -6,6 +6,7 @@ export interface AuthSlice {
   setOwnerToken: (token: string | null) => void;
   isLocked: boolean;
   setIsLocked: (isLocked: boolean) => void;
+  clearAuth: () => void;
 }
 
 export const createAuthSlice: StateCreator<
@@ -26,4 +27,6 @@ export const createAuthSlice: StateCreator<
     if (get().isLocked === isLocked) return;
     set({ isLocked });
   },
+
+  clearAuth: () => set({ ownerToken: null, isLocked: false }),
 });

@@ -6,7 +6,7 @@ import { useSongSearch } from "@/hooks/songs/useSongSearch";
 import { CircleAlert } from "lucide-react";
 
 export const SongListData = () => {
-  const { songs, hasSearched, status, error, observerRef } = useSongSearch();
+  const { songs, status, error, observerRef } = useSongSearch();
 
   return (
     <div className="flex flex-col gap-4">
@@ -17,7 +17,7 @@ export const SongListData = () => {
         />
       )}
 
-      <SongSearchResults songs={songs} hasSearched={hasSearched} />
+      <SongSearchResults songs={songs} />
 
       <div
         ref={observerRef}

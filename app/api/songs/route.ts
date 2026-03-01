@@ -13,22 +13,30 @@ export async function GET(request: Request) {
   if (author) query += ` ${author}`;
   query = query.trim();
 
-  const rawSongs = await searchSongs(query, page);
+  try {
+    const rawSongs = await searchSongs(query, page);
 
-  // Local filter to refine Genius's broad search results
-  const filteredSongs = title
-    ? rawSongs.filter((song) =>
-        song.title.toLowerCase().includes(title.toLowerCase()),
-      )
-    : rawSongs.filter((song) =>
-        song.artist.toLowerCase().includes(author.toLowerCase()),
-      );
+    // Local filter to refine Genius's broad search results
+    const filteredSongs = title
+      ? rawSongs.filter((song) =>
+          song.title.toLowerCase().includes(title.toLowerCase()),
+        )
+      : rawSongs.filter((song) =>
+          song.artist.toLowerCase().includes(author.toLowerCase()),
+        );
 
-  const hasMore = rawSongs.length >= 20;
+    const hasMore = rawSongs.length >= 20;
 
-  return NextResponse.json({
-    data: filteredSongs,
-    nextPage: hasMore ? page + 1 : null,
-    hasMore: hasMore,
-  });
+    return NextResponse.json({
+      data: filteredSongs,
+      nextPage: hasMore ? page + 1 : null,
+      hasMore,
+    });
+  } catch (error) {
+    console.error("Error searching songs:", error);
+    return NextResponse.json(
+      { error: "Error al buscar canciones" },
+      { status: 500 },
+    );
+  }
 }

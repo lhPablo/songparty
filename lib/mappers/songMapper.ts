@@ -10,7 +10,7 @@ const mapGeniusSongToSong = (song: GeniusSong): Song => {
     id: song.id,
     title: song.title,
     artist: song.primary_artist.name,
-    date: song.release_date_for_display,
+    date: song.release_date_for_display ?? "",
     coverUrl: song.song_art_image_thumbnail_url,
     lyricsUrl: song.url,
   };

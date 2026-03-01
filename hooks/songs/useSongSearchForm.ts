@@ -6,8 +6,23 @@ import { SearchType } from "@/lib/types/domain/search";
 
 export const useSongSearchForm = () => {
   const applyFilters = useSearchStore((state) => state.applyFilters);
-  const [searchType, setSearchType] = useState<SearchType>("song");
+  const appliedSongQuery = useSearchStore((state) => state.appliedSongQuery);
+  const appliedAuthorQuery = useSearchStore(
+    (state) => state.appliedAuthorQuery,
+  );
+
+  const initialType: SearchType = appliedAuthorQuery ? "author" : "song";
+  const [searchType, setSearchType] = useState<SearchType>(initialType);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const inputCallbackRef = useCallback((node: HTMLInputElement | null) => {
+    inputRef.current = node;
+    if (node) {
+      const restoredValue =
+        initialType === "song" ? appliedSongQuery : appliedAuthorQuery;
+      node.value = restoredValue;
+    }
+  }, []);
 
   const handleTypeChange = useCallback((val: string) => {
     const newType = val as SearchType;
@@ -41,7 +56,7 @@ export const useSongSearchForm = () => {
   }, [searchType]);
 
   return {
-    inputRef,
+    inputRef: inputCallbackRef,
     searchType,
     searchPlaceholder,
     handleTypeChange,

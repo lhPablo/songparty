@@ -4,19 +4,24 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { StatusToggle } from "@/components/ui/StatusToggle";
 import { usePlaylistActions } from "@/hooks/playlist/usePlaylistActions";
-import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
+import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useIsMounted } from "@/hooks/shared/useIsMounted";
-import { CirclePlus, QrCode, Users, Lock, LockOpen } from "lucide-react";
+import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
+import { CirclePlus, QrCode, Lock, LockOpen } from "lucide-react";
 
 interface PlaylistToolsProps {
   playlistId: string;
 }
 
 export const PlaylistTools = ({ playlistId }: PlaylistToolsProps) => {
-  const { isLocked, setIsLocked, isShowQr, setIsShowQr, isOwner, ownerToken } =
-    usePlaylistActions();
-
   const isMounted = useIsMounted();
+  const isLocked = usePlaylistStore((state) => state.isLocked);
+  const isShowQr = usePlaylistStore((state) => state.isShowQr);
+  const setIsShowQr = usePlaylistStore((state) => state.setIsShowQr);
+  const ownerToken = usePlaylistStore((state) => state.ownerToken);
+  const isOwner = !!ownerToken;
+
+  const { handleToggleLocked } = usePlaylistActions();
 
   if (!isMounted) return null;
 
@@ -51,10 +56,10 @@ export const PlaylistTools = ({ playlistId }: PlaylistToolsProps) => {
         {isOwner && (
           <StatusToggle
             checked={isLocked}
-            onChange={() => setIsLocked(!isLocked)}
+            onChange={() => handleToggleLocked(!isLocked)}
             falseOption={{
               label: "Colaborativa",
-              icon: Users,
+              icon: LockOpen,
               activeBg: "bg-green-500",
               activeShadow: "shadow-green-500/20",
               inactiveText: "text-green-600",

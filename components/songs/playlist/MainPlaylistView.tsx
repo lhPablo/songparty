@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { PlaylistHeader } from "./title/PlaylistHeader";
 import { SongList } from "../shared/SongList";
 import { ListPlaceholder } from "../shared/ListPlaceholder";
@@ -25,8 +26,15 @@ export const MainPlaylistView = ({
   const ownerToken = usePlaylistStore((state) => state.ownerToken);
   const isOwner = !!ownerToken;
   const hasSongs = selectedSongs.length > 0;
+  const hasToggledQr = useRef(false);
+
+  if (isShowQr) {
+    hasToggledQr.current = true;
+  }
 
   if (!isMounted) return null;
+
+  const shouldAnimate = hasToggledQr.current;
 
   return (
     <div
@@ -36,11 +44,14 @@ export const MainPlaylistView = ({
         className={`transition-all duration-500 ease-in-out ${
           isShowQr
             ? "animate-zoom-out h-0 overflow-hidden opacity-0 pointer-events-none"
-            : "animate-zoom-in block"
+            : shouldAnimate
+              ? "animate-zoom-in-instant block"
+              : "block"
         }`}
       >
         <PlaylistHeader
           createdAt={playlist.createdAt}
+          expiresAt={playlist.expiresAt}
           playlistId={playlistId}
         />
       </div>
@@ -50,7 +61,7 @@ export const MainPlaylistView = ({
           <QRViewer />
         </div>
       ) : (
-        <div className="animate-zoom-in w-full">
+        <div className={`w-full ${shouldAnimate ? "animate-zoom-in-instant" : ""}`}>
           {hasSongs ? (
             <SongList songs={selectedSongs} isSortable={!isLocked || isOwner} />
           ) : (

@@ -86,6 +86,11 @@
   animation-delay: 200ms;
 }
 
+.animate-zoom-in-instant {
+  opacity: 0;
+  animation: zoom-in-center 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 .animate-zoom-out {
   animation: zoom-out-center 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

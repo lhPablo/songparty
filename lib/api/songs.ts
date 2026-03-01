@@ -13,7 +13,6 @@ export const fetchSongs = async (
   const { data } = await axios.get<PaginatedSongsResponse>("/api/songs", {
     params: {
       page: query.pageParam,
-      limit: 20,
       title: query.title || undefined,
       author: query.author || undefined,
     },

@@ -17,13 +17,13 @@ export async function GET(request: Request) {
     const rawSongs = await searchSongs(query, page);
 
     // Local filter to refine Genius's broad search results
-    const filteredSongs = title
-      ? rawSongs.filter((song) =>
-          song.title.toLowerCase().includes(title.toLowerCase()),
-        )
-      : rawSongs.filter((song) =>
-          song.artist.toLowerCase().includes(author.toLowerCase()),
-        );
+    const filteredSongs = rawSongs.filter((song) => {
+      const matchesTitle =
+        !title || song.title.toLowerCase().includes(title.toLowerCase());
+      const matchesAuthor =
+        !author || song.artist.toLowerCase().includes(author.toLowerCase());
+      return matchesTitle && matchesAuthor;
+    });
 
     const hasMore = rawSongs.length >= 20;
 

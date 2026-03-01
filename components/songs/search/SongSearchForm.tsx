@@ -2,41 +2,47 @@
 
 import React from "react";
 import { SearchInput } from "@/components/ui/SearchInput";
-import { ToggleGroup } from "@/components/ui/ToggleGroup";
 import { useSongSearchForm } from "@/hooks/songs/useSongSearchForm";
-import { Type, User } from "lucide-react";
-
-const searchOptions = [
-  { value: "song", label: "Título", icon: Type },
-  { value: "author", label: "Artista", icon: User },
-];
+import { Search, Type, User } from "lucide-react";
 
 export const SongSearchForm = React.memo(() => {
-  const {
-    inputRef,
-    searchType,
-    searchPlaceholder,
-    handleTypeChange,
-    handleSubmit,
-    applyFilters,
-  } = useSongSearchForm();
+  const { songInputRef, authorInputRef, handleSubmit } = useSongSearchForm();
 
   return (
-    <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
-      <div className="flex flex-col items-center gap-4 mb-8">
-        <ToggleGroup
-          name="searchType"
-          value={searchType}
-          onChange={handleTypeChange}
-          options={searchOptions}
-        />
-      </div>
-      <div className="w-full max-w-4xl mx-auto mb-4">
-        <SearchInput
-          ref={inputRef}
-          placeholder={searchPlaceholder}
-          onSearch={applyFilters}
-        />
+    <form
+      className="w-full bg-panel/40 p-6 md:p-8 rounded-xl border border-border-dark shadow-glass"
+      onSubmit={handleSubmit}
+    >
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+        <div className="md:col-span-5">
+          <SearchInput
+            ref={authorInputRef}
+            icon={User}
+            label="Artista"
+            placeholder="Escribe el nombre del artista..."
+            showButton={false}
+          />
+        </div>
+
+        <div className="md:col-span-5">
+          <SearchInput
+            ref={songInputRef}
+            icon={Type}
+            label="Título de la canción"
+            placeholder="Escribe el título de la canción..."
+            showButton={false}
+          />
+        </div>
+
+        <div className="md:col-span-2">
+          <button
+            type="submit"
+            className="w-full h-14 flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-all shadow-lg shadow-primary/20 cursor-pointer"
+          >
+            <Search className="size-5" />
+            <span className="md:hidden lg:inline">Buscar</span>
+          </button>
+        </div>
       </div>
     </form>
   );

@@ -9,7 +9,7 @@ export const SongListData = () => {
   const { songs, status, error, observerRef } = useSongSearch();
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 bg-panel/40 p-6 md:p-8 rounded-xl border border-border-dark shadow-glass">
       {status === "error" && error && (
         <ListPlaceholder
           message={error instanceof Error ? error.message : String(error)}

@@ -24,11 +24,7 @@ export const SongSearchResults = React.memo(
       <div className="flex flex-col gap-2 min-h-[280px]">
         {shouldShowList && <SongList songs={songs} />}
 
-        {showLoading && (
-          <div className="h-20 flex items-center justify-center">
-            <Loading />
-          </div>
-        )}
+        {showLoading && <Loading />}
 
         {shouldShowEmptyState && (
           <ListPlaceholder

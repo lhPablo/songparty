@@ -1,10 +1,11 @@
-import { LoaderCircle } from "lucide-react";
+import { SongSkeleton } from "./SongSkeleton";
 
 export const Loading = () => {
   return (
-    <div className="flex items-center gap-2 text-primary animate-pulse">
-      <LoaderCircle size={24} className="animate-spin" />
-      <span>Cargando canciones...</span>
+    <div className="flex flex-col gap-2 w-full">
+      <SongSkeleton delay="0ms" />
+      <SongSkeleton delay="75ms" />
+      <SongSkeleton delay="150ms" />
     </div>
   );
 };

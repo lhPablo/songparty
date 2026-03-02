@@ -13,10 +13,13 @@ The following libraries are licensed under the MIT License:
 - **Zustand** (Copyright (c) 2019-2024 PMNDRS)
 - **@dnd-kit** (core, sortable, utilities, modifiers) (Copyright (c) 2021 Claudéric Demers)
 - **@tanstack/react-query** (Copyright (c) 2024 Tanner Linsley)
-- **@upstash/redis** (Copyright (c) 2022 Upstash)
+- **@upstash/redis** (Copyright (c) 2021 Upstash, Inc.)
+- **@upstash/ratelimit** (Copyright (c) 2021 Upstash, Inc.)
 - **Axios** (Copyright (c) 2014-present Matt Zabriskie)
 - **UUID** (Copyright (c) 2010-2020 Robert Kieffer and other contributors)
 - **Tailwind CSS** (Copyright (c) Tailwind Labs, Inc.)
+- **next-intl** (Copyright (c) 2024 Jan Amann)
+- **sileo** (MIT License)
 
 ### MIT License Text
 
@@ -32,7 +35,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 The following libraries are licensed under the ISC License:
 
-- **qrcode.react** (Copyright (c) 2015, Paul O’Shannessy)
+- **qrcode.react** (Copyright (c) 2015, Paul O'Shannessy)
 
 ### ISC License Text
 
@@ -47,6 +50,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 The following libraries are licensed under the Apache License 2.0:
 
 - **Lucide React** (Copyright (c) 2024 Lucide)
+- **html5-qrcode** (Copyright (c) 2020 Minhaz)
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at:
 http://www.apache.org/licenses/LICENSE-2.0

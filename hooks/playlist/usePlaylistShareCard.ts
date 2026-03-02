@@ -11,7 +11,6 @@ export const usePlaylistShareCard = () => {
   const t = useTranslations("share");
 
   const {
-    handlePrint,
     handleCopyLink: baseHandleCopyLink,
     handleNativeShare,
   } = usePlaylistShareActions();
@@ -46,7 +45,6 @@ export const usePlaylistShareCard = () => {
     savedPlaylistId,
     shareUrl,
     copied,
-    handlePrint,
     handleCopyLink,
     handleShare,
   };

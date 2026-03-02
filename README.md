@@ -17,17 +17,17 @@ Comparte un QR, tus invitados se unen y la fiesta la hacéis todos.
 
 ## Stack
 
-| Capa            | Tecnologias                                     |
-| --------------- | ----------------------------------------------- |
-| Framework       | Next.js 16 (App Router, Server Actions, SSR)    |
-| Estado cliente  | Zustand 5 (persistido en localStorage)          |
-| Estado servidor | TanStack React Query 5                          |
-| Persistencia    | Upstash Redis (TTL de 3 dias)                   |
-| Busqueda        | Genius API                                      |
-| UI              | Tailwind CSS 4, Lucide icons                    |
-| Drag & drop     | dnd-kit                                         |
-| QR              | qrcode.react (generar), html5-qrcode (escanear) |
-| i18n            | next-intl                                       |
+| Capa            | Tecnologias                                        |
+| --------------- | -------------------------------------------------- |
+| Framework       | Next.js 16 (App Router, Server Actions, SSR)       |
+| Estado cliente  | Zustand 5 (persistido en localStorage)             |
+| Estado servidor | TanStack React Query 5                             |
+| Persistencia    | Upstash Redis (TTL de 15 dias)                     |
+| Busqueda        | Genius API                                         |
+| UI              | Tailwind CSS 4, Lucide icons                       |
+| Drag & drop     | dnd-kit                                            |
+| QR              | qr-code-styling (generar), html5-qrcode (escanear) |
+| i18n            | next-intl                                          |
 
 ## Desarrollo local
 

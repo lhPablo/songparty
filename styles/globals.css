@@ -33,6 +33,16 @@
 
   --animate-bounce-short: bounce-short 0.4s ease-out;
   --animate-shake: shake 0.2s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 4s linear infinite;
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
   @keyframes bounce-short {
     0%,
@@ -96,7 +106,13 @@
 }
 
 .scroll-fade {
-  mask-image: linear-gradient(to bottom, transparent, black 3rem, black calc(100% - 3rem), transparent);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 3rem,
+    black calc(100% - 3rem),
+    transparent
+  );
 }
 
 body {

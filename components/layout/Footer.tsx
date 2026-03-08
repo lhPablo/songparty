@@ -17,7 +17,7 @@ export const Footer = async () => {
         </div>
         <span className="font-bold text-white/60">Song Party</span>
       </div>
-      <p className="text-xs">{t("tagline")}</p>
+      <p className="text-xs text-center">{t("tagline")}</p>
     </footer>
   );
 };

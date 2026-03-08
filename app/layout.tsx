@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { Providers } from "@/providers/Providers";
 import { Analytics } from "@vercel/analytics/next";
+import { APP_URL } from "@/lib/constants/site";
 
 import "@/styles/globals.css";
 
@@ -22,8 +23,50 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Song Party",
-  description: "Song Party app",
+  title: {
+    default: "SongParty - Playlists en vivo para tus fiestas",
+    template: "%s | SongParty",
+  },
+  description:
+    "Crea listas de reproducción en tiempo real con tus amigos. Busca canciones, vota y disfruta juntos. Sin registros, instantáneo.",
+  keywords: [
+    "music",
+    "party",
+    "playlist",
+    "real-time",
+    "song search",
+    "event playlists",
+    "fiesta",
+    "musica en vivo",
+  ],
+  authors: [{ name: "Pablo López" }],
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    url: APP_URL,
+    siteName: "SongParty",
+    title: "SongParty - Playlists en vivo para tus fiestas",
+    description:
+      "Crea y comparte listas de canciones en tiempo real con tus amigos de forma instantánea.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "SongParty Social Card",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SongParty",
+    description: "Playlists en vivo para tus fiestas",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default async function LandingLayout({

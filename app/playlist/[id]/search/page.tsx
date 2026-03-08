@@ -10,9 +10,28 @@ import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
+import { Metadata } from "next";
+
 interface Props {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ token?: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const playlist = await getPlaylist(id);
+  const t = await getTranslations("search");
+
+  const title = playlist ? `${t("title")} - ${playlist.title}` : t("title");
+
+  return {
+    title,
+    description: `Busca y añade canciones a la playlist "${playlist?.title || "SongParty"}".`,
+    robots: {
+      index: false,
+      follow: true,
+    },
+  };
 }
 
 export default async function PlaylistSearchPage({

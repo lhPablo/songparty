@@ -90,6 +90,17 @@
   --color-text-secondary: #d1d5db;
   --color-text-muted: #9ca3af;
   --color-text-accent: #cc8eb8;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .text-text-primary,
+  input {
+    color: #ffffff !important;
+  }
 }
 
 .neon-glow {

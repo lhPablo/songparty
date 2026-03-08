@@ -59,7 +59,7 @@ export default async function PlaylistSearchPage({
 
           <div className="flex flex-col gap-6">
             <div className="space-y-2">
-              <h1 className="text-gray-900 dark:text-white tracking-tight text-[32px] md:text-[48px] font-black leading-tight">
+              <h1 className="text-text-primary dark:text-white tracking-tight text-[32px] md:text-[48px] font-black leading-tight">
                 {t("title")}
               </h1>
               <p className="text-gray-500 dark:text-gray-400">

@@ -7,10 +7,6 @@ import { useTranslations } from "next-intl";
 export const usePlaylistShareActions = () => {
   const t = useTranslations("errors");
 
-  const handlePrint = useCallback(() => {
-    window.print();
-  }, []);
-
   const handleCopyLink = useCallback(async (url: string) => {
     try {
       await navigator.clipboard.writeText(url);
@@ -35,7 +31,6 @@ export const usePlaylistShareActions = () => {
   );
 
   return {
-    handlePrint,
     handleCopyLink,
     handleNativeShare,
   };

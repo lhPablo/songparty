@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { searchSongs } from "@/lib/services/domain/songService";
 import { songSearchRateLimit } from "@/lib/rateLimit";
 
+export const runtime = "edge";
+
 export async function GET(request: Request) {
   const ip =
     request.headers.get("cf-connecting-ip") ??

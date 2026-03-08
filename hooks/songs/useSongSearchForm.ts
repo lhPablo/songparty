@@ -30,8 +30,9 @@ export const useSongSearchForm = () => {
   const handleSubmit = useCallback(
     (e?: React.SyntheticEvent) => {
       if (e) e.preventDefault();
-      const songValue = songInputRef.current?.value || "";
-      const authorValue = authorInputRef.current?.value || "";
+      const songValue = songInputRef.current?.value.trim() || "";
+      const authorValue = authorInputRef.current?.value.trim() || "";
+      if (!songValue && !authorValue) return;
       applyFilters(songValue, authorValue);
     },
     [applyFilters],

@@ -1,5 +1,4 @@
 import { PaginatedSongsResponse } from "@/lib/types/domain/paginatedSongResponse";
-import axios from "axios";
 
 interface QueryProps {
   pageParam: number;
@@ -10,12 +9,16 @@ interface QueryProps {
 export const fetchSongs = async (
   query: QueryProps,
 ): Promise<PaginatedSongsResponse> => {
-  const { data } = await axios.get<PaginatedSongsResponse>("/api/songs", {
-    params: {
-      page: query.pageParam,
-      title: query.title || undefined,
-      author: query.author || undefined,
-    },
-  });
-  return data;
+  const url = new URL("/api/songs", window.location.origin);
+  url.searchParams.append("page", query.pageParam.toString());
+  if (query.title) url.searchParams.append("title", query.title);
+  if (query.author) url.searchParams.append("author", query.author);
+
+  const response = await fetch(url.toString());
+
+  if (!response.ok) {
+    throw new Error("Error fetching songs");
+  }
+
+  return response.json();
 };

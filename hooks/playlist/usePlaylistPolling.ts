@@ -49,10 +49,19 @@ export const usePlaylistPolling = (id: string) => {
     };
 
     const isOwner = !!ownerToken;
-    const pollInterval =
-      isOwner || !storeIsLocked
-        ? POLL_INTERVAL_ACTIVE_MS
-        : POLL_INTERVAL_PASSIVE_MS;
+
+    // Non-owners on a locked playlist don't need polling — content won't change
+    if (!isOwner && storeIsLocked) {
+      return () => {
+        ACTIVITY_EVENTS.forEach((event) =>
+          window.removeEventListener(event, handleActivity),
+        );
+      };
+    }
+
+    const pollInterval = isOwner
+      ? POLL_INTERVAL_ACTIVE_MS
+      : POLL_INTERVAL_PASSIVE_MS;
 
     const interval = setInterval(poll, pollInterval);
 

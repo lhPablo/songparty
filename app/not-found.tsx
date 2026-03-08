@@ -30,7 +30,10 @@ export default async function NotFound() {
             href="/"
             className="group flex items-center justify-center gap-2 px-6 h-12 rounded-xl font-medium transition-all duration-300 bg-primary/10 text-primary hover:bg-primary hover:text-white border border-primary/20"
           >
-            <Home size={20} className="group-hover:animate-shake" />
+            <Home
+              size={20}
+              className="transition-transform duration-300 group-hover:scale-110"
+            />
             <span className="leading-none">{tCommon("backToHome")}</span>
           </Link>
         </div>

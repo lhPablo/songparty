@@ -35,7 +35,10 @@ export default function Error({
               onClick={reset}
               className="group flex items-center justify-center gap-2 px-6 h-12 rounded-xl font-medium transition-all duration-300 bg-primary text-white hover:bg-primary/80"
             >
-              <RotateCcw size={20} className="group-hover:animate-shake" />
+              <RotateCcw
+                size={20}
+                className="transition-transform duration-500 group-hover:rotate-180"
+              />
               <span className="leading-none">{t("retry")}</span>
             </button>
 
@@ -43,7 +46,10 @@ export default function Error({
               href="/"
               className="group flex items-center justify-center gap-2 px-6 h-12 rounded-xl font-medium transition-all duration-300 bg-primary/10 text-primary hover:bg-primary hover:text-white border border-primary/20"
             >
-              <Home size={20} className="group-hover:animate-shake" />
+              <Home
+                size={20}
+                className="transition-transform duration-300 group-hover:scale-110"
+              />
               <span className="leading-none">{tCommon("backToHome")}</span>
             </Link>
           </div>

@@ -15,7 +15,7 @@ export const ListPlaceholder = ({
         <div className="mb-4">
           <Icon size={64} className="text-primary neon-text" />
         </div>
-        <div className="text-xl md:text-2xl font-medium text-gray-600 dark:text-gray-300 leading-relaxed">
+        <div className="text-xl md:text-2xl font-medium text-text-primary dark:text-white leading-relaxed">
           {message}
         </div>
       </div>

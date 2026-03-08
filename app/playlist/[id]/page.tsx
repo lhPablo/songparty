@@ -20,15 +20,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { id } = await params;
     const playlist = await getCachedPlaylist(id);
 
+    const title = playlist ? `${playlist.title}` : t("playlistNotFound");
+    const description = playlist
+      ? `Únete a la playlist "${playlist.title}" en SongParty. Añade tus canciones favoritas y disfruta de la fiesta en tiempo real.`
+      : t("playlistDescription");
+
     return {
-      title: playlist
-        ? `${playlist.title} - Song Party`
-        : t("playlistNotFound"),
-      description: t("playlistDescription"),
+      title,
+      description,
+      openGraph: {
+        title: `Playlist: ${title}`,
+        description,
+        type: "website",
+        images: ["/og-image.png"],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: ["/og-image.png"],
+      },
+      robots: {
+        index: false,
+        follow: true,
+      },
     };
   } catch {
     return {
-      title: "Song Party",
+      title: "SongParty",
       description: t("playlistDescription"),
     };
   }
@@ -61,10 +80,7 @@ export default async function SharedPlaylistPage({ params }: Props) {
       </Suspense>
       <div className="flex-1 flex flex-col items-center">
         <section className="layout-content-container flex flex-col w-full max-w-7xl flex-1 py-8 px-4">
-          <MainPlaylistView
-            playlist={publicPlaylist}
-            playlistId={id}
-          />
+          <MainPlaylistView playlist={publicPlaylist} playlistId={id} />
         </section>
       </div>
     </main>

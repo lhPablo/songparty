@@ -13,16 +13,17 @@ export default function HomePage() {
   const t = useTranslations("home");
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-bg-light to-bg-dark dark:from-bg-dark dark:to-[#0a0406]">
+    <main className="relative flex min-h-svh py-20 items-center justify-center bg-gradient-to-br from-bg-light to-bg-dark dark:from-bg-dark dark:to-[#0a0406]">
       <div className="absolute top-6 right-6">
         <LanguageSwitcher />
       </div>
       <div className="w-full max-w-2xl px-6 py-12">
         <div className="flex flex-col items-center text-center space-y-8">
           <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl font-black font-display text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff6ec7] to-primary tracking-tight p-2">
+            <h1 className="text-5xl md:text-7xl font-black font-display text-white dark:text-white text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff6ec7] to-primary tracking-tight p-2">
               Song Party
             </h1>
+
             <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-lg mx-auto">
               {t("tagline")}
             </p>
@@ -42,7 +43,6 @@ export default function HomePage() {
 
             <QRScanner />
           </div>
-
         </div>
       </div>
     </main>

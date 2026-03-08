@@ -29,12 +29,15 @@ export const PlaylistMetaInfo = ({
     });
 
   return (
-    <p className="text-gray-500 dark:text-gray-400 text-xs whitespace-nowrap">
-      {t("createdAt", { date: formatDate(createdAt) })}
-      <span className="mx-1.5 opacity-50">•</span>
+    <div className="text-gray-500 dark:text-gray-400 text-[10px] sm:text-xs flex flex-wrap gap-x-2 gap-y-1">
+      <span>{t("createdAt", { date: formatDate(createdAt) })}</span>
+      <span className="opacity-50 hidden sm:inline">•</span>
       <span className="text-amber-600/80 font-medium">
-        {t("expiresAt", { date: formatDate(expiresAt), days: remainingDays })}
+        {t("expiresAt", {
+          date: formatDate(expiresAt),
+          days: remainingDays,
+        })}
       </span>
-    </p>
+    </div>
   );
 };

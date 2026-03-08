@@ -6,7 +6,7 @@
   --color-primary-soft-border: #f91fb1;
   --color-neon-glow: #f91fb1;
 
-  --color-bg-light: #f8f5f7;
+  --color-bg-light: #230f1c;
   --color-bg-dark: #230f1c;
   --color-bg-white: #ffffff;
 
@@ -14,12 +14,12 @@
   --color-gray-300: #d1d5db;
   --color-gray-700: #374151;
 
-  --color-text-primary: #111827;
-  --color-text-secondary: #6b7280;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #d1d5db;
   --color-text-muted: #9ca3af;
-  --color-text-accent: #f91fb1;
+  --color-text-accent: #cc8eb8;
 
-  --color-border-light: #e5e7eb;
+  --color-border-light: #4a213c;
   --color-border-dark: #4a213c;
 
   --color-panel: #4a213c;
@@ -84,12 +84,16 @@
   }
 }
 
-.dark {
-  --color-bg-light: #230f1c;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #d1d5db;
-  --color-text-muted: #9ca3af;
-  --color-text-accent: #cc8eb8;
+/* Base forced colors for mobile browsers and consistency */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.text-text-primary,
+input {
+  color: #ffffff !important;
 }
 
 .neon-glow {
@@ -133,12 +137,15 @@
 
 body {
   @apply cursor-default select-none;
+  background-color: var(--color-bg-dark);
 }
+
 input,
 textarea,
 [contenteditable] {
   @apply cursor-text select-text;
 }
+
 a,
 button {
   @apply cursor-pointer;

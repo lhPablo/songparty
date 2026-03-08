@@ -13,7 +13,7 @@ export const TitleInput = forwardRef<HTMLInputElement, TitleInputProps>(
           type="text"
           className={`
             bg-transparent 
-            text-text-primary 
+            text-text-primary dark:text-white 
             tracking-tight 
             text-[32px] md:text-[48px] 
             font-black 

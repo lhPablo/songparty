@@ -15,8 +15,8 @@ The following libraries are licensed under the MIT License:
 - **@tanstack/react-query** (Copyright (c) 2024 Tanner Linsley)
 - **@upstash/redis** (Copyright (c) 2021 Upstash, Inc.)
 - **@upstash/ratelimit** (Copyright (c) 2021 Upstash, Inc.)
-- **Axios** (Copyright (c) 2014-present Matt Zabriskie)
 - **UUID** (Copyright (c) 2010-2020 Robert Kieffer and other contributors)
+
 - **Tailwind CSS** (Copyright (c) Tailwind Labs, Inc.)
 - **next-intl** (Copyright (c) 2024 Jan Amann)
 - **sileo** (MIT License)

@@ -19,11 +19,12 @@ Comparte un QR, tus invitados se unen y la fiesta la hacéis todos.
 
 | Capa            | Tecnologias                                        |
 | --------------- | -------------------------------------------------- |
-| Framework       | Next.js 16 (App Router, Server Actions, SSR)       |
+| Framework       | Next.js 16 (App Router, Server Actions)            |
+| Runtime         | **Vercel Edge Runtime** (en APIs críticas)         |
 | Estado cliente  | Zustand 5 (persistido en localStorage)             |
 | Estado servidor | TanStack React Query 5                             |
-| Persistencia    | Upstash Redis (TTL de 15 dias)                     |
-| Busqueda        | Genius API                                         |
+| Persistencia    | Upstash Redis (TTL de 15 días)                     |
+| Búsqueda        | Genius API (vía native **Fetch** con caching)      |
 | UI              | Tailwind CSS 4, Lucide icons                       |
 | Drag & drop     | dnd-kit                                            |
 | QR              | qr-code-styling (generar), html5-qrcode (escanear) |
@@ -66,8 +67,8 @@ Abre [http://localhost:3000](http://localhost:3000).
 
 Funciona en cualquier plataforma compatible con Next.js:
 
-- **Vercel** — despliegue directo, zero config
-- **VPS** — `npm run build && npm run start` detras de un reverse proxy
+- **Vercel** — Despliegue recomendado. Utiliza **Edge Runtime** para la API de búsqueda, eliminando _cold starts_ y reduciendo la latencia global.
+- **Docker / VPS** — Compatible mediante `npm run build && npm run start`.
 
 ## Licencia
 

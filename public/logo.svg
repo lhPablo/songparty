@@ -1,6 +1,20 @@
 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M18 36V12L38 8V32" stroke="#F91FB1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-
-  <circle cx="13" cy="36" r="5" fill="#F91FB1"/>
-  <circle cx="33" cy="32" r="5" fill="#F91FB1"/>
+  <!-- Sound waves left -->
+  <path d="M7 14 Q3 19 3 24 Q3 29 7 34" stroke="#F91FB1" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <path d="M11 17 Q8 20.5 8 24 Q8 27.5 11 31" stroke="#F91FB1" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <!-- Sound waves right -->
+  <path d="M41 14 Q45 19 45 24 Q45 29 41 34" stroke="#F91FB1" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <path d="M37 17 Q40 20.5 40 24 Q40 27.5 37 31" stroke="#F91FB1" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <!-- Mic outer body -->
+  <rect x="14" y="6" width="20" height="28" rx="10" fill="#F91FB1"/>
+  <!-- Mic inner grille -->
+  <rect x="17" y="10" width="14" height="20" rx="4" fill="#A3006E"/>
+  <!-- Grille slats -->
+  <line x1="17" y1="15" x2="31" y2="15" stroke="#F91FB1" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="17" y1="20" x2="31" y2="20" stroke="#F91FB1" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="17" y1="25" x2="31" y2="25" stroke="#F91FB1" stroke-width="1.4" stroke-linecap="round"/>
+  <!-- Neck -->
+  <rect x="21" y="34" width="6" height="4" fill="#F91FB1"/>
+  <!-- Base -->
+  <rect x="16" y="38" width="16" height="4" rx="2" fill="#F91FB1"/>
 </svg>

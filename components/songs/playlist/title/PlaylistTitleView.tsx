@@ -19,7 +19,7 @@ export const PlaylistTitleView = ({
       onClick={isOwner ? startEditing : undefined}
     >
       <div className="relative group/title-container">
-        <h1 className="text-text-primary dark:text-white tracking-tight text-[32px] md:text-[48px] font-black leading-tight select-none transition-transform duration-300 group-hover/title:scale-[1.01] pb-1">
+        <h1 className="text-text-primary !text-white dark:!text-white tracking-tight text-[32px] md:text-[48px] font-black leading-tight select-none transition-transform duration-300 group-hover/title:scale-[1.01] pb-1">
           {playlistName}
         </h1>
 

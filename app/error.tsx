@@ -22,7 +22,7 @@ export default function Error({
               size={64}
               className="mx-auto text-primary neon-text"
             />
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 !text-white dark:!text-white">
               {t("genericTitle")}
             </h1>
             <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-lg mx-auto">

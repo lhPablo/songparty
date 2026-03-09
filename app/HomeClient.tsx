@@ -26,7 +26,10 @@ export function HomeClient({ t }: HomeClientProps) {
       <div className="w-full max-w-2xl px-6 py-12">
         <div className="flex flex-col items-center text-center space-y-8">
           <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl font-black font-display text-white dark:text-white text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff6ec7] to-primary tracking-tight p-2">
+            <h1
+              className="text-5xl md:text-7xl font-black font-display bg-clip-text bg-gradient-to-r from-primary via-[#ff6ec7] to-primary tracking-tight p-2"
+              style={{ WebkitTextFillColor: "transparent" }}
+            >
               Song Party
             </h1>
 

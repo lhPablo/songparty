@@ -84,18 +84,6 @@
   }
 }
 
-/* Base forced colors for mobile browsers and consistency */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.text-text-primary,
-input {
-  color: #ffffff !important;
-}
-
 .neon-glow {
   box-shadow:
     0 0 1px var(--color-neon-glow),

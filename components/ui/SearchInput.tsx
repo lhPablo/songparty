@@ -41,7 +41,7 @@ export const SearchInput = React.memo(
             </div>
             <input
               ref={ref}
-              className={`form-input flex w-full min-w-0 flex-1 bg-transparent border-none focus:ring-0 outline-none focus:outline-none text-sm px-3 text-text-primary dark:text-white placeholder:text-text-muted ${className || ""}`}
+              className={`form-input flex w-full min-w-0 flex-1 bg-transparent border-none focus:ring-0 outline-none focus:outline-none text-sm px-3 !text-white dark:!text-white placeholder:text-text-muted ${className || ""}`}
               type="text"
               {...props}
             />

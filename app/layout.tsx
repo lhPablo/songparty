@@ -23,6 +23,7 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(APP_URL),
   title: {
     default: "SongParty - Playlists en vivo para tus fiestas",
     template: "%s | SongParty",

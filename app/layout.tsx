@@ -97,7 +97,7 @@ export default async function LandingLayout({
           content="telephone=no, date=no, address=no, email=no"
         />
       </head>
-      <body className="font-body bg-bg-light text-text-primary dark:bg-bg-dark dark:text-text-primary">
+      <body className="font-body bg-bg-light text-text-primary dark:bg-bg-dark dark:text-text-primary overflow-x-hidden">
         <NextIntlClientProvider messages={messages}>
           <Providers>{children}</Providers>
         </NextIntlClientProvider>

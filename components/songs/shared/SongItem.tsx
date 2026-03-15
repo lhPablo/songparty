@@ -21,7 +21,7 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
 
   return (
     <>
-      <div className="flex items-center gap-3 md:gap-4">
+    <div className="flex items-start gap-3 md:gap-4 min-w-0 flex-1">
         <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg bg-gray-200 dark:bg-primary/10 relative overflow-hidden flex-shrink-0 flex items-center justify-center">
           {!imgError ? (
             useNextImage ? (
@@ -46,11 +46,11 @@ export const SongItem = React.memo(({ song }: { song: Song }) => {
             <Music size={24} className="text-gray-400" />
           )}
         </div>
-        <div>
-          <h3 className="text-gray-900 dark:text-white font-bold text-lg group-hover:text-primary transition-colors">
+        <div className="min-w-0 flex-1">
+          <h3 className="text-white font-bold text-lg group-hover:text-primary transition-colors break-words">
             {song.title}
           </h3>
-          <p className="text-gray-500 dark:text-gray-400">{song.artist}</p>
+          <p className="text-gray-300 truncate text-sm">{song.artist}</p>
         </div>
       </div>
       <SongItemActions

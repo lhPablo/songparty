@@ -20,14 +20,26 @@ export const searchGeniusSongs = async (
   url.searchParams.append("page", page.toString());
   url.searchParams.append("per_page", "20");
 
-  const response = await fetch(url.toString(), {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    next: {
-      revalidate: 3600, // Cache results for 1 hour
-    },
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+  let response;
+  try {
+    response = await fetch(url.toString(), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      next: {
+        revalidate: 3600, // Cache results for 1 hour
+      },
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+  } catch (error) {
+    clearTimeout(timeoutId);
+    console.error(`[Genius API] Fetch failed or timed out:`, error);
+    throw error;
+  }
 
   if (!response.ok) {
     throw new Error(`Genius API error: ${response.statusText}`);

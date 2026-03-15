@@ -33,6 +33,7 @@ export const useSongSearchForm = () => {
       const songValue = songInputRef.current?.value.trim() || "";
       const authorValue = authorInputRef.current?.value.trim() || "";
       if (!songValue && !authorValue) return;
+
       applyFilters(songValue, authorValue);
     },
     [applyFilters],

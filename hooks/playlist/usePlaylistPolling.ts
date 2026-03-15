@@ -4,8 +4,7 @@ import { useEffect, useRef } from "react";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { getPlaylist } from "@/actions/playlist";
 
-const POLL_INTERVAL_ACTIVE_MS = 30000;
-const POLL_INTERVAL_PASSIVE_MS = 60000;
+const POLL_INTERVAL_MS = 30000;
 const INACTIVITY_THRESHOLD_MS = 1 * 60 * 1000; // 1 minutes
 const ACTIVITY_EVENTS: (keyof WindowEventMap)[] = [
   "keydown",
@@ -59,11 +58,7 @@ export const usePlaylistPolling = (id: string) => {
       };
     }
 
-    const pollInterval = isOwner
-      ? POLL_INTERVAL_ACTIVE_MS
-      : POLL_INTERVAL_PASSIVE_MS;
-
-    const interval = setInterval(poll, pollInterval);
+    const interval = setInterval(poll, POLL_INTERVAL_MS);
 
     return () => {
       clearInterval(interval);

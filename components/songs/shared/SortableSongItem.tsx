@@ -30,7 +30,7 @@ export const SortableSongItem = ({ song }: SortableSongItemProps) => {
       ref={setNodeRef}
       style={style}
       className={`
-        flex items-center p-3 md:p-4 rounded-xl group border
+        flex items-start p-3 md:p-4 rounded-xl group border w-full min-w-0
         ${
           isDragging
             ? "bg-white dark:bg-primary/20 border-primary shadow-xl scale-[1.02] z-50 pointer-events-none"
@@ -41,11 +41,11 @@ export const SortableSongItem = ({ song }: SortableSongItemProps) => {
       <div
         {...attributes}
         {...listeners}
-        className="text-gray-400 hover:text-primary cursor-grab active:cursor-grabbing p-1 mr-2 shrink-0 touch-none"
+        className="text-gray-400 hover:text-primary cursor-grab active:cursor-grabbing p-1 mr-2 shrink-0 touch-none mt-1"
       >
         <GripVertical size={24} />
       </div>
-      <div className="flex items-center justify-between flex-1 w-full">
+      <div className="flex items-start justify-between flex-1 w-full min-w-0">
         <SongItem song={song} />
       </div>
     </li>

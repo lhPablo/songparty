@@ -18,7 +18,7 @@ export const SongItemActions = React.memo(
     const t = useTranslations("songs");
 
     return (
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 shrink-0">
         <CircleLink
           href={lyricsUrl}
           target="_blank"

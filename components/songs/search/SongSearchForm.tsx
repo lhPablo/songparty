@@ -12,7 +12,7 @@ export const SongSearchForm = React.memo(() => {
 
   return (
     <form
-      className="w-full bg-panel/40 p-6 md:p-8 rounded-xl border border-border-dark shadow-glass"
+      className="w-full bg-panel/40 p-4 md:p-8 rounded-xl border border-border-dark shadow-glass"
       onSubmit={handleSubmit}
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">

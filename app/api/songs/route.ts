@@ -25,8 +25,8 @@ export async function GET(request: Request) {
   const page = parseInt(searchParams.get("page") || "1", 10);
 
   let query = "";
-  if (title) query += title;
-  if (author) query += ` ${author}`;
+  if (author) query += author;
+  if (title) query += ` ${title}`;
   query = query.trim();
 
   try {

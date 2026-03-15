@@ -19,9 +19,6 @@ export const searchGeniusSongs = async (
   url.searchParams.append("q", query);
   url.searchParams.append("page", page.toString());
   url.searchParams.append("per_page", "20");
-  console.log(
-    `[Genius API] Executing search request: ${url.toString()} with query: "${query}"`,
-  );
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 15000);
@@ -38,7 +35,6 @@ export const searchGeniusSongs = async (
       signal: controller.signal,
     });
     clearTimeout(timeoutId);
-    console.log(`[Genius API] Fetch completed with status: ${response.status}`);
   } catch (error) {
     clearTimeout(timeoutId);
     console.error(`[Genius API] Fetch failed or timed out:`, error);
@@ -50,12 +46,6 @@ export const searchGeniusSongs = async (
   }
 
   const data: GeniusSearchResponse = await response.json();
-  console.log(`[Genius API] Response hits count: ${data.response.hits.length}`);
-  data.response.hits.forEach((hit, index) => {
-    console.log(
-      `  [Hit ${index}] Type: ${hit.type}, Title: "${hit.result.title}", Artist: "${hit.result.primary_artist.name}", Lyrics State: ${hit.result.lyrics_state}`,
-    );
-  });
 
   return mapGeniusSongsToSongs(
     data.response.hits

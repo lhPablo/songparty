@@ -21,7 +21,7 @@ export const SortableSongItem = ({ song }: SortableSongItemProps) => {
   } = useSortable({ id: song.id.toString() });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition,
   };
 
@@ -45,7 +45,7 @@ export const SortableSongItem = ({ song }: SortableSongItemProps) => {
       >
         <GripVertical size={24} />
       </div>
-      <div className="flex items-start justify-between flex-1 w-full min-w-0">
+      <div className="flex items-start justify-between flex-1 min-w-0 gap-3 md:gap-4">
         <SongItem song={song} />
       </div>
     </li>

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { Chip } from "./Chip";
+import { Chip } from "@/components/ui/Chip";
 import { Info } from "lucide-react";
 
 describe("Chip Component", () => {

@@ -72,7 +72,9 @@ export default async function PlaylistSearchPage({
               className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium max-w-full"
             >
               <ArrowLeft className="size-5 flex-shrink-0" />
-              <span className="truncate">{t("backTo", { title: playlist.title })}</span>
+              <span className="truncate">
+                {t("backTo", { title: playlist.title })}
+              </span>
             </Link>
           </div>
 

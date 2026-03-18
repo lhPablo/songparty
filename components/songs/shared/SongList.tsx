@@ -3,7 +3,7 @@
 import React from "react";
 import { Song } from "@/lib/types/domain/song";
 import { SongItem } from "./SongItem";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import { DndContext, closestCorners } from "@dnd-kit/core";
 import {
   SortableContext,
   verticalListSortingStrategy,
@@ -30,7 +30,7 @@ export const SongList = React.memo(
           {songs.map((song) => (
             <li
               key={song.id}
-              className="flex items-start justify-between p-3 md:p-4 rounded-xl hover:bg-white dark:hover:bg-primary/10 transition-all group border border-transparent hover:border-primary/30 min-w-0"
+              className="flex items-start justify-between gap-3 md:gap-4 p-3 md:p-4 rounded-xl hover:bg-white dark:hover:bg-primary/10 transition-all group border border-transparent hover:border-primary/30 min-w-0"
             >
               <SongItem song={song} />
             </li>
@@ -42,7 +42,7 @@ export const SongList = React.memo(
     return (
       <DndContext
         sensors={sensors}
-        collisionDetection={closestCenter}
+        collisionDetection={closestCorners}
         onDragEnd={handleDragEnd}
         modifiers={[restrictToVerticalAxis, restrictToParentElement]}
       >

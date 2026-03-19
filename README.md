@@ -23,7 +23,7 @@ Comparte un QR, tus invitados se unen y la fiesta la hacéis todos.
 | Runtime         | **Vercel Edge Runtime** (en APIs críticas)         |
 | Estado cliente  | Zustand 5 (persistido en localStorage)             |
 | Estado servidor | TanStack React Query 5                             |
-| Persistencia    | Upstash Redis (TTL de 15 días)                     |
+| Persistencia    | Upstash Redis (TTL de 15 días desde su creación)   |
 | Búsqueda        | Genius API (vía native **Fetch** con caching)      |
 | UI              | Tailwind CSS 4, Lucide icons                       |
 | Drag & drop     | dnd-kit                                            |

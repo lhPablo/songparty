@@ -42,16 +42,11 @@ export const MainPlaylistView = ({
 
       <div className="lg:col-span-7 bg-panel/40 p-3 md:p-6 lg:p-8 rounded-2xl border border-border-dark shadow-glass flex flex-col gap-3 justify-between">
         {hasSongs ? (
-          <div
-            className="overflow-y-auto max-h-[75vh] pr-1 pt-4 pb-4 custom-scrollbar scroll-fade"
-          >
+          <div className="overflow-y-auto max-h-[75vh] pr-1 pt-4 pb-4 custom-scrollbar scroll-fade">
             <SongList songs={selectedSongs} isSortable={canAdd} />
           </div>
         ) : (
-          <ListPlaceholder
-            message={t("emptyState")}
-            icon={HeadphoneOff}
-          />
+          <ListPlaceholder message={t("emptyState")} icon={HeadphoneOff} />
         )}
         {canAdd && (
           <div className="mt-auto">

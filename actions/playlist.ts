@@ -80,11 +80,10 @@ export async function updatePlaylist(
     title,
     isLocked,
     updatedAt: now.toISOString(),
-    expiresAt: new Date(now.getTime() + PLAYLIST_EXPIRATION_MS).toISOString(),
   };
 
   await redis.set(`playlist:${id}`, JSON.stringify(updatedPlaylist), {
-    ex: PLAYLIST_EXPIRATION_SECONDS,
+    keepTtl: true,
   });
 
   return id;

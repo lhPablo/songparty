@@ -5,8 +5,8 @@ interface SongSkeletonProps {
 }
 
 export const SongSkeleton = ({ delay = "0ms" }: SongSkeletonProps) => (
-  <div
-    className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl animate-pulse"
+    <div
+      className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl animate-pulse w-full min-w-0"
     style={{ animationDelay: delay }}
   >
     <div className="size-10 md:size-14 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">

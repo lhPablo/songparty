@@ -64,8 +64,8 @@ export default async function PlaylistSearchPage({
           title={playlist.title}
         />
       </Suspense>
-      <div className="flex-1 flex flex-col items-center">
-        <section className="layout-content-container flex flex-col w-full max-w-7xl flex-1 py-8 px-4">
+      <div className="flex-1 flex flex-col w-full">
+        <section className="layout-content-container flex flex-col w-full max-w-7xl mx-auto flex-1 py-8 px-4 min-w-0 overflow-x-hidden md:overflow-visible">
           <div className="mb-6">
             <Link
               href={`/playlist/${id}${token ? `?${URL_TOKEN_PARAM}=${token}` : ""}`}
@@ -78,7 +78,7 @@ export default async function PlaylistSearchPage({
             </Link>
           </div>
 
-          <div className="flex flex-col gap-6 overflow-hidden">
+          <div className="flex flex-col gap-6 overflow-hidden w-full">
             <div className="space-y-2">
               <h1 className="text-text-primary dark:text-white tracking-tight text-[32px] md:text-[48px] font-black leading-tight">
                 {t("title")}

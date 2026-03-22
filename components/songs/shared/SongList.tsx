@@ -26,7 +26,7 @@ export const SongList = React.memo(
 
     if (!isSortable) {
       return (
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-2 min-w-0">
           {songs.map((song) => (
             <li
               key={song.id}
@@ -50,7 +50,7 @@ export const SongList = React.memo(
           items={songs.map((s) => s.id.toString())}
           strategy={verticalListSortingStrategy}
         >
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-2 min-w-0">
             {songs.map((song) => (
               <SortableSongItem key={song.id} song={song} />
             ))}

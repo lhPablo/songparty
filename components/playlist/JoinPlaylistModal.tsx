@@ -6,12 +6,11 @@ import { UserRound } from "lucide-react";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useJoinPlaylist } from "@/hooks/playlist/useJoinPlaylist";
 import { Button } from "@/components/ui/Button";
+import { MAX_PARTICIPANT_NAME_LENGTH } from "@/lib/constants/playlist";
 
 interface JoinPlaylistModalProps {
   playlistId: string;
 }
-
-const MAX_NAME_LENGTH = 40;
 
 export const JoinPlaylistModal = ({ playlistId }: JoinPlaylistModalProps) => {
   const t = useTranslations("join");
@@ -73,7 +72,7 @@ export const JoinPlaylistModal = ({ playlistId }: JoinPlaylistModalProps) => {
           onChange={(e) => setName(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
           placeholder={t("placeholder")}
-          maxLength={MAX_NAME_LENGTH}
+          maxLength={MAX_PARTICIPANT_NAME_LENGTH}
           className="w-full px-3 py-2 rounded-lg bg-white/5 border border-primary/20 text-white placeholder:text-gray-500 focus:outline-none focus:border-primary"
         />
 

@@ -45,7 +45,8 @@ export const PlaylistHeader = React.memo(
                   <Chip
                     variant="primary"
                     icon={UserRound}
-                    label={t("youAre", { name: myName })}
+                    label={myName}
+                    wrap
                   />
                 </span>
               )}
@@ -53,7 +54,7 @@ export const PlaylistHeader = React.memo(
 
             <button
               onClick={handleScrollToQr}
-              className="lg:hidden flex items-center justify-center size-10 rounded-full bg-white/5 text-white/50 hover:text-primary hover:bg-primary/10 transition-all border border-white/10"
+              className="lg:hidden flex shrink-0 items-center justify-center size-10 rounded-full bg-white/5 text-white/50 hover:text-primary hover:bg-primary/10 transition-all border border-white/10"
               title={t("viewQR")}
             >
               <QrCode size={20} />

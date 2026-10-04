@@ -26,8 +26,7 @@
     "viewQR": "View QR",
     "createdAt": "Created on {date}",
     "expiresAt": "Expires on {date} (in {days} {days, plural, one {day} other {days}})",
-    "goToHome": "Go to home",
-    "youAre": "You are {name}"
+    "goToHome": "Go to home"
   },
   "search": {
     "title": "Find your Song",

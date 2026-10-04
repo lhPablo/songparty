@@ -14,15 +14,24 @@ interface ChipProps {
   label: string;
   icon?: LucideIcon;
   variant?: ChipVariant;
+  // Long labels grow the chip onto several lines instead of truncating
+  wrap?: boolean;
 }
 
-export const Chip = ({ label, icon: Icon, variant = "info" }: ChipProps) => {
+export const Chip = ({
+  label,
+  icon: Icon,
+  variant = "info",
+  wrap = false,
+}: ChipProps) => {
   return (
     <span
-      className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ring-1 min-w-0 ${variantClasses[variant]}`}
+      className={`flex items-center gap-1 px-3 py-1 ${wrap ? "rounded-2xl" : "rounded-full"} text-xs font-bold ring-1 min-w-0 ${variantClasses[variant]}`}
     >
       {Icon && <Icon size={14} className="shrink-0" />}
-      <span className="truncate">{label}</span>
+      <span className={wrap ? "wrap-anywhere leading-tight" : "truncate"}>
+        {label}
+      </span>
     </span>
   );
 };

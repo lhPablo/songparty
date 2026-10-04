@@ -196,7 +196,7 @@ export const QRViewer = ({ playlistId }: QRViewerProps) => {
                 <Button
                   variant="secondary"
                   icon={copiedAdmin ? Check : Copy}
-                  className={`w-full h-10 rounded-xl text-xs font-bold ${
+                  className={`w-full h-10 !px-2 rounded-xl text-xs font-bold ${
                     copiedAdmin ? "!bg-green-500 !text-white !border-green-500" : ""
                   }`}
                   onClick={handleCopyAdminLink}
@@ -206,7 +206,7 @@ export const QRViewer = ({ playlistId }: QRViewerProps) => {
                 <Button
                   variant="secondary"
                   icon={Share2}
-                  className="w-full h-10 rounded-xl text-xs font-bold"
+                  className="w-full h-10 !px-2 rounded-xl text-xs font-bold"
                   onClick={handleShareAdmin}
                 >
                   {t("shareAdminLink")}
@@ -214,7 +214,7 @@ export const QRViewer = ({ playlistId }: QRViewerProps) => {
                 <Button
                   variant="secondary"
                   icon={Download}
-                  className="w-full h-10 rounded-xl text-xs font-bold"
+                  className="w-full h-10 !px-2 rounded-xl text-xs font-bold"
                   onClick={handleDownloadAdminToken}
                 >
                   {t("downloadAdminLink")}

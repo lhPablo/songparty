@@ -15,3 +15,5 @@ export const INITIAL_PLAYLIST_STATE = {
 
 export const PLAYLIST_UPDATED_EVENT = "playlist.updated";
 export const getPlaylistChannelName = (id: string) => `playlist:${id}`;
+
+export const MAX_PARTICIPANT_NAME_LENGTH = 24;

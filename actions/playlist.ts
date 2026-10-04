@@ -14,11 +14,10 @@ import {
   PLAYLIST_EXPIRATION_SECONDS,
   PLAYLIST_EXPIRATION_MS,
   INITIAL_PLAYLIST_STATE,
+  MAX_PARTICIPANT_NAME_LENGTH,
 } from "@/lib/constants/playlist";
 import { toPublicPlaylist } from "@/lib/utils/publicPlaylist";
 import { publishPlaylistUpdate } from "@/lib/ably";
-
-const MAX_PARTICIPANT_NAME_LENGTH = 40;
 
 export type JoinPlaylistResult =
   | { ok: true; identity: ParticipantIdentity }

@@ -26,8 +26,7 @@
     "viewQR": "Ver QR",
     "createdAt": "Creada el {date}",
     "expiresAt": "Se borrará el {date} (en {days} {days, plural, one {día} other {días}})",
-    "goToHome": "Ir al inicio",
-    "youAre": "Estás como {name}"
+    "goToHome": "Ir al inicio"
   },
   "search": {
     "title": "Busca tu Canción",

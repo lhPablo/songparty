@@ -13,10 +13,13 @@ export const createSignupsSlice: StateCreator<
   [["zustand/persist", unknown]],
   [],
   SignupsSlice
-> = (set) => ({
+> = (set, get) => ({
   signups: {},
 
-  setSignups: (signups) => set({ signups }),
+  setSignups: (signups) => {
+    if (JSON.stringify(get().signups) === JSON.stringify(signups)) return;
+    set({ signups });
+  },
 
   clearSignups: () => set({ signups: {} }),
 });

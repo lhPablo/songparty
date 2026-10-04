@@ -1,6 +1,6 @@
 import { Song } from "./song";
 import { SongSignup } from "./songSignup";
-import { Participant } from "./participant";
+import { Participant, StoredParticipant } from "./participant";
 
 export interface Playlist {
   title: string;
@@ -14,3 +14,9 @@ export interface Playlist {
   updatedAt: string;
   expiresAt: string;
 }
+
+// Shape persisted in Redis: unlike the public Playlist, it keeps the owner
+// token and the participants' secrets. Never send it to the client.
+export type StoredPlaylist = Omit<Playlist, "participants"> & {
+  participants?: StoredParticipant[];
+};

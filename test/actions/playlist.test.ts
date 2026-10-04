@@ -5,6 +5,8 @@ import {
   verifyParticipant,
   addSongSignup,
   removeSongSignup,
+  setCurrentSong,
+  updatePlaylist,
 } from "@/actions/playlist";
 import type { Song } from "@/lib/types/domain/song";
 
@@ -18,6 +20,24 @@ vi.mock("@/lib/redis", () => ({
     }),
   },
 }));
+
+const { publish } = vi.hoisted(() => ({ publish: vi.fn() }));
+
+vi.mock("ably", () => ({
+  default: {
+    Rest: class {
+      channels = { get: vi.fn(() => ({ publish })) };
+    },
+  },
+}));
+
+beforeEach(() => {
+  vi.stubEnv("ABLY_API_KEY", "test:key");
+});
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+});
 
 const song = { id: 1, title: "Song", artist: "Artist" } as Song;
 
@@ -177,5 +197,47 @@ describe("song signups", () => {
     await removeSongSignup(playlistId, song.id, signup.id, { ownerToken });
 
     expect((await getPlaylist(playlistId))?.signups[song.id]).toHaveLength(0);
+  });
+});
+
+describe("realtime updates", () => {
+  beforeEach(() => {
+    store.clear();
+    publish.mockReset();
+  });
+
+  it("publishes a public snapshot after every mutation", async () => {
+    const { playlistId, ownerToken } = await createPlaylistWithSong();
+    expect(publish).not.toHaveBeenCalled();
+
+    const ana = await join(playlistId, "Ana");
+    const signup = await addSongSignup(
+      playlistId,
+      song.id,
+      ana.participantId,
+      ana.secret,
+    );
+    await removeSongSignup(playlistId, song.id, signup.id, { ownerToken });
+    await setCurrentSong(playlistId, song.id, ownerToken);
+    await updatePlaylist(playlistId, [song], "Renamed", false, ownerToken);
+
+    expect(publish).toHaveBeenCalledTimes(5);
+    const [event, snapshot] = publish.mock.calls.at(-1)!;
+    expect(event).toBe("playlist.updated");
+    expect(snapshot.title).toBe("Renamed");
+    expect(snapshot.currentSongId).toBe(song.id);
+    expect(snapshot.ownerToken).toBeNull();
+    expect(snapshot.participants[0]).not.toHaveProperty("secret");
+  });
+
+  it("does not fail the mutation when publishing fails", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    publish.mockRejectedValue(new Error("Ably down"));
+    const { playlistId } = await createPlaylistWithSong();
+
+    const result = await joinPlaylist(playlistId, "Ana");
+
+    expect(result.ok).toBe(true);
+    expect((await getPlaylist(playlistId))?.participants).toHaveLength(1);
   });
 });

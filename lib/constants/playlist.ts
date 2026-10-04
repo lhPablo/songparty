@@ -12,3 +12,6 @@ export const INITIAL_PLAYLIST_STATE = {
   currentSongId: null,
   signups: {},
 };
+
+export const PLAYLIST_UPDATED_EVENT = "playlist.updated";
+export const getPlaylistChannelName = (id: string) => `playlist:${id}`;

@@ -4,7 +4,7 @@ import { Song } from "@/lib/types/domain/song";
 import { redis } from "@/lib/redis";
 import { v4 as uuidv4 } from "uuid";
 
-import { Playlist } from "@/lib/types/domain/playlist";
+import { Playlist, StoredPlaylist } from "@/lib/types/domain/playlist";
 import { SongSignup } from "@/lib/types/domain/songSignup";
 import {
   ParticipantIdentity,
@@ -15,14 +15,10 @@ import {
   PLAYLIST_EXPIRATION_MS,
   INITIAL_PLAYLIST_STATE,
 } from "@/lib/constants/playlist";
+import { toPublicPlaylist } from "@/lib/utils/publicPlaylist";
+import { publishPlaylistUpdate } from "@/lib/ably";
 
 const MAX_PARTICIPANT_NAME_LENGTH = 40;
-
-// Shape persisted in Redis: unlike the public Playlist, it keeps the owner
-// token and the participants' secrets. Never return it to the client.
-type StoredPlaylist = Omit<Playlist, "participants"> & {
-  participants?: StoredParticipant[];
-};
 
 export type JoinPlaylistResult =
   | { ok: true; identity: ParticipantIdentity }
@@ -46,21 +42,18 @@ async function getExistingPlaylist(id: string): Promise<StoredPlaylist> {
   ) as StoredPlaylist;
 }
 
-function toPublicPlaylist(playlist: StoredPlaylist): Playlist {
-  return {
-    ...playlist,
-    ownerToken: null,
-    participants: (playlist.participants ?? []).map(
-      ({ id, name, joinedAt }) => ({ id, name, joinedAt }),
-    ),
-  };
+async function persistPlaylist(
+  id: string,
+  playlist: StoredPlaylist,
+): Promise<void> {
+  await redis.set(`playlist:${id}`, JSON.stringify(playlist), {
+    keepTtl: true,
+  });
+  await publishPlaylistUpdate(id, playlist);
 }
 
 function normalizeParticipantName(name: string): string {
-  return name
-    .trim()
-    .replace(/\s+/g, " ")
-    .slice(0, MAX_PARTICIPANT_NAME_LENGTH);
+  return name.trim().replace(/\s+/g, " ").slice(0, MAX_PARTICIPANT_NAME_LENGTH);
 }
 
 function findAuthorizedParticipant(
@@ -151,14 +144,11 @@ export async function updatePlaylist(
     updatedAt: now.toISOString(),
   };
 
-  await redis.set(`playlist:${id}`, JSON.stringify(updatedPlaylist), {
-    keepTtl: true,
-  });
+  await persistPlaylist(id, updatedPlaylist);
 
   return id;
 }
 
-// Callable from the browser (polling), so it must never expose secrets
 export async function getPlaylist(id: string): Promise<Playlist | null> {
   const data = await redis.get(`playlist:${id}`);
 
@@ -206,9 +196,7 @@ export async function setCurrentSong(
     updatedAt: new Date().toISOString(),
   };
 
-  await redis.set(`playlist:${id}`, JSON.stringify(updatedPlaylist), {
-    keepTtl: true,
-  });
+  await persistPlaylist(id, updatedPlaylist);
 }
 
 export async function joinPlaylist(
@@ -244,9 +232,7 @@ export async function joinPlaylist(
     updatedAt: new Date().toISOString(),
   };
 
-  await redis.set(`playlist:${id}`, JSON.stringify(updatedPlaylist), {
-    keepTtl: true,
-  });
+  await persistPlaylist(id, updatedPlaylist);
 
   return {
     ok: true,
@@ -318,9 +304,7 @@ export async function addSongSignup(
     updatedAt: new Date().toISOString(),
   };
 
-  await redis.set(`playlist:${id}`, JSON.stringify(updatedPlaylist), {
-    keepTtl: true,
-  });
+  await persistPlaylist(id, updatedPlaylist);
 
   return signup;
 }
@@ -363,7 +347,5 @@ export async function removeSongSignup(
     updatedAt: new Date().toISOString(),
   };
 
-  await redis.set(`playlist:${id}`, JSON.stringify(updatedPlaylist), {
-    keepTtl: true,
-  });
+  await persistPlaylist(id, updatedPlaylist);
 }

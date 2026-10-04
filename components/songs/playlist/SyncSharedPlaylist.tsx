@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSyncPlaylistToStore } from "@/hooks/playlist/useSyncPlaylistToStore";
-import { usePlaylistPolling } from "@/hooks/playlist/usePlaylistPolling";
+import { usePlaylistRealtime } from "@/hooks/playlist/usePlaylistRealtime";
 import { usePlaylistIdentity } from "@/hooks/playlist/usePlaylistIdentity";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { URL_TOKEN_PARAM } from "@/lib/constants/playlist";
@@ -36,7 +36,7 @@ export const SyncSharedPlaylist = ({
   }, [searchParams, setOwnerToken]);
 
   useSyncPlaylistToStore({ id, songs, isLocked, title, currentSongId, signups });
-  usePlaylistPolling(id);
+  usePlaylistRealtime(id);
   usePlaylistIdentity(id);
 
   return null;

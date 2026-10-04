@@ -3,6 +3,7 @@
 import React from "react";
 import { Song } from "@/lib/types/domain/song";
 import { SongItem } from "./SongItem";
+import { SongRow } from "./SongRow";
 import { DndContext, closestCorners } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -18,22 +19,20 @@ import { useSongListDnd } from "@/hooks/songs/useSongListDnd";
 interface SongListProps {
   songs: Song[];
   isSortable?: boolean;
+  showPartyFeatures?: boolean;
 }
 
 export const SongList = React.memo(
-  ({ songs, isSortable = false }: SongListProps) => {
+  ({ songs, isSortable = false, showPartyFeatures = true }: SongListProps) => {
     const { sensors, handleDragEnd } = useSongListDnd(songs);
 
     if (!isSortable) {
       return (
         <ul className="flex flex-col gap-2 min-w-0">
           {songs.map((song) => (
-            <li
-              key={song.id}
-              className="flex items-start justify-between gap-3 md:gap-4 p-3 md:p-4 rounded-xl hover:bg-white dark:hover:bg-primary/10 transition-all group border border-transparent hover:border-primary/30 min-w-0"
-            >
-              <SongItem song={song} />
-            </li>
+            <SongRow key={song.id}>
+              <SongItem song={song} showPartyFeatures={showPartyFeatures} />
+            </SongRow>
           ))}
         </ul>
       );
@@ -41,6 +40,7 @@ export const SongList = React.memo(
 
     return (
       <DndContext
+        id="song-list"
         sensors={sensors}
         collisionDetection={closestCorners}
         onDragEnd={handleDragEnd}
@@ -52,7 +52,11 @@ export const SongList = React.memo(
         >
           <ul className="flex flex-col gap-2 min-w-0">
             {songs.map((song) => (
-              <SortableSongItem key={song.id} song={song} />
+              <SortableSongItem
+                key={song.id}
+                song={song}
+                showPartyFeatures={showPartyFeatures}
+              />
             ))}
           </ul>
         </SortableContext>

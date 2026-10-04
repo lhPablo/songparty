@@ -13,6 +13,7 @@ import {
 
 export const useCreatePlaylist = () => {
   const [isCreating, setIsCreating] = useState(false);
+  const clearPlaylist = usePlaylistStore((state) => state.clearPlaylist);
   const setSavedPlaylistId = usePlaylistStore(
     (state) => state.setSavedPlaylistId,
   );
@@ -29,6 +30,8 @@ export const useCreatePlaylist = () => {
         INITIAL_PLAYLIST_STATE.isLocked,
       );
 
+      // Drop the previous playlist's persisted state
+      clearPlaylist();
       setSavedPlaylistId(playlistId);
 
       // Build the URL with the token for admin permissions

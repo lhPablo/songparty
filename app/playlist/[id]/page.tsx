@@ -4,7 +4,6 @@ import { SyncSharedPlaylist } from "@/components/songs/playlist/SyncSharedPlayli
 import { MainPlaylistView } from "@/components/songs/playlist/MainPlaylistView";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { Playlist } from "@/lib/types/domain/playlist";
 import { getTranslations } from "next-intl/server";
 
 const getCachedPlaylist = cache(getPlaylist);
@@ -61,13 +60,6 @@ export default async function SharedPlaylistPage({ params }: Props) {
     notFound();
   }
 
-  // The token should only be stored in client state via SyncSharedPlaylist using the URL parameter,
-  // preventing it from being exposed in the initial HTML or propagated through component props.
-  const publicPlaylist: Playlist = {
-    ...playlist,
-    ownerToken: null,
-  };
-
   return (
     <main className="flex flex-1 justify-center">
       <Suspense fallback={null}>
@@ -76,11 +68,13 @@ export default async function SharedPlaylistPage({ params }: Props) {
           songs={playlist.songs}
           isLocked={playlist.isLocked}
           title={playlist.title}
+          currentSongId={playlist.currentSongId ?? null}
+          signups={playlist.signups ?? {}}
         />
       </Suspense>
       <div className="flex-1 flex flex-col items-center">
         <section className="layout-content-container flex flex-col w-full max-w-7xl flex-1 py-8 px-4">
-          <MainPlaylistView playlist={publicPlaylist} playlistId={id} />
+          <MainPlaylistView playlist={playlist} playlistId={id} />
         </section>
       </div>
     </main>

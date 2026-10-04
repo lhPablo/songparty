@@ -4,6 +4,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 import { ALLOWED_IMAGE_DOMAINS } from "./lib/constants/images";
 
+if (!process.env.ABLY_API_KEY) {
+  throw new Error(
+    "Missing ABLY_API_KEY: realtime sync requires an Ably API key",
+  );
+}
+
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {

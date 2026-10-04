@@ -2,15 +2,20 @@
 
 import { Song } from "@/lib/types/domain/song";
 import { SongItem } from "./SongItem";
+import { SongRow } from "./SongRow";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
 
 interface SortableSongItemProps {
   song: Song;
+  showPartyFeatures?: boolean;
 }
 
-export const SortableSongItem = ({ song }: SortableSongItemProps) => {
+export const SortableSongItem = ({
+  song,
+  showPartyFeatures,
+}: SortableSongItemProps) => {
   const {
     attributes,
     listeners,
@@ -26,18 +31,7 @@ export const SortableSongItem = ({ song }: SortableSongItemProps) => {
   };
 
   return (
-    <li
-      ref={setNodeRef}
-      style={style}
-      className={`
-        flex items-start p-3 md:p-4 rounded-xl group border w-full min-w-0
-        ${
-          isDragging
-            ? "bg-white dark:bg-primary/20 border-primary shadow-xl scale-[1.02] z-50 pointer-events-none"
-            : "hover:bg-white dark:hover:bg-primary/10 border-transparent hover:border-primary/30 transition-all"
-        }
-      `}
-    >
+    <SongRow ref={setNodeRef} style={style} isDragging={isDragging}>
       <div
         {...attributes}
         {...listeners}
@@ -45,9 +39,7 @@ export const SortableSongItem = ({ song }: SortableSongItemProps) => {
       >
         <GripVertical size={24} />
       </div>
-      <div className="flex items-start justify-between flex-1 min-w-0 gap-3 md:gap-4">
-        <SongItem song={song} />
-      </div>
-    </li>
+      <SongItem song={song} showPartyFeatures={showPartyFeatures} />
+    </SongRow>
   );
 };

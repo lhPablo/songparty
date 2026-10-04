@@ -46,7 +46,23 @@
   "songs": {
     "viewLyrics": "Voir les paroles sur Genius",
     "removeFromList": "Retirer de la liste",
-    "addToList": "Ajouter à la liste"
+    "addToList": "Ajouter à la liste",
+    "nowPlaying": "En cours",
+    "markCurrentSong": "Marquer comme en cours",
+    "unmarkCurrentSong": "Ne plus marquer comme en cours",
+    "signupsCount": "{count, plural, one {# inscrit} other {# inscrits}}",
+    "removeSignUp": "Retirer l'inscription",
+    "signUp": "M'inscrire",
+    "signedUp": "Inscrit",
+    "signOut": "Me désinscrire"
+  },
+  "join": {
+    "title": "Qui es-tu ?",
+    "hint": "Ainsi, tout le monde saura qui s'inscrit pour chanter. On ne te le demande qu'une fois pour cette liste.",
+    "placeholder": "Ton nom...",
+    "submit": "Entrer",
+    "nameTaken": "Ce nom est déjà pris dans cette liste",
+    "invalidName": "Écris ton nom pour entrer"
   },
   "share": {
     "title": "Prêt à Faire la Fête !",
@@ -58,7 +74,20 @@
     "collaborative": "Collaborative",
     "readOnly": "Lecture Seule",
     "nativeShareTitle": "Rejoins ma Song Party : {name}",
-    "nativeShareText": "Rejoins ma playlist karaoké collaborative et ajoute tes chansons préférées."
+    "nativeShareText": "Rejoins ma playlist karaoké collaborative et ajoute tes chansons préférées.",
+    "adminLinkTitle": "Lien administrateur — à garder privé",
+    "adminLinkSubtitle": "Enregistre-le pour revenir avec tes droits d'administrateur.",
+    "copyAdminLink": "Copier",
+    "shareAdminLink": "Partager",
+    "downloadAdminLink": "Télécharger",
+    "adminNativeShareTitle": "Lien administrateur : {name}",
+    "adminNativeShareText": "Enregistre ce lien pour gérer ta Song Party en tant qu'administrateur.",
+    "adminTokenFileTitle": "Lien administrateur de ta Song Party : {name}",
+    "iAmAdmin": "Tu es l'administrateur ? Entre ton jeton",
+    "adminTokenEntryHint": "Colle ici le lien ou le jeton que tu as enregistré en tant qu'administrateur.",
+    "adminTokenPlaceholder": "Jeton ou lien administrateur...",
+    "unlockAdmin": "Valider",
+    "adminTokenInvalid": "Ce jeton n'est plus valide. La liste a peut-être expiré ou le jeton est incorrect."
   },
   "errors": {
     "createPlaylist": "Erreur lors de la création de la playlist",
@@ -70,13 +99,17 @@
     "manageSong": "Erreur lors de la gestion de la chanson",
     "lockedList": "Cette liste est verrouillée",
     "saveOrder": "Erreur lors de l'enregistrement de l'ordre",
+    "setCurrentSong": "Erreur lors du marquage de la chanson en cours",
+    "signUp": "Erreur lors de l'inscription pour chanter",
+    "removeSignUp": "Erreur lors du retrait de l'inscription",
     "genericTitle": "Quelque chose s'est mal passé",
     "genericMessage": "Une erreur inattendue s'est produite. Vous pouvez réessayer ou revenir à l'accueil.",
     "retry": "Réessayer",
     "playlistLoadTitle": "Erreur lors du chargement de la playlist",
     "playlistLoadMessage": "Impossible de charger la playlist. Elle a peut-être expiré ou il y a un problème temporaire.",
     "playlistNotFound": "Playlist introuvable",
-    "playlistDescription": "Playlist karaoké collaborative pour votre événement"
+    "playlistDescription": "Playlist karaoké collaborative pour votre événement",
+    "joinPlaylist": "Erreur lors de l'accès à la playlist"
   },
   "notFound": {
     "title": "Page introuvable",

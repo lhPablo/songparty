@@ -3,11 +3,20 @@
 import React, { ComponentPropsWithoutRef, useState, useCallback } from "react";
 import { LucideIcon } from "lucide-react";
 
+const variantClasses = {
+  primary: "bg-primary text-white",
+  successful: "bg-green-500 text-white shadow-green-500/20",
+  destructive: "bg-red-500 text-white shadow-red-500/20",
+  transparent: "bg-gray-100 dark:bg-white/5 text-gray-400 hover:text-primary",
+};
+
+type CircleButtonVariant = keyof typeof variantClasses;
+
 interface CircleButtonProps extends ComponentPropsWithoutRef<"button"> {
   icon: LucideIcon;
   hoverIcon?: LucideIcon;
-  variant?: "primary" | "successful" | "destructive" | "transparent";
-  hoverVariant?: "primary" | "successful" | "destructive" | "transparent";
+  variant?: CircleButtonVariant;
+  hoverVariant?: CircleButtonVariant;
   size?: "sm" | "md" | "lg";
   iconClassName?: string;
   hoverIconClassName?: string;
@@ -25,6 +34,7 @@ export const CircleButton = React.memo(
     hoverIconClassName = "",
     className = "",
     glow = false,
+    children,
     ...props
   }: CircleButtonProps) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -49,14 +59,6 @@ export const CircleButton = React.memo(
       lg: 18,
     };
 
-    const variantClasses = {
-      primary: "bg-primary text-white",
-      successful: "bg-green-500 text-white shadow-green-500/20",
-      destructive: "bg-red-500 text-white shadow-red-500/20",
-      transparent:
-        "bg-gray-100 dark:bg-white/5 text-gray-400 hover:text-primary",
-    };
-
     const currentVariant = isHovered && hoverVariant ? hoverVariant : variant;
     const CurrentIcon = isHovered && HoverIcon ? HoverIcon : Icon;
     const currentIconClassName =
@@ -70,7 +72,9 @@ export const CircleButton = React.memo(
         onMouseLeave={handleMouseLeave}
         {...props}
       >
-        <CurrentIcon size={iconSizes[size]} className={currentIconClassName} />
+        {children ?? (
+          <CurrentIcon size={iconSizes[size]} className={currentIconClassName} />
+        )}
       </button>
     );
   },

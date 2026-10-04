@@ -46,7 +46,23 @@
   "songs": {
     "viewLyrics": "View lyrics on Genius",
     "removeFromList": "Remove from playlist",
-    "addToList": "Add to playlist"
+    "addToList": "Add to playlist",
+    "nowPlaying": "Now playing",
+    "markCurrentSong": "Mark as now playing",
+    "unmarkCurrentSong": "Unmark as now playing",
+    "signupsCount": "{count, plural, one {1 signed up} other {# signed up}}",
+    "removeSignUp": "Remove signup",
+    "signUp": "Sign me up",
+    "signedUp": "Signed up",
+    "signOut": "Sign me out"
+  },
+  "join": {
+    "title": "Who are you?",
+    "hint": "So everyone knows who signs up to sing. We only ask once for this playlist.",
+    "placeholder": "Your name...",
+    "submit": "Join",
+    "nameTaken": "That name is already taken in this playlist",
+    "invalidName": "Enter your name to join"
   },
   "share": {
     "title": "Ready to Party!",
@@ -58,7 +74,20 @@
     "collaborative": "Collaborative",
     "readOnly": "Read Only",
     "nativeShareTitle": "Join my Song Party: {name}",
-    "nativeShareText": "Join my collaborative karaoke playlist and add your favorite songs."
+    "nativeShareText": "Join my collaborative karaoke playlist and add your favorite songs.",
+    "adminLinkTitle": "Admin link — keep it private",
+    "adminLinkSubtitle": "Save it to come back with your admin privileges.",
+    "copyAdminLink": "Copy",
+    "shareAdminLink": "Share",
+    "downloadAdminLink": "Download",
+    "adminNativeShareTitle": "Admin link: {name}",
+    "adminNativeShareText": "Save this link to manage your Song Party as admin.",
+    "adminTokenFileTitle": "Admin link for your Song Party: {name}",
+    "iAmAdmin": "Are you the admin? Enter your token",
+    "adminTokenEntryHint": "Paste the link or token you saved as admin.",
+    "adminTokenPlaceholder": "Admin token or link...",
+    "unlockAdmin": "Unlock",
+    "adminTokenInvalid": "This token is no longer valid. The playlist may have expired or the token may be incorrect."
   },
   "errors": {
     "createPlaylist": "Error creating playlist",
@@ -70,13 +99,17 @@
     "manageSong": "Error managing song",
     "lockedList": "This playlist is locked",
     "saveOrder": "Error saving order",
+    "setCurrentSong": "Error marking the current song",
+    "signUp": "Error signing up to sing",
+    "removeSignUp": "Error removing signup",
     "genericTitle": "Something went wrong",
     "genericMessage": "An unexpected error occurred. You can try again or go back to home.",
     "retry": "Retry",
     "playlistLoadTitle": "Error loading playlist",
     "playlistLoadMessage": "Could not load the playlist. It may have expired or there may be a temporary issue.",
     "playlistNotFound": "Playlist not found",
-    "playlistDescription": "Collaborative karaoke playlist for your event"
+    "playlistDescription": "Collaborative karaoke playlist for your event",
+    "joinPlaylist": "Error joining the playlist"
   },
   "notFound": {
     "title": "Page not found",

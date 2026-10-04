@@ -6,10 +6,19 @@ import { Button } from "@/components/ui/Button";
 import { StatusToggle } from "@/components/ui/StatusToggle";
 import { usePlaylistShareCard } from "@/hooks/playlist/usePlaylistShareCard";
 import { usePlaylistActions } from "@/hooks/playlist/usePlaylistActions";
+import { AdminTokenEntry } from "@/components/playlist/AdminTokenEntry";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
-import { useIsMounted } from "@/hooks/shared/useIsMounted";
+import { useIsOwner } from "@/hooks/playlist/useIsOwner";
 import { useTranslations } from "next-intl";
-import { Share2, Check, Copy, Download, Lock, Users } from "lucide-react";
+import {
+  Share2,
+  Check,
+  Copy,
+  Download,
+  Lock,
+  Users,
+  ShieldAlert,
+} from "lucide-react";
 
 const PRIMARY_PINK = "#f91fb1";
 const DARK_MAGENTA = "#4a213c";
@@ -37,19 +46,24 @@ const createQRCode = (data: string) =>
     cornersDotOptions: { color: PRIMARY_PINK, type: "dot" },
   });
 
-export const QRViewer = () => {
+interface QRViewerProps {
+  playlistId: string;
+}
+
+export const QRViewer = ({ playlistId }: QRViewerProps) => {
   const {
-    savedPlaylistId,
     shareUrl,
     copied,
     handleCopyLink,
     handleShare,
+    copiedAdmin,
+    handleCopyAdminLink,
+    handleShareAdmin,
+    handleDownloadAdminToken,
   } = usePlaylistShareCard();
 
-  const isMounted = useIsMounted();
   const isLocked = usePlaylistStore((state) => state.isLocked);
-  const ownerToken = usePlaylistStore((state) => state.ownerToken);
-  const isOwner = !!ownerToken;
+  const isOwner = useIsOwner();
   const { handleToggleLocked } = usePlaylistActions();
   const t = useTranslations("share");
 
@@ -98,10 +112,8 @@ export const QRViewer = () => {
     downloadQR.download({ name: "songparty-qr", extension: "png" });
   }, [shareUrl]);
 
-  if (!isMounted || !savedPlaylistId) return null;
-
   return (
-    <div className="bg-gradient-to-br from-[#4a213c] to-[#230f1c] py-8 md:py-10 lg:py-14 px-6 md:px-8 lg:px-12 rounded-2xl border border-primary/20 shadow-2xl shadow-primary/20 w-full max-w-[26rem] md:max-w-[28rem] lg:max-w-[34rem]">
+    <div className="bg-panel/40 py-8 md:py-10 lg:py-14 px-4 md:px-8 lg:px-12 rounded-2xl border border-border-dark shadow-glass w-full lg:max-w-[34rem]">
       <div className="flex flex-col items-center text-center gap-5 md:gap-6 lg:gap-8">
         <div className="space-y-2 lg:space-y-3">
           <h3 className="text-2xl lg:text-3xl font-black font-display tracking-tight text-white italic uppercase leading-none">
@@ -116,7 +128,7 @@ export const QRViewer = () => {
           {/* Spinning gradient border */}
           <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,#f91fb1_0%,transparent_40%,#4a213c_60%,#f91fb1_100%)] animate-spin-slow opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
 
-          <div className="relative bg-white/95 backdrop-blur-sm p-4 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] shadow-[0_0_40px_-10px_rgba(249,31,177,0.3)] overflow-hidden">
+          <div className="relative bg-white p-4 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] shadow-[0_0_40px_-10px_rgba(249,31,177,0.3)] overflow-hidden">
             <div className="size-52 relative flex items-center justify-center">
               {shareUrl ? (
                 <div
@@ -162,6 +174,54 @@ export const QRViewer = () => {
               {t("downloadQR")}
             </Button>
           </div>
+
+          {!isOwner && (
+            <div className="pt-4 mt-2 border-t border-white/10">
+              <AdminTokenEntry playlistId={playlistId} />
+            </div>
+          )}
+
+          {isOwner && (
+            <div className="pt-4 mt-2 border-t border-white/10 space-y-3">
+              <div className="flex items-center justify-center gap-2 text-amber-400">
+                <ShieldAlert size={16} />
+                <span className="text-xs font-bold uppercase tracking-wide">
+                  {t("adminLinkTitle")}
+                </span>
+              </div>
+              <p className="text-[#cc8eb8] text-xs opacity-70 -mt-1">
+                {t("adminLinkSubtitle")}
+              </p>
+              <div className="grid grid-cols-3 gap-2">
+                <Button
+                  variant="secondary"
+                  icon={copiedAdmin ? Check : Copy}
+                  className={`w-full h-10 !px-2 rounded-xl text-xs font-bold ${
+                    copiedAdmin ? "!bg-green-500 !text-white !border-green-500" : ""
+                  }`}
+                  onClick={handleCopyAdminLink}
+                >
+                  {copiedAdmin ? t("linkCopied") : t("copyAdminLink")}
+                </Button>
+                <Button
+                  variant="secondary"
+                  icon={Share2}
+                  className="w-full h-10 !px-2 rounded-xl text-xs font-bold"
+                  onClick={handleShareAdmin}
+                >
+                  {t("shareAdminLink")}
+                </Button>
+                <Button
+                  variant="secondary"
+                  icon={Download}
+                  className="w-full h-10 !px-2 rounded-xl text-xs font-bold"
+                  onClick={handleDownloadAdminToken}
+                >
+                  {t("downloadAdminLink")}
+                </Button>
+              </div>
+            </div>
+          )}
 
           {isOwner && (
             <div className="pt-2">

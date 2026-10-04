@@ -39,7 +39,7 @@ export const Button = React.memo(
       >
         {CurrentIcon && (
           <CurrentIcon
-            className={`size-[18px] md:size-6 ${loading ? "animate-spin" : ""}`}
+            className={`size-[18px] md:size-6 shrink-0 ${loading ? "animate-spin" : ""}`}
           />
         )}
         <span className="leading-none">{children}</span>

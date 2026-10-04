@@ -46,7 +46,23 @@
   "songs": {
     "viewLyrics": "Ver letra en Genius",
     "removeFromList": "Quitar de la lista",
-    "addToList": "Añadir a la lista"
+    "addToList": "Añadir a la lista",
+    "nowPlaying": "Sonando ahora",
+    "markCurrentSong": "Marcar como sonando ahora",
+    "unmarkCurrentSong": "Dejar de marcar como sonando ahora",
+    "signupsCount": "{count, plural, one {1 apuntado} other {# apuntados}}",
+    "removeSignUp": "Quitar apuntado",
+    "signUp": "Apuntarme",
+    "signedUp": "Apuntado",
+    "signOut": "Desapuntarme"
+  },
+  "join": {
+    "title": "¿Quién eres?",
+    "hint": "Así todos sabrán quién se apunta a cantar. Solo te lo preguntamos una vez en esta lista.",
+    "placeholder": "Tu nombre...",
+    "submit": "Entrar",
+    "nameTaken": "Ese nombre ya está cogido en esta lista",
+    "invalidName": "Escribe tu nombre para entrar"
   },
   "share": {
     "title": "¡Lista Listísima!",
@@ -58,7 +74,20 @@
     "collaborative": "Colaborativa",
     "readOnly": "Solo Lectura",
     "nativeShareTitle": "Únete a mi Song Party: {name}",
-    "nativeShareText": "Entra en mi lista colaborativa de karaoke y añade tus canciones favoritas."
+    "nativeShareText": "Entra en mi lista colaborativa de karaoke y añade tus canciones favoritas.",
+    "adminLinkTitle": "Enlace de administrador — no lo compartas",
+    "adminLinkSubtitle": "Guárdalo para volver a acceder con tus privilegios de admin.",
+    "copyAdminLink": "Copiar",
+    "shareAdminLink": "Compartir",
+    "downloadAdminLink": "Descargar",
+    "adminNativeShareTitle": "Enlace de administrador: {name}",
+    "adminNativeShareText": "Guarda este enlace para gestionar tu Song Party como administrador.",
+    "adminTokenFileTitle": "Enlace de administrador de tu Song Party: {name}",
+    "iAmAdmin": "¿Eres el admin? Introduce tu token",
+    "adminTokenEntryHint": "Pega aquí el enlace o el token que guardaste como administrador.",
+    "adminTokenPlaceholder": "Token o enlace de administrador...",
+    "unlockAdmin": "Entrar",
+    "adminTokenInvalid": "Este token ya no es válido. Puede que la lista haya caducado o el token no sea correcto."
   },
   "errors": {
     "createPlaylist": "Error al crear la playlist",
@@ -70,13 +99,17 @@
     "manageSong": "Error al gestionar la canción",
     "lockedList": "Esta lista está bloqueada",
     "saveOrder": "Error al guardar el orden",
+    "setCurrentSong": "Error al marcar la canción actual",
+    "signUp": "Error al apuntarte para cantar",
+    "removeSignUp": "Error al quitar el apuntado",
     "genericTitle": "Algo salió mal",
     "genericMessage": "Ocurrió un error inesperado. Puedes intentar de nuevo o volver al inicio.",
     "retry": "Reintentar",
     "playlistLoadTitle": "Error al cargar la playlist",
     "playlistLoadMessage": "No se pudo cargar la playlist. Puede que haya expirado o que haya un problema temporal.",
     "playlistNotFound": "Playlist no encontrada",
-    "playlistDescription": "Lista colaborativa de karaoke para tu evento"
+    "playlistDescription": "Lista colaborativa de karaoke para tu evento",
+    "joinPlaylist": "Error al entrar en la playlist"
   },
   "notFound": {
     "title": "Página no encontrada",

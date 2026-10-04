@@ -4,20 +4,18 @@ import { useState, useRef, useEffect } from "react";
 import { sileo } from "sileo";
 import { useTranslations } from "next-intl";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
-import { useIsMounted } from "../shared/useIsMounted";
+import { useIsOwner } from "./useIsOwner";
 import { usePlaylistPersistence } from "./usePlaylistPersistence";
 
 export const usePlaylistTitle = () => {
   const playlistName = usePlaylistStore((state) => state.playlistName);
   const setPlaylistName = usePlaylistStore((state) => state.setPlaylistName);
-  const ownerToken = usePlaylistStore((state) => state.ownerToken);
   const { syncPlaylist } = usePlaylistPersistence();
   const t = useTranslations("errors");
 
-  const isMounted = useIsMounted();
   const [isEditing, setIsEditing] = useState(false);
 
-  const isOwner = isMounted ? !!ownerToken : false;
+  const isOwner = useIsOwner();
   const [tempName, setTempName] = useState(playlistName);
   const inputRef = useRef<HTMLInputElement>(null);
 

@@ -5,9 +5,11 @@ import { AddSongsLink } from "./AddSongsLink";
 import { SongList } from "../shared/SongList";
 import { ListPlaceholder } from "../shared/ListPlaceholder";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
+import { useIsOwner } from "@/hooks/playlist/useIsOwner";
 import { useIsMounted } from "@/hooks/shared/useIsMounted";
 import { Playlist } from "@/lib/types/domain/playlist";
 import { QRViewer } from "@/components/qr/QRViewer";
+import { JoinPlaylistModal } from "@/components/playlist/JoinPlaylistModal";
 import { useTranslations } from "next-intl";
 import { HeadphoneOff } from "lucide-react";
 
@@ -21,15 +23,16 @@ export const MainPlaylistView = ({
   playlistId,
 }: MainPlaylistViewProps) => {
   const isMounted = useIsMounted();
-  const selectedSongs = usePlaylistStore((state) => state.selectedSongs);
-  const isLocked = usePlaylistStore((state) => state.isLocked);
-  const ownerToken = usePlaylistStore((state) => state.ownerToken);
-  const isOwner = !!ownerToken;
+  const storeSongs = usePlaylistStore((state) => state.selectedSongs);
+  const savedPlaylistId = usePlaylistStore((state) => state.savedPlaylistId);
+  const storeIsLocked = usePlaylistStore((state) => state.isLocked);
+  const isSynced = isMounted && savedPlaylistId === playlistId;
+  const selectedSongs = isSynced ? storeSongs : playlist.songs;
+  const isLocked = isMounted ? storeIsLocked : playlist.isLocked;
+  const isOwner = useIsOwner();
   const hasSongs = selectedSongs.length > 0;
   const canAdd = !isLocked || isOwner;
   const t = useTranslations("playlist");
-
-  if (!isMounted) return null;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
@@ -37,6 +40,8 @@ export const MainPlaylistView = ({
         <PlaylistHeader
           createdAt={playlist.createdAt}
           expiresAt={playlist.expiresAt}
+          isLocked={isLocked}
+          fallbackTitle={isSynced ? undefined : playlist.title}
         />
       </div>
 
@@ -57,9 +62,11 @@ export const MainPlaylistView = ({
 
       <div id="qr-section" className="lg:col-span-5">
         <div className="sticky top-24 flex justify-center">
-          <QRViewer />
+          <QRViewer playlistId={playlistId} />
         </div>
       </div>
+
+      <JoinPlaylistModal playlistId={playlistId} />
     </div>
   );
 };

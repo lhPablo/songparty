@@ -3,7 +3,7 @@
 import { PlaylistTitle } from "./PlaylistTitle";
 import { Chip } from "@/components/ui/Chip";
 import { PlaylistMetaInfo } from "./PlaylistMetaInfo";
-import { Lock, Edit3, QrCode } from "lucide-react";
+import { Lock, Edit3, QrCode, UserRound } from "lucide-react";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { useTranslations } from "next-intl";
 import React from "react";
@@ -11,11 +11,13 @@ import React from "react";
 interface PlaylistHeaderProps {
   createdAt: string;
   expiresAt: string;
+  isLocked: boolean;
+  fallbackTitle?: string;
 }
 
 export const PlaylistHeader = React.memo(
-  ({ createdAt, expiresAt }: PlaylistHeaderProps) => {
-    const isLocked = usePlaylistStore((state) => state.isLocked);
+  ({ createdAt, expiresAt, isLocked, fallbackTitle }: PlaylistHeaderProps) => {
+    const myName = usePlaylistStore((state) => state.identity?.name ?? null);
     const t = useTranslations("playlist");
 
     const handleScrollToQr = () => {
@@ -30,11 +32,22 @@ export const PlaylistHeader = React.memo(
           <PlaylistMetaInfo createdAt={createdAt} expiresAt={expiresAt} />
 
           <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t border-white/5 sm:border-none">
-            <div className="flex items-center gap-3">
-              {isLocked ? (
-                <Chip variant="warning" icon={Lock} label={t("readOnly")} />
-              ) : (
-                <Chip variant="success" icon={Edit3} label={t("openList")} />
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="shrink-0">
+                {isLocked ? (
+                  <Chip variant="warning" icon={Lock} label={t("readOnly")} />
+                ) : (
+                  <Chip variant="success" icon={Edit3} label={t("openList")} />
+                )}
+              </span>
+              {myName && (
+                <span className="sm:order-first min-w-0">
+                  <Chip
+                    variant="primary"
+                    icon={UserRound}
+                    label={t("youAre", { name: myName })}
+                  />
+                </span>
               )}
             </div>
 
@@ -47,7 +60,7 @@ export const PlaylistHeader = React.memo(
             </button>
           </div>
         </div>
-        <PlaylistTitle />
+        <PlaylistTitle fallbackTitle={fallbackTitle} />
       </div>
     );
   },

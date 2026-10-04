@@ -9,4 +9,6 @@ export const INITIAL_PLAYLIST_STATE = {
   songs: [],
   title: "Mi Lista",
   isLocked: false,
+  currentSongId: null,
+  signups: {},
 };

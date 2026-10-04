@@ -22,7 +22,9 @@ export const SongSearchResults = React.memo(
 
     return (
       <div className="flex flex-col gap-2 min-h-[280px] w-full">
-        {shouldShowList && <SongList songs={songs} />}
+        {shouldShowList && (
+          <SongList songs={songs} showPartyFeatures={false} />
+        )}
 
         {showLoading && <Loading />}
 

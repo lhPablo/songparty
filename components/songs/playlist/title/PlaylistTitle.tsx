@@ -4,7 +4,11 @@ import { usePlaylistTitle } from "@/hooks/playlist/usePlaylistTitle";
 import { PlaylistTitleEdit } from "./PlaylistTitleEdit";
 import { PlaylistTitleView } from "./PlaylistTitleView";
 
-export const PlaylistTitle = () => {
+interface PlaylistTitleProps {
+  fallbackTitle?: string;
+}
+
+export const PlaylistTitle = ({ fallbackTitle }: PlaylistTitleProps) => {
   const {
     playlistName,
     isEditing,
@@ -29,7 +33,7 @@ export const PlaylistTitle = () => {
         />
       ) : (
         <PlaylistTitleView
-          playlistName={playlistName}
+          playlistName={fallbackTitle ?? playlistName}
           isOwner={isOwner}
           startEditing={startEditing}
         />

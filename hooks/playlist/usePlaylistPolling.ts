@@ -17,8 +17,8 @@ export const usePlaylistPolling = (id: string) => {
   const setSongs = usePlaylistStore((state) => state.setSongs);
   const setIsLocked = usePlaylistStore((state) => state.setIsLocked);
   const setPlaylistName = usePlaylistStore((state) => state.setPlaylistName);
-  const storeIsLocked = usePlaylistStore((state) => state.isLocked);
-  const ownerToken = usePlaylistStore((state) => state.ownerToken);
+  const setCurrentSongId = usePlaylistStore((state) => state.setCurrentSongId);
+  const setSignups = usePlaylistStore((state) => state.setSignups);
   const lastActivityRef = useRef(Date.now());
 
   useEffect(() => {
@@ -42,22 +42,16 @@ export const usePlaylistPolling = (id: string) => {
         setSongs(playlist.songs);
         setIsLocked(playlist.isLocked);
         setPlaylistName(playlist.title);
+        setCurrentSongId(playlist.currentSongId);
+        setSignups(playlist.signups ?? {});
       } catch (error) {
         console.error("Error during playlist polling:", error);
       }
     };
 
-    const isOwner = !!ownerToken;
-
-    // Non-owners on a locked playlist don't need polling — content won't change
-    if (!isOwner && storeIsLocked) {
-      return () => {
-        ACTIVITY_EVENTS.forEach((event) =>
-          window.removeEventListener(event, handleActivity),
-        );
-      };
-    }
-
+    // Keep polling regardless of lock/owner status: even on a locked
+    // playlist, non-owners still need to see the current song and the
+    // sign-up queues update in real time.
     const interval = setInterval(poll, POLL_INTERVAL_MS);
 
     return () => {
@@ -66,5 +60,12 @@ export const usePlaylistPolling = (id: string) => {
         window.removeEventListener(event, handleActivity),
       );
     };
-  }, [id, setSongs, setIsLocked, setPlaylistName, storeIsLocked, ownerToken]);
+  }, [
+    id,
+    setSongs,
+    setIsLocked,
+    setPlaylistName,
+    setCurrentSongId,
+    setSignups,
+  ]);
 };

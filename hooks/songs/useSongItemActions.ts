@@ -8,8 +8,10 @@ import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { ALLOWED_IMAGE_DOMAINS } from "@/lib/constants/images";
 import { useIsMounted } from "../shared/useIsMounted";
 import { usePlaylistPersistence } from "../playlist/usePlaylistPersistence";
+import { useNowPlayingActions } from "../playlist/useNowPlayingActions";
+import { useIsOwner } from "../playlist/useIsOwner";
 
-export const useSongItemActions = (song: Song) => {
+export const useSongItemActions = (song: Song, isSelectedFallback = false) => {
   const [imgError, setImgError] = useState(false);
   const isMounted = useIsMounted();
   const t = useTranslations("errors");
@@ -18,12 +20,16 @@ export const useSongItemActions = (song: Song) => {
   const removeSong = usePlaylistStore((state) => state.removeSong);
   const isLocked = usePlaylistStore((state) => state.isLocked);
   const ownerToken = usePlaylistStore((state) => state.ownerToken);
+  const currentSongId = usePlaylistStore((state) => state.currentSongId);
+  const isOwner = useIsOwner();
+  const { handleSetCurrentSong } = useNowPlayingActions();
 
   const isSelectedInStore = usePlaylistStore((state) =>
     state.selectedSongs.some((s) => s.id === song.id),
   );
 
-  const isSelected = isMounted ? isSelectedInStore : false;
+  const isSelected = isMounted ? isSelectedInStore : isSelectedFallback;
+  const isCurrentSong = isMounted && currentSongId === song.id;
 
   const [isActionProcessing, setIsActionProcessing] = useState(false);
   const { syncPlaylist } = usePlaylistPersistence();
@@ -79,6 +85,10 @@ export const useSongItemActions = (song: Song) => {
 
   const useNextImage = isAllowedDomain(song.coverUrl);
 
+  const handleToggleCurrentSong = useCallback(() => {
+    handleSetCurrentSong(song.id);
+  }, [handleSetCurrentSong, song.id]);
+
   return {
     imgError,
     setImgError,
@@ -86,6 +96,8 @@ export const useSongItemActions = (song: Song) => {
     useNextImage,
     handleToggle,
     isLocked,
-    isOwner: !!ownerToken,
+    isOwner,
+    isCurrentSong,
+    handleToggleCurrentSong,
   };
 };

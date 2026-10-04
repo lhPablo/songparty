@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getPlaylist } from "@/actions/playlist";
+import { getPlaylist, verifyOwnerToken } from "@/actions/playlist";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { SongSearchForm } from "@/components/songs/search/SongSearchForm";
@@ -47,7 +47,7 @@ export default async function PlaylistSearchPage({
     notFound();
   }
 
-  const isOwner = !!token && token === playlist.ownerToken;
+  const isOwner = !!token && (await verifyOwnerToken(id, token));
 
   // If the playlist is locked, do not allow search (except for the owner)
   if (playlist.isLocked && !isOwner) {
@@ -62,6 +62,8 @@ export default async function PlaylistSearchPage({
           songs={playlist.songs}
           isLocked={playlist.isLocked}
           title={playlist.title}
+          currentSongId={playlist.currentSongId ?? null}
+          signups={playlist.signups ?? {}}
         />
       </Suspense>
       <div className="flex-1 flex flex-col w-full">

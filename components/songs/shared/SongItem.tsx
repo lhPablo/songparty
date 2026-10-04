@@ -35,7 +35,6 @@ export const SongItem = React.memo(
       () => setIsSignupsExpanded((value) => !value),
       [],
     );
-    const expandSignups = useCallback(() => setIsSignupsExpanded(true), []);
 
     return (
       <div className="flex flex-col gap-3 flex-1 min-w-0">
@@ -77,7 +76,7 @@ export const SongItem = React.memo(
           <div
             className={
               showPartyFeatures
-                ? "col-span-3 flex flex-wrap items-center justify-between gap-2 md:contents"
+                ? "col-span-3 flex items-center justify-between gap-2 md:contents"
                 : "contents"
             }
           >
@@ -86,7 +85,6 @@ export const SongItem = React.memo(
                 <SongSignupControl
                   songId={song.id}
                   onToggleList={toggleSignups}
-                  onExpandList={expandSignups}
                 />
               )}
             </div>

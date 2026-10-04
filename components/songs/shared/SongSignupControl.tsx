@@ -11,7 +11,6 @@ import { SongSignup } from "@/lib/types/domain/songSignup";
 interface SongSignupControlProps {
   songId: number;
   onToggleList: () => void;
-  onExpandList: () => void;
 }
 
 const EMPTY_SIGNUPS: SongSignup[] = [];
@@ -19,7 +18,6 @@ const EMPTY_SIGNUPS: SongSignup[] = [];
 export const SongSignupControl = ({
   songId,
   onToggleList,
-  onExpandList,
 }: SongSignupControlProps) => {
   const t = useTranslations("songs");
   const signups = usePlaylistStore(
@@ -50,30 +48,19 @@ export const SongSignupControl = ({
         await handleRemoveSignUp(songId, mySignup.id);
       } else {
         await handleSignUp(songId);
-        if (isOwner) onExpandList();
       }
     } finally {
       setIsSubmitting(false);
       setIsHovered(false);
     }
-  }, [
-    isSubmitting,
-    mySignup,
-    handleRemoveSignUp,
-    handleSignUp,
-    songId,
-    isOwner,
-    onExpandList,
-  ]);
+  }, [isSubmitting, mySignup, handleRemoveSignUp, handleSignUp, songId]);
 
   // Wait for the identity so the count and the action appear together,
   if (!isIdentityResolved) return null;
-  if (!myParticipantId && count === 0) return null;
 
   const isRemoving = !!mySignup && isHovered;
 
-  const SignUpIcon = count > 0 ? Plus : Mic;
-  const ActionIcon = mySignup ? (isRemoving ? X : Check) : SignUpIcon;
+  const ActionIcon = mySignup ? (isRemoving ? X : Check) : Plus;
   const actionLabel = mySignup
     ? isRemoving
       ? t("signOut")
@@ -81,24 +68,34 @@ export const SongSignupControl = ({
     : t("signUp");
 
   const actionClasses = mySignup
-    ? "bg-primary text-white hover:bg-red-500"
-    : "hover:bg-primary hover:text-white";
+    ? isRemoving
+      ? "bg-red-500 text-white"
+      : "bg-green-500 text-white"
+    : isHovered
+      ? "bg-primary text-white"
+      : "";
 
   const countClasses = "flex items-center gap-1 px-3 py-1";
 
   return (
-    <div className="inline-flex items-center rounded-full ring-1 ring-primary/20 bg-primary/10 text-primary text-xs font-bold overflow-hidden">
+    <div className="inline-flex items-stretch rounded-full ring-1 ring-primary/20 bg-primary/10 text-primary text-xs font-bold overflow-hidden">
       {myParticipantId && (
         <button
           type="button"
           onClick={handleAction}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          // Touch taps also fire mouse events: only a real mouse previews the sign out
+          onPointerEnter={(e) =>
+            e.pointerType === "mouse" && setIsHovered(true)
+          }
+          onPointerLeave={() => setIsHovered(false)}
           disabled={isSubmitting}
-          className={`flex items-center gap-1 px-3 py-1 transition-all disabled:opacity-50 ${actionClasses} ${count > 0 ? "border-r border-primary/20" : ""}`}
+          aria-label={actionLabel}
+          title={actionLabel}
+          className={`flex items-center gap-1 px-3 py-1 transition-all disabled:opacity-50 ${actionClasses} border-r border-primary/20`}
         >
           <ActionIcon size={14} />
-          <span className="grid">
+          {/* Icon only on mobile so the song row's second line always fits */}
+          <span className="hidden sm:grid">
             {[t("signUp"), t("signedUp"), t("signOut")].map((label) => (
               <span
                 key={label}
@@ -115,23 +112,22 @@ export const SongSignupControl = ({
       )}
 
       {/* Only the owner can open the list of names; guests just see the count */}
-      {count > 0 &&
-        (isOwner ? (
-          <button
-            type="button"
-            onClick={onToggleList}
-            title={t("signupsCount", { count })}
-            className={`${countClasses} hover:brightness-125 transition-all`}
-          >
-            <Mic size={14} />
-            {count}
-          </button>
-        ) : (
-          <span title={t("signupsCount", { count })} className={countClasses}>
-            <Mic size={14} />
-            {count}
-          </span>
-        ))}
+      {isOwner && count > 0 ? (
+        <button
+          type="button"
+          onClick={onToggleList}
+          title={t("signupsCount", { count })}
+          className={`${countClasses} hover:brightness-125 transition-all`}
+        >
+          <Mic size={14} />
+          {count}
+        </button>
+      ) : (
+        <span title={t("signupsCount", { count })} className={countClasses}>
+          <Mic size={14} />
+          {count}
+        </span>
+      )}
     </div>
   );
 };

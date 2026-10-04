@@ -17,6 +17,9 @@ export const usePlaylistRealtime = (id: string) => {
 
   useEffect(() => {
     let hiddenTimeout: ReturnType<typeof setTimeout> | null = null;
+    // Closing on cleanup rejects the pending attach ("Connection closed"),
+    // On Strict Mode remounts: that is expected, not worth logging
+    let isDisposed = false;
 
     const resync = async () => {
       try {
@@ -37,9 +40,11 @@ export const usePlaylistRealtime = (id: string) => {
       .subscribe(PLAYLIST_UPDATED_EVENT, (message) =>
         applySnapshot(message.data as Playlist),
       )
-      .catch((error) =>
-        console.error("Error subscribing to playlist updates:", error),
-      );
+      .catch((error) => {
+        if (!isDisposed) {
+          console.error("Error subscribing to playlist updates:", error);
+        }
+      });
 
     realtime.connection.on((change) => {
       if (change.current === "connected") resync();
@@ -63,6 +68,7 @@ export const usePlaylistRealtime = (id: string) => {
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
+      isDisposed = true;
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       if (hiddenTimeout) clearTimeout(hiddenTimeout);
       channel.unsubscribe();
